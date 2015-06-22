@@ -79,6 +79,13 @@
 				}
 			}
 		</style>
+		<script language="javascript">
+			$(function() {
+				$( ".drugSearchAutoComplete").autocomplete({
+					source: "${g.createLink(controller: 'search', action: 'index')}"
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -116,6 +123,10 @@
 						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
 					</g:each>
 				</ul>
+			</div>
+
+			<div>
+				<g:textField name="drugSearchAutoComplete" class="drugSearchAutoComplete"/>
 			</div>
 		</div>
 	</body>
