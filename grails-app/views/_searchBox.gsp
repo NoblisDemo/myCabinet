@@ -25,7 +25,7 @@
           //Creating categories
           var resultsArr = []
           $.each(resultsMap, function(key, value){
-            resultsArr.push({'text': key, 'children':value})
+            resultsArr.push({'text': key == 'Drug'?'Medications': key, 'children':value})
           });
 
           return {
@@ -33,6 +33,7 @@
           };
         }
       },
+      cache: true,
       minimumInputLength: 3
     });
     $('span.select2-selection').on('keyup', function(e){
@@ -40,14 +41,18 @@
         submitSearch()
       }
     });
-    function submitSearch(){
-      $(location).attr('href',"/detail/index?productName=" + $(".drugSearchAutoComplete").val());
-      return false;
-    }
   });
+
+  function submitSearch(){
+    if($(".drugSearchAutoComplete").val()){
+        $(location).attr('href',"/detail/index?productName=" + $(".drugSearchAutoComplete").val());
+        return false;
+    }
+  }
+
 </g:javascript>
 
 <select multiple name="drugSearchAutoComplete" class="drugSearchAutoComplete form-control" placeholder="Search"></select>
 <span class="input-group-btn">
-  <g:submitButton name="submit" class="btn btn-default" type="button" value="Search"/>
+  <g:submitButton name="submit" class="btn btn-default" type="button" value="Search" onclick="submitSearch()"/>
 </span>
