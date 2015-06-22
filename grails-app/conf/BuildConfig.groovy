@@ -57,6 +57,7 @@ grails.project.dependency.resolution = {
     plugins {
         // plugins for the build system only
         build ":tomcat:7.0.55"
+        compile ":codenarc:0.23"
 
         // plugins for the compile step
         compile ":scaffolding:2.1.2"
@@ -83,4 +84,17 @@ grails.project.dependency.resolution = {
 coverage {
     enabledByDefault = true
     xml = true
+}
+
+codenarc.reports = {
+
+    MyXmlReport('xml') {
+        outputFile = 'target/CodeNarc-Report.xml'
+        title = 'myCabinet CodeNarc Report'
+    }
+
+    MyHtmlReport('html') {
+        outputFile = 'target/CodeNarc-Report.html'
+        title = 'myCabinet CodeNarc Report'
+    }
 }

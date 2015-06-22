@@ -21,9 +21,6 @@ class OpenFdaSearchServiceSpec extends Specification {
         ]
     }
 
-    def cleanup() {
-    }
-
     void "test autocomplete"() {
         when:
             def results = service.autocomplete(searchTerm)
