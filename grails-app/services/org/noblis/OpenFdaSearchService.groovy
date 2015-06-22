@@ -22,4 +22,17 @@ class OpenFdaSearchService implements SearchService {
         return results
     }
 
+
+    Map getDrugDetails(String term) {
+        List<Map> results = []
+
+        def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
+
+        def json = http.get(query : [search: "patient.drug.medicinalproduct:\"tylenol\""])
+
+        results.addAll json.drugs.collect ()
+
+        return results
+    }
+
 }

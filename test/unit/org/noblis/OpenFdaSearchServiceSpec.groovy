@@ -15,6 +15,12 @@ class OpenFdaSearchServiceSpec extends Specification {
     def cleanup() {
     }
 
-    void "test something"() {
+    void "test get details"() {
+        when:
+        def service = new OpenFdaSearchService()
+        def details = service.getDrugDetails("TYLENOL")
+        println details
+        then:
+        true
     }
 }
