@@ -1,6 +1,5 @@
 <g:javascript>
   $(document).ready(function(){
-    console.log("firing")
     $('.drugSearchAutoComplete').select2({
       placeholder: 'Start Typing To Search Terms',
       ajax: {
@@ -10,10 +9,27 @@
             term: params.term // search term
           };
         },
-        processResults: function(data){
-          console.log(data)
+        processResults: function(data){ //form results from call into json
+          //ex return: [{'text':'Drugs', 'children':[{'text':'Oxycodine', 'id':'Oxycodine'}]}]
+          var resultsMap = {}
+          //Creating children maps
+          $.each(data, function(index, value){
+            if(value.category in resultsMap){
+                resultsMap[value.category].push({'text':value.label, 'id':value.label})
+            }
+            else {
+                resultsMap[value.category] = [{'text':value.label, 'id':value.label}]
+            }
+          });
+
+          //Creating categories
+          var resultsArr = []
+          $.each(resultsMap, function(key, value){
+            resultsArr.push({'text': key, 'children':value})
+          });
+
           return {
-            results: data
+            results: resultsArr
           };
         }
       },
