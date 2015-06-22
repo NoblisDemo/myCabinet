@@ -10,7 +10,7 @@
           };
         },
         processResults: function(data){ //form results from call into json
-          //ex return: [{'text':'Drugs', 'children':[{'text':'Oxycodine', 'id':'Oxycodine'}]}]
+          //ex return array like this: [{'text':'Drugs', 'children':[{'text':'Oxycodine', 'id':'Oxycodine'}]}]
           var resultsMap = {}
           //Creating children maps
           $.each(data, function(index, value){
@@ -41,10 +41,7 @@
       }
     });
     function submitSearch(){
-      var path = $(".drugSearchAutoComplete").val().join("/").toUpperCase();
-      if(path.length != 0){
-        $(location).attr('href',"/" + path);
-      }
+      $(location).attr('href',"/detail/index?productName=" + $(".drugSearchAutoComplete").val());
       return false;
     }
   });
