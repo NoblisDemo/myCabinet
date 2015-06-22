@@ -1,6 +1,7 @@
 package org.noblis.myCabinet;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SearchService {
 
@@ -9,5 +10,5 @@ public interface SearchService {
      * @param term
      * @return a map of auto complete search results
      */
-    List<String> autocomplete(String term);
+    List<Map> autocomplete(String term);
 }

@@ -3,12 +3,10 @@ package org.noblis
 import org.noblis.myCabinet.SearchService
 import groovyx.net.http.HTTPBuilder
 
-class OpenFdaService implements SearchService {
+class OpenFdaSearchService implements SearchService {
 
     @Override
-    List<String> autocomplete(String term) {
-
-        println "in OpenFdaService autocomplete"
+    List<Map> autocomplete(String term) {
         List<Map> results = []
 
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
@@ -16,9 +14,9 @@ class OpenFdaService implements SearchService {
         def json = http.get(query : [count: "patient.drug.medicinalproduct.exact", limit: 1000])
 
         results.addAll json.results.findAll {
-            it.term ==~ /$term.*/
+            it.term ==~ /(?i)$term.*/
         }.collect {
-            it.term
+            [label: it.term, category: "Drug"]
         }
 
         return results

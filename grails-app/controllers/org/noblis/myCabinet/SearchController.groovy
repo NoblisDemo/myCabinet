@@ -4,12 +4,12 @@ import grails.converters.JSON
 
 class SearchController {
 
-    SearchService openFdaService
+    SearchService openFdaSearchService
 
     def index() {
         request.withFormat {
             json {
-                render(openFdaService.autocomplete(params.term) as JSON)
+                render(openFdaSearchService.autocomplete(params.term) as JSON)
             }
         }
     }

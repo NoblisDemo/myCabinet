@@ -6,8 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-@TestFor(OpenFdaService)
-class OpenFdaServiceSpec extends Specification {
+@TestFor(OpenFdaSearchService)
+class OpenFdaSearchServiceSpec extends Specification {
 
     def setup() {
     }
