@@ -11,10 +11,7 @@
 					<div class='row'>
 						<div class='span6'>
 							<div class='input-group'>
-								<g:textField name="drugSearchAutoComplete" class="drugSearchAutoComplete form-control" placeholder="Search" />
-								<span class="input-group-btn">
-									<g:submitButton name="submit" class="btn btn-default" type="button" value="Search"/>
-								</span>
+								<g:render template="searchBox"/>
 							</div>
 						</div>
 					</div>
