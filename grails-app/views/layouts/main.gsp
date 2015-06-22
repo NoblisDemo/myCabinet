@@ -24,8 +24,9 @@
 			<div class = 'container'>
 
 				<g:layoutBody/>
-				<div class="footer" role="contentinfo"></div>
-
+				<div class="footer descriptionText" role="contentinfo">
+					Build Information: Build Number <g:meta name="build.number"/>, Gid Id <g:meta name="git.id"/>
+				</div>
 			</div>
 		</div>
 	</body>
