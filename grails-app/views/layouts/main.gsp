@@ -14,6 +14,7 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
   		<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
 		<asset:javascript src="application.js"/>
+		<jqui:resources />
 		<g:layoutHead/>
 	</head>
 	<body>
