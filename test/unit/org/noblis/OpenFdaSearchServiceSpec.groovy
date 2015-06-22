@@ -37,14 +37,12 @@ class OpenFdaSearchServiceSpec extends Specification {
                             [term: "ASPIRIN", category: "Drug"],
                             [term: "LIPITOR", category: "Drug"],
                     ]
-                }
-        ]
-
-        service.openFdaApiService = [
+                },
                 getDrugOpenFDADetails: {String drug ->
                     drugInfo[drug]
                 }
         ]
+
     }
 
     def cleanup() {

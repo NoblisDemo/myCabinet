@@ -1,5 +1,6 @@
 package org.noblis
 
+import com.google.gson.JsonNull
 import org.noblis.myCabinet.SearchService
 
 class OpenFdaSearchService implements SearchService {
@@ -26,12 +27,13 @@ class OpenFdaSearchService implements SearchService {
         def results =  openFdaApiService.getDrugOpenFDADetails(drug)
         //add fields to map and populate missing fields with "unknown"
         def drugDetails = [:]
+
         ["pharm_class_epc","manufacturer_name","route","product_type"].each{
-            if (results."${it}"){
-                drugDetails."${it}" = results."${it}"[0]
+            if (!results[it]?.isEmpty() && (results[it][0])){
+                drugDetails.put(it, results[it][0][0])
             }
             else{
-                drugDetails."${it}" = "Unknown"
+                drugDetails.put(it, "Unknown")
             }
         }
         drugDetails.product_name = drug

@@ -14,8 +14,8 @@ class OpenFdaApiService {
 
         Set drugs = []
         ["patient.drug.openfda.generic_name",
-         "patient.drug.openfda.substance_name",
-         "patient.drug.openfda.brand_name"].each {
+            "patient.drug.openfda.substance_name",
+            "patient.drug.openfda.brand_name"].each {
 
             def json = http.get(query : [count: "${it}.exact", limit: 1000])
 
@@ -34,13 +34,24 @@ class OpenFdaApiService {
     //searching openfda for drug name and return the drug.openfda field for the first match
     def getDrugOpenFDADetails(String drug) {
 
-        def dataFields = ["patient.drug.openfda.generic_name",
-                          "patient.drug.openfda.substance_name",
-                          "patient.drug.openfda.brand_name"]
+        def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
+        def drugs = []
+        ["patient.drug.openfda.generic_name",
+         "patient.drug.openfda.substance_name",
+         "patient.drug.openfda.brand_name"].each {
+            try {
+                def json = http.get(query: [search: "${it}:\"$drug\""])
+                drugs << json.results.patient
+            }catch(HttpResponseException e){
+                log.debug("No Response when querying ${it} for drug ${drug}")
+            }
+        }
 
-        def json = http.get(query: [search: "${dataFields[0]}:\"$drug\"+${dataFields[1]}:\"$drug\"+${dataFields[2]}:\"$drug\""])
-        drugs << json.results.patient.drug
+        def results = [:]
+        ["pharm_class_epc","manufacturer_name","route","product_type"].each{
+            results."${it}"= drugs[0].drug.openfda."${it}"[0]
+        }
 
-        return drugs[0].drug.openfda
+        return results
     }
 }
