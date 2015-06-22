@@ -13,7 +13,7 @@
 
 	<div class='row'>
 		<div class='col-md-12'>
-			<h1 class='main-header'> Example Drug Name </h1>
+			<h1 class='main-header'> ${product_name} </h1>
 		</div>
 	</div>
 
@@ -30,27 +30,22 @@
 
 				        	<div class='row first-row'>
 				        		<div class='col-md-6'>
-				        			<strong>Product Type:</strong>   Type Place Holder
+				        			<strong>Product Type:</strong>   ${product_type}
 				        		</div>
 				        		<div class='col-md-6'>
-				        			<strong>Pharm Class:</strong>    Pharm Class Place Holder
+				        			<strong>Pharm Class:</strong>    ${pharm_class_epc}
 				        		</div>
 				        	</div>
 
 				        	<div class='row'>
 				        		<div class='col-md-6'>
-				        			<strong>Manu. Name:</strong>   manu name Place Holder
+				        			<strong>Manu. Name:</strong>   ${manufacturer_name}
 				        		</div>
 				        		<div class='col-md-6'>
-				        			<strong>Brand Name:</strong>    Brand Name Place Holder
+									<strong>Route:</strong>   ${route}
 				        		</div>
 				        	</div>
 
-				        	<div class='row'>
-				        		<div class='col-md-12'>
-				        			<strong>Route</strong>   Route Place Holder
-				        		</div>
-				        	</div>
 
 
 
