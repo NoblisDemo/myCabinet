@@ -11,27 +11,20 @@
 		<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
 		<asset:javascript src="application.js"/>
-		<title>Welcome to myCabinet</title>
+		<title>Welcome to My Health Alert</title>
 		<asset:stylesheet src="custom.css"/>
 		<jqui:resources />
+    	<g:layoutHead/>
 	</head>
 	<body>
 
+		<div class='container vertical-center-row'>
+			<div class = 'container'>
 
-		<div class='span12 navbar navbar-default'>
-			<div class='navbar-inner'>
-				<div class='pull-left'>
-					Place Holder for Header
-					<div id="" class='' role="banner"><asset:image src="" alt="myCabinet"/></a></div>
-				</div>
-				<div class='pull-right'>
-					Place Holder for Log In fields
-				</div>
+				<g:layoutBody/>
+				<div class="footer" role="contentinfo"></div>
+
 			</div>
 		</div>
-	
-		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
-		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 	</body>
 </html>
