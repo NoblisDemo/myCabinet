@@ -12,20 +12,20 @@ class OpenFdaSearchServiceSpec extends Specification {
     static def drugInfo =
 [
         full_drug:[
-               pharm_class_epc:["p1"],
-                manufacturer_name:["m1"],
-                route:["r1"],
-                product_type:["pt1"]
+               pharm_class_epc:[["p1"]],
+                manufacturer_name:[["m1"]],
+                route:[["r1"]],
+                product_type:[["pt1"]]
         ],
         drug_with_extra_info:[
-                pharm_class_epc:["p1"],
-                manufacturer_name:["m1","m2","m3"],
-                route:["r1"],
-                product_type:["pt1"]
+                pharm_class_epc:[["p1"]],
+                manufacturer_name:[["m1","m2","m3"]],
+                route:[["r1"]],
+                product_type:[["pt1"]]
         ],
         missing_info_drug:[
-                pharm_class_epc:[],
-                route:[],
+                pharm_class_epc:[[]],
+                route:[[]],
         ]
 ]
 
@@ -69,16 +69,16 @@ class OpenFdaSearchServiceSpec extends Specification {
         def details = service.getDrugDetails(drug)
 
         then:
-        details.pharm_class_epc == pharm_class_epc
-        details.manufacturer_name == manufacturer_name
-        details.route == route
-        details.product_type == product_type
+        details.pharm_class_epc == pharm_class_epc[0]
+        details.manufacturer_name == manufacturer_name[0]
+        details.route == route[0]
+        details.product_type == product_type[0]
         details.product_name == product_name
 
         where:
         drug                  |   pharm_class_epc                                 |   manufacturer_name                                 |   route                                   |   product_type                                    |   product_name
         "full_drug"           |   drugInfo.full_drug.pharm_class_epc[0]           |   drugInfo.full_drug.manufacturer_name[0]           |   drugInfo.full_drug.route[0]             |   drugInfo.full_drug.product_type[0]              |  "full_drug"
         "drug_with_extra_info"|   drugInfo.drug_with_extra_info.pharm_class_epc[0]|   drugInfo.drug_with_extra_info.manufacturer_name[0]|   drugInfo.drug_with_extra_info.route[0]  |   drugInfo.drug_with_extra_info.product_type[0]   |  "drug_with_extra_info"
-        "missing_info_drug"   |   "Unknown"                                       |    "Unknown"                                        | "Unknown"                                 |"Unknown"                                          |   "missing_info_drug"
+        "missing_info_drug"   |   ["Unknown"]                                       |   ["Unknown"]                                       | ["Unknown"]                                 |["Unknown"]                                          |   "missing_info_drug"
     }
 }

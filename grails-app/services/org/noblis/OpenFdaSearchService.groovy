@@ -29,7 +29,7 @@ class OpenFdaSearchService implements SearchService {
         def drugDetails = [:]
 
         ["pharm_class_epc","manufacturer_name","route","product_type"].each{
-            if (!results[it]?.isEmpty() && (results[it][0])){
+            if (results[it] && (results[it][0])){
                 drugDetails.put(it, results[it][0][0])
             }
             else{
