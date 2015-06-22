@@ -45,7 +45,7 @@
 
   function submitSearch(){
     if($(".drugSearchAutoComplete").val()){
-        $(location).attr('href',"/detail/index?productName=" + $(".drugSearchAutoComplete").val());
+        $(location).attr('href',"${g.createLink(controller: 'detail', action: 'index')}" + "?productName="+$(".drugSearchAutoComplete").val());
         return false;
     }
   }
