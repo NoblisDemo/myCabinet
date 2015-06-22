@@ -12,7 +12,7 @@ grails.project.fork = [
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
 
     // configure settings for the test-app JVM, uses the daemon by default
-    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+    test: false,
     // configure settings for the run-app JVM
     run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
     // configure settings for the run-war JVM
@@ -57,6 +57,7 @@ grails.project.dependency.resolution = {
     plugins {
         // plugins for the build system only
         build ":tomcat:7.0.55"
+        compile ":codenarc:0.23"
 
         // plugins for the compile step
         compile ":scaffolding:2.1.2"
@@ -70,10 +71,30 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.11.1"
         runtime ":jquery-ui:1.10.4"
 
+        test ":code-coverage:2.0.3-3"
+
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
         //compile ":less-asset-pipeline:1.10.0"
         //compile ":coffee-asset-pipeline:1.8.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
+    }
+}
+
+coverage {
+    enabledByDefault = true
+    xml = true
+}
+
+codenarc.reports = {
+
+    MyXmlReport('xml') {
+        outputFile = 'target/CodeNarc-Report.xml'
+        title = 'myCabinet CodeNarc Report'
+    }
+
+    MyHtmlReport('html') {
+        outputFile = 'target/CodeNarc-Report.html'
+        title = 'myCabinet CodeNarc Report'
     }
 }

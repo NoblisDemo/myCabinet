@@ -1,4 +1,4 @@
-package org.noblis
+package org.noblis.myCabinet
 
 import org.noblis.myCabinet.SearchService
 
