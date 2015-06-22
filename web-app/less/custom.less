@@ -24,15 +24,24 @@
     background-image: linear-gradient(@origin, @start, @stop);
 }
 
+/*Cutom Font*/
+@font-face { font-family: Nexa; src: url('Nexa-Bold.otf'); }
 
-/*custom css*/
+
+/*Custom css*/
 body{
     margin-left: 5%;
     margin-right: 5%;
     font-family: 'Helvetica', 'Arial', sans-serif;
+    
+    h1, h2, h3 {
+        font-family: 'Nexa' , 'Helvetica', 'Arial', sans-serif;
+    }
+
+
 }
 
-/*header and footer*/
+/*Header and footer*/
 div.headerline {
     .gradient(top, #154064, #002143);
     padding-top: 15px;
