@@ -1,4 +1,4 @@
-package org.noblis
+package org.noblis.myCabinet
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
