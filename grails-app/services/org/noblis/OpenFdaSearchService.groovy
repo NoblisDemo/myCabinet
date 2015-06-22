@@ -22,16 +22,20 @@ class OpenFdaSearchService implements SearchService {
     }
 
 
-    Map getDrugDetails(String term) {
-        List<Map> results = []
-
-        def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
-
-        def json = http.get(query : [search: "patient.drug.medicinalproduct:\"tylenol\""])
-
-        results.addAll json.drugs.collect ()
-
-        return results
+    Map getDrugDetails(String drug) {
+        def results =  openFdaApiService.getDrugOpenFDADetails(drug)
+        //add fields to map and populate missing fields with "unknown"
+        def drugDetails = [:]
+        ["pharm_class_epc","manufacturer_name","route","product_type"].each{
+            if (results."${it}"){
+                drugDetails."${it}" = results."${it}"[0]
+            }
+            else{
+                drugDetails."${it}" = "Unknown"
+            }
+        }
+        drugDetails.product_name = drug
+        return drugDetails
     }
 
 }
