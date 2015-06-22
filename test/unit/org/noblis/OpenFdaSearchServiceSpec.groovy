@@ -10,11 +10,33 @@ import spock.lang.Specification
 class OpenFdaSearchServiceSpec extends Specification {
 
     def setup() {
+        service.openFdaApiService = [
+                getAllAutocompleteValues: { ->
+                    return [
+                            [term: "TYLENOL", category: "Drug"],
+                            [term: "ASPIRIN", category: "Drug"],
+                            [term: "LIPITOR", category: "Drug"],
+                    ]
+                }
+        ]
     }
 
     def cleanup() {
     }
 
-    void "test something"() {
+    void "test autocomplete"() {
+        when:
+            def results = service.autocomplete(searchTerm)
+        then:
+            size == results.size()
+            if (matches) {
+                assert results*.label.containsAll(matches)
+            }
+        where:
+            searchTerm  | size  | matches
+            "tyl"       | 1     | ["TYLENOL"]
+            "TyL"       | 1     | ["TYLENOL"]
+            "TYLENOL"   | 1     | ["TYLENOL"]
+            "SPIRIN"    | 0     | []
     }
 }
