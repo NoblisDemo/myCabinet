@@ -24,8 +24,10 @@
 		<div class='spacer'></div>
 		<g:layoutBody/>
 		<div class='navbar-fixed-bottom'>
-			<div class='row footergreen'> </div>
-			<div class='row footerline'> </div>
+			<div class='row footerlightblue'> </div>
+			<div class='row footerline'> 
+				<p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
+			</div>
 		</div>
 	</body>
 </html>
