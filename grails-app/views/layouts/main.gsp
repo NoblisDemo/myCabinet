@@ -7,27 +7,28 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title><g:layoutTitle default="Grails"/></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
 		<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
-  		<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
 		<asset:javascript src="application.js"/>
+		<title>Welcome to My Health Alert</title>
+		<asset:stylesheet src="custom.css"/>
+		<g:javascript src="select2.js" />
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'select2.css')}" type="text/css">
 		<jqui:resources />
-		<g:layoutHead/>
+    	<g:layoutHead/>
 	</head>
 	<body>
-		<div class='navbar-fixed-top' >
-			<div class = 'row headerline' > </div>
+	<div class='navbar-fixed-top' >
+		<div class = 'row headerline' > </div>
+	</div>
+	<div class='spacer'></div>
+	<g:layoutBody/>
+	<div class='navbar-fixed-bottom'>
+		<div class='row footerlightblue'> </div>
+		<div class='row footerline'>
+			<p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
 		</div>
-		<div class='spacer'></div>
-		<g:layoutBody/>
-		<div class='navbar-fixed-bottom'>
-			<div class='row footerlightblue'> </div>
-			<div class='row footerline'> 
-				<p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
-			</div>
-		</div>
+	</div>
 	</body>
 </html>

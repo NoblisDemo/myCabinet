@@ -1,4 +1,4 @@
-package org.noblis
+package org.noblis.myCabinet
 
 import grails.plugin.cache.Cacheable
 import groovyx.net.http.HTTPBuilder
