@@ -24,10 +24,10 @@
 			<div class='pull-left left-searchpane col-md-5'>
 				<span class='headerText'> PRODUCT SEARCH </span>
 				<div class='input-group'>
-						<g:textField name="drugSearchAutoComplete" class="drugSearchAutoComplete form-control" placeholder="Drug Name/Device Search" />
-						<span class="input-group-btn">
-							<g:submitButton name="submit" class="btn btn-default" type="button" value="Search"/>
-						</span>
+					<g:render template="searchBox" class="form-control" placeholder="Drug Name/Device Search"/>
+					<span class="input-group-btn">
+						<g:submitButton name="submit" class="btn btn-default" type="button" value="Search"/>
+					</span>
 				</div>
 				<div class='descriptionText' >* Search works for Medicine and Device names only. Choose from the auto fill dropdown options for guaranteed results.</div>
 			</div>

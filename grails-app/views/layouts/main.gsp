@@ -13,6 +13,8 @@
 		<asset:javascript src="application.js"/>
 		<title>Welcome to My Health Alert</title>
 		<asset:stylesheet src="custom.css"/>
+		<g:javascript src="select2.js" />
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'select2.css')}" type="text/css">
 		<jqui:resources />
     	<g:layoutHead/>
 	</head>
