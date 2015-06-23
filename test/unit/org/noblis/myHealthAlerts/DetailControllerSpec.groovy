@@ -11,11 +11,15 @@ class DetailControllerSpec extends Specification {
 
     static def default_drug_details = [pharm_class_epc: "p1",manufacturer_name: "m1"
                                 ,route: "r1",product_type:"pt1",product_name: "n1"]
+    static def default_reaction_list = ["r1","r2","r3","r4"]
 
     def setup() {
         controller.openFdaSearchService = [
-            getDrugDetails: {def drug ->
+            getDrugDetails: { def drug ->
                 default_drug_details
+            },
+            getReactionList:{def drug->
+                default_reaction_list
             }
         ]
     }
@@ -33,6 +37,6 @@ class DetailControllerSpec extends Specification {
         model.route == default_drug_details.route
         model.product_type == default_drug_details.product_type
         model.product_name == default_drug_details.product_name
-
+        model.reaction_list == default_reaction_list
     }
 }

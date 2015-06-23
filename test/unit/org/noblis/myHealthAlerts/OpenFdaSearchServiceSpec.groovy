@@ -29,6 +29,13 @@ class OpenFdaSearchServiceSpec extends Specification {
         ]
 ]
 
+    static def reactionInfo =
+[
+       alreadyOrderedCount:[[term:"r1",count:1000],[term:"r2",count:500],[term:"r3",count:200]],
+       unorderedCount:[[term:"r2",count:500],[term:"r3",count:200],[term:"r1",count:1000]],
+        oneItem:[[term:"r1",count:1000]]
+]
+
     def setup() {
         service.openFdaApiService = [
                 getAllAutocompleteValues: { ->
@@ -40,6 +47,10 @@ class OpenFdaSearchServiceSpec extends Specification {
                 },
                 getDrugOpenFDADetails: {String drug ->
                     drugInfo[drug]
+                }
+                ,
+                getReactionList:{String drug ->
+                    reactionInfo[drug]
                 }
         ]
 
@@ -78,4 +89,19 @@ class OpenFdaSearchServiceSpec extends Specification {
         "drug_with_extra_info"|   drugInfo.drug_with_extra_info.pharm_class_epc[0]|   drugInfo.drug_with_extra_info.manufacturer_name[0]|   drugInfo.drug_with_extra_info.route[0]  |   drugInfo.drug_with_extra_info.product_type[0]   |  "drug_with_extra_info"
         "missing_info_drug"   |   ["Unknown"]                                       |   ["Unknown"]                                       | ["Unknown"]                                 |["Unknown"]                                          |   "missing_info_drug"
     }
+
+    void "test get reaction list"(){
+        when:
+        def reactionList = service.getReactionList(drug)
+
+        then:
+        reactionList == correctReactionOrder
+
+        where:
+        drug                    |   correctReactionOrder
+        "alreadyOrderedCount"   |   ["r1","r2","r3"]
+        "unorderedCount"        |   ["r1","r2","r3"]
+        "oneItem"               |   ["r1"]
+    }
+
 }

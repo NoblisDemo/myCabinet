@@ -6,6 +6,10 @@ import org.apache.http.client.HttpResponseException
 
 class OpenFdaApiService {
 
+    def drugNameSearchDomains = ["patient.drug.openfda.generic_name",
+                                 "patient.drug.openfda.substance_name",
+                                 "patient.drug.openfda.brand_name"]
+
     @Cacheable(value="getAllAutocompleteValues")
     def getAllAutocompleteValues() {
         List<Map> results = []
@@ -13,9 +17,7 @@ class OpenFdaApiService {
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
 
         Set drugs = []
-        ["patient.drug.openfda.generic_name",
-            "patient.drug.openfda.substance_name",
-            "patient.drug.openfda.brand_name"].each {
+        drugNameSearchDomains.each {
 
             def json = http.get(query : [count: "${it}.exact", limit: 1000])
 
@@ -36,9 +38,7 @@ class OpenFdaApiService {
 
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
         def drugs = []
-        ["patient.drug.openfda.generic_name",
-         "patient.drug.openfda.substance_name",
-         "patient.drug.openfda.brand_name"].each {
+        drugNameSearchDomains.each {
             try {
                 def json = http.get(query: [search: "${it}:\"$drug\""])
                 drugs << json.results.patient
@@ -54,4 +54,20 @@ class OpenFdaApiService {
 
         return results
     }
+
+    //gets a hashmap of recalls:count given a drug
+    def getReactionList(String drug){
+        def reactionCounts = []
+        def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
+
+        drugNameSearchDomains.each {
+            try {
+                def json = http.get(query: [search: "${it}:\"$drug\"",count:"patient.reaction.reactionmeddrapt.exact"])
+                reactionCounts.addAll(json.results)
+            }catch(HttpResponseException e){
+                log.debug("No Response when querying ${it} for drug ${drug} reaction count")
+            }
+        }
+        return reactionCounts
+     }
 }

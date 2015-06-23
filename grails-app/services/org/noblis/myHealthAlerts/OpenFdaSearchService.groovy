@@ -39,4 +39,13 @@ class OpenFdaSearchService implements SearchService {
         return drugDetails
     }
 
+    //returns an ordered list of reactions (max to min) given a drug
+    List getReactionList(String drug){
+        def reactionMap = openFdaApiService.getReactionList(drug)
+        def reactionList = reactionMap.collect {[it.term,it.count]}
+        //order the list based on count and return just the reactions
+        def returnList= reactionList.sort{a,b->b[1].compareTo a[1]}.collect{it[0]}
+
+        return returnList
+    }
 }
