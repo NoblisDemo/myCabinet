@@ -19,15 +19,19 @@
     	<g:layoutHead/>
 	</head>
 	<body>
-
-		<div class='container vertical-center-row'>
-			<div class = 'container'>
-
-				<g:layoutBody/>
-				<div class="footer descriptionText" role="contentinfo">
-					Build Information: Build Number <g:meta name="build.number"/>, Gid Id <g:meta name="git.id"/>
-				</div>
-			</div>
+	<div class='navbar-fixed-top' >
+		<div class = 'row headerline' > </div>
+	</div>
+	<div class='spacer'></div>
+	<g:layoutBody/>
+	<div class='navbar-fixed-bottom'>
+		<div class='row footerlightblue'> </div>
+		<div class='row footerline'>
+			<p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
 		</div>
+        <div class="footer descriptionText" role="contentinfo">
+            Build Information: Build Number <g:meta name="build.number"/>, Gid Id <g:meta name="git.id"/>
+        </div>
+	</div>
 	</body>
 </html>

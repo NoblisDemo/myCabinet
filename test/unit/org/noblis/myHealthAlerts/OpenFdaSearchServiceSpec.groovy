@@ -9,6 +9,26 @@ import spock.lang.Specification
 @TestFor(OpenFdaSearchService)
 class OpenFdaSearchServiceSpec extends Specification {
 
+    static def drugInfo =
+[
+        full_drug:[
+               pharm_class_epc:[["p1"]],
+                manufacturer_name:[["m1"]],
+                route:[["r1"]],
+                product_type:[["pt1"]]
+        ],
+        drug_with_extra_info:[
+                pharm_class_epc:[["p1"]],
+                manufacturer_name:[["m1","m2","m3"]],
+                route:[["r1"]],
+                product_type:[["pt1"]]
+        ],
+        missing_info_drug:[
+                pharm_class_epc:[[]],
+                route:[[]],
+        ]
+]
+
     def setup() {
         service.openFdaApiService = [
                 getAllAutocompleteValues: { ->
@@ -17,8 +37,12 @@ class OpenFdaSearchServiceSpec extends Specification {
                             [term: "ASPIRIN", category: "Drug"],
                             [term: "LIPITOR", category: "Drug"],
                     ]
+                },
+                getDrugOpenFDADetails: {String drug ->
+                    drugInfo[drug]
                 }
         ]
+
     }
 
     void "test autocomplete"() {
@@ -35,5 +59,23 @@ class OpenFdaSearchServiceSpec extends Specification {
             "TyL"       | 1     | ["TYLENOL"]
             "TYLENOL"   | 1     | ["TYLENOL"]
             "SPIRIN"    | 0     | []
+    }
+
+    void "test get details"() {
+        when:
+        def details = service.getDrugDetails(drug)
+
+        then:
+        details.pharm_class_epc == pharm_class_epc[0]
+        details.manufacturer_name == manufacturer_name[0]
+        details.route == route[0]
+        details.product_type == product_type[0]
+        details.product_name == product_name
+
+        where:
+        drug                  |   pharm_class_epc                                 |   manufacturer_name                                 |   route                                   |   product_type                                    |   product_name
+        "full_drug"           |   drugInfo.full_drug.pharm_class_epc[0]           |   drugInfo.full_drug.manufacturer_name[0]           |   drugInfo.full_drug.route[0]             |   drugInfo.full_drug.product_type[0]              |  "full_drug"
+        "drug_with_extra_info"|   drugInfo.drug_with_extra_info.pharm_class_epc[0]|   drugInfo.drug_with_extra_info.manufacturer_name[0]|   drugInfo.drug_with_extra_info.route[0]  |   drugInfo.drug_with_extra_info.product_type[0]   |  "drug_with_extra_info"
+        "missing_info_drug"   |   ["Unknown"]                                       |   ["Unknown"]                                       | ["Unknown"]                                 |["Unknown"]                                          |   "missing_info_drug"
     }
 }

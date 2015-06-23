@@ -34,7 +34,8 @@
         }
       },
       cache: true,
-      minimumInputLength: 3
+      minimumInputLength: 3,
+      maximumSelectionLength: 1
     });
     $('span.select2-selection').on('keyup', function(e){
       if(e.keyCode == 13){
@@ -45,7 +46,7 @@
 
   function submitSearch(){
     if($(".drugSearchAutoComplete").val()){
-        $(location).attr('href',"/detail/index?productName=" + $(".drugSearchAutoComplete").val());
+        $(location).attr('href',"${g.createLink(controller: 'detail', action: 'index')}" + "?productName="+$(".drugSearchAutoComplete").val());
         return false;
     }
   }
