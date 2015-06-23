@@ -1,4 +1,4 @@
-package org.noblis.myCabinet;
+package org.noblis.myHealthAlerts;
 
 import java.util.List;
 import java.util.Map;

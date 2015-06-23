@@ -1,4 +1,4 @@
-package org.noblis.myCabinet
+package org.noblis.myHealthAlerts
 
 import grails.plugin.cache.Cacheable
 import groovyx.net.http.HTTPBuilder
