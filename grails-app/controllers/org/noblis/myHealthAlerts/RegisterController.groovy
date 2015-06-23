@@ -28,7 +28,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
-        redirect url: '/'
+        render text: 'success'
+        return
     }
 
 }
