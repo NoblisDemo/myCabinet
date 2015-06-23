@@ -8,7 +8,7 @@
 	<body>
 	<div class="row">
   		<div class="col-xs-12 col-md-8"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
-  		<div class="col-xs-6 col-md-4 align-right"> <input type="text" name="search" size="35" placeholder='Drug name/ device search'> <a href='#' class='btn btn-primary'> Go </a></div>
+  		<div class="col-xs-6 col-md-4 align-right"> <g:render template="../searchBox"/><a href='#' class='btn btn-primary' onclick="submitSearch()"> Go </a></div>
 	</div>
 
 	<div class='row'>

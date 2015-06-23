@@ -54,6 +54,4 @@
 </g:javascript>
 
 <select multiple name="drugSearchAutoComplete" class="drugSearchAutoComplete form-control" placeholder="Search"></select>
-<span class="input-group-btn">
-  <g:submitButton name="submit" class="btn btn-default" type="button" value="Search" onclick="submitSearch()"/>
-</span>
+
