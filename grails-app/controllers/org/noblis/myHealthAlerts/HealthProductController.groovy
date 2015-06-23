@@ -6,6 +6,10 @@ class HealthProductController {
 
     def springSecurityService
 
+    def view(){
+        render template: "../healthProduct/addProduct"
+    }
+
     def add() {
         def product = new HealthProduct(params)
         if(product.validate()){
@@ -18,7 +22,7 @@ class HealthProductController {
             render status:200
         }
         else{
-            render template: "../detail/addProduct", status:417, model:[product:product]
+            render template: "addProduct", status:417, model:[product:product]
         }
     }
 
