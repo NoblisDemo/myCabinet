@@ -123,6 +123,8 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.noblis.myC
 grails.plugin.springsecurity.authority.className = 'org.noblis.myCabinet.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
+        '/search/*':    ['permitAll'],
+        '/register/*':    ['permitAll'],
 	'/index':           ['permitAll'],
 	'/index.gsp':       ['permitAll'],
 	'/assets/**':       ['permitAll'],
