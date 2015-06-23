@@ -1,4 +1,4 @@
-package myHealthAlerts
+package org.noblis.myHealthAlerts
 
 class DetailController {
     def openFdaSearchService
