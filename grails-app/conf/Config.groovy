@@ -118,9 +118,9 @@ log4j.main = {
 
 
 // Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.noblis.myCabinet.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.noblis.myCabinet.UserRole'
-grails.plugin.springsecurity.authority.className = 'org.noblis.myCabinet.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.noblis.myHealthAlerts.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.noblis.myHealthAlerts.UserRole'
+grails.plugin.springsecurity.authority.className = 'org.noblis.myHealthAlerts.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
         '/search/*':    ['permitAll'],
