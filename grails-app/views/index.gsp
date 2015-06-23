@@ -11,11 +11,19 @@
 					<div id=""role="banner"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert" class='logo' /></div>
 				</div>
 				<div class='pull-right login'>
-					<div class='input-group'>
-						<g:textField name="userNameLogin" class="userNameLogin form-control" placeholder="Username" />
-						<g:textField name="passwordLogin" class="passwordLogin form-control" placeholder="Password" />
-						<a href="#"> Create Account </a><g:submitButton name="login" class="btn btn-info login-button" type="button" value="LOGIN"/>
-					</div>
+					<sec:ifLoggedIn>
+						Logged In!<br />
+						<g:link controller="logout">Logout</g:link>
+					</sec:ifLoggedIn>
+					<sec:ifNotLoggedIn>
+						<div class='input-group'>
+							<g:form controller='j_spring_security_check' name="loginForm" autocomplete='off'>
+								<g:textField name="j_username" class="userNameLogin form-control" placeholder="Username" />
+								<g:passwordField name="j_password" class="passwordLogin form-control" placeholder="Password" />
+								<a href="#"> Create Account </a><input form="loginForm" name="login" class="btn btn-info login-button" type="submit" value="LOGIN"/>
+							</g:form>
+						</div>
+					</sec:ifNotLoggedIn>
 				</div>
 			</div>
 		</div>
