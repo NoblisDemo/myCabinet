@@ -9,6 +9,9 @@ class OpenFdaApiService {
     def drugNameSearchDomains = ["patient.drug.openfda.generic_name",
                                  "patient.drug.openfda.substance_name",
                                  "patient.drug.openfda.brand_name"]
+    def enforcementDrugNameSeachDomains = ["openfda.generic_name",
+                                          "openfda.substance_name",
+                                          "openfda.brand_name"]
 
     @Cacheable(value="getAllAutocompleteValues")
     def getAllAutocompleteValues() {
@@ -70,4 +73,20 @@ class OpenFdaApiService {
         }
         return reactionCounts
      }
+
+    //gets enforcement reports for a given drug
+    def getEnforcementReports(String drug){
+        def enforcementReports = []
+        def http = new HTTPBuilder('https://api.fda.gov/drug/enforcement.json')
+
+        enforcementDrugNameSeachDomains.each {
+            try {
+                def json = http.get(query: [search: "${it}:\"$drug\"",limit:"25"])
+                enforcementReports << json.results
+            }catch(HttpResponseException e){
+                log.debug("No Response when querying ${it} for drug ${drug} enforcement report")
+            }
+        }
+        return enforcementReports
+    }
 }

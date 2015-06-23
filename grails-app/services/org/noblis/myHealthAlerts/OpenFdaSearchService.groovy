@@ -48,4 +48,26 @@ class OpenFdaSearchService implements SearchService {
 
         return returnList
     }
+
+    //gets the list of enforcement reports for a given drug,organized by date with most recent first
+    List getEnforcementReports(String drug){
+        def rawEnforcements = openFdaApiService.getEnforcementReports(drug)
+        def enforcementReports = []
+        rawEnforcements.each { curRawReport ->
+            def curReport = [:]
+            ["reason_for_recall", "status", "product_description", "report_date", "classification"].each {
+                if (curRawReport[it] ) {
+                    curReport[it] = curRawReport[it]
+                } else {
+                    curReport[it] = "Unknown"
+                }
+            }
+            enforcementReports << curReport
+        }
+        //the date format on the website is listed as yyyymmdd but is actually yyyy-MM-dd in the data
+        return enforcementReports.sort{a,b->
+            new Date().parse("yyyy-MM-dd", b.report_date).compareTo(new Date().parse("yyyy-MM-dd", a.report_date))
+        }
+    }
+
 }

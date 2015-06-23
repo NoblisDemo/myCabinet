@@ -36,6 +36,24 @@ class OpenFdaSearchServiceSpec extends Specification {
         oneItem:[[term:"r1",count:1000]]
 ]
 
+    static def enforcementReports =
+            [
+                    reportWithNormalInfo:[
+                            [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:"2015-01-01",classification:"c1"]
+                    ],
+                    reportWithMissingInfo:[[report_date:"2015-01-01"]],
+                    reportWithExtraInfo:[
+                            [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:"2015-01-01",classification:"c1",
+                             voluntary_mandated:"vm1",distribution_pattern:"dp1"]
+                    ],
+                    multipleReportsUnsorted:[ [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:"2015-01-01",classification:"c1"],
+                                      [reason_for_recall:"r2",status:"s2",product_description:"pd2",report_date:"2015-01-02",classification:"c1"],
+                                      [reason_for_recall:"r3",status:"s3",product_description:"pd2",report_date:"2015-01-03",classification:"c1"]],
+                    multipleReportsSorted:[ [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:"2015-01-03",classification:"c1"],
+                                      [reason_for_recall:"r2",status:"s2",product_description:"pd2",report_date:"2015-01-02",classification:"c1"],
+                                      [reason_for_recall:"r3",status:"s3",product_description:"pd2",report_date:"2015-01-01",classification:"c1"]]
+             ]
+
     def setup() {
         service.openFdaApiService = [
                 getAllAutocompleteValues: { ->
@@ -51,7 +69,11 @@ class OpenFdaSearchServiceSpec extends Specification {
                 ,
                 getReactionList:{String drug ->
                     reactionInfo[drug]
+                },
+                getEnforcementReports:{String drug ->
+                    enforcementReports[drug]
                 }
+
         ]
 
     }
@@ -103,5 +125,37 @@ class OpenFdaSearchServiceSpec extends Specification {
         "unorderedCount"        |   ["r1","r2","r3"]
         "oneItem"               |   ["r1"]
     }
+
+    void "test get enforcement report data"(){
+        when:
+        def enforcementReport = service.getEnforcementReports(drug)[0]
+        
+        then:
+        enforcementReport.reason_for_recall==reason_for_recall
+        enforcementReport.status==status
+        enforcementReport.product_description==product_description
+        enforcementReport.report_date==report_date
+        enforcementReport.classification==classification
+
+        where:
+        drug                   |   reason_for_recall   |   status  |   product_description |   report_date |   classification
+        "reportWithNormalInfo" |   "r1"                |   "s1"    |   "pd1"               |   "2015-01-01"|   "c1"
+        "reportWithExtraInfo"  |   "r1"                |   "s1"    |   "pd1"               |   "2015-01-01"|   "c1"
+        "reportWithMissingInfo"|   "Unknown"           |   "Unknown"|   "Unknown"          |   "2015-01-01"|   "Unknown"
+    }
+
+    void "test enforcement report sorting"(){
+        when:
+        def enforcementReports = service.getEnforcementReports(drug)
+
+        then:
+        enforcementReports[0].report_date=="2015-01-03"
+        enforcementReports[1].report_date=="2015-01-02"
+        enforcementReports[2].report_date=="2015-01-01"
+
+        where:
+        drug << [ "multipleReportsSorted","multipleReportsUnsorted"]
+
+        }
 
 }
