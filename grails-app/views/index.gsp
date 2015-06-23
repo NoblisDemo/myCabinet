@@ -13,7 +13,7 @@
 				</div>
 				<div class='pull-right login'>
 					<sec:ifLoggedIn>
-						Logged In!<br />
+						Logged In as <sec:username /><br />
 						<g:link controller="logout">Logout</g:link>
 					</sec:ifLoggedIn>
 					<sec:ifNotLoggedIn>
