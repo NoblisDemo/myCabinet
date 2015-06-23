@@ -11,6 +11,7 @@
 		<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
 		<asset:javascript src="application.js"/>
+		<asset:javascript src="bootstrap.min.js"/>
 		<title>Welcome to My Health Alert</title>
 		<asset:stylesheet src="custom.css"/>
 		<g:javascript src="select2.js" />

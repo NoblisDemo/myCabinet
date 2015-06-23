@@ -8,7 +8,9 @@
 	<body>
 	<div class="row">
   		<div class="col-xs-12 col-md-8"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
-  		<div class="col-xs-6 col-md-4 align-right"> <input type="text" name="search" size="35" placeholder='Drug name/ device search'> <a href='#' class='btn btn-primary'> Go </a></div>
+  		<div class="col-xs-6 col-md-4 align-right">
+  		<div class='search-text'>PRODUCT SEARCH <span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Start entering a search term by entering 3 or more characters." aria-hidden="true"></span> </div>
+  		<input type="text" name="search" size="35" > <a href='#' class='btn search-btn'> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> </a></div>
 	</div>
 
 	<div class='row'>
@@ -18,52 +20,57 @@
 	</div>
 
 	<div class='row'>
-		<div class="bs-example">
+		<div class="detail-chart-nav">
 	    <ul class="nav nav-tabs" id="myTab">
 	        <li class="active"><a href="#details">Details</a></li>
 	        <li><a href="#charts">Charts</a></li>
 	    </ul>
 	    <div class="tab-content">
 		        <div id="details" class="tab-pane fade in active">
-		        	<div class="row">
+		        	<div class="row prod-info">
 				        <div class="col-xs-12 col-md-8">
-
+				        	<h3> PRODUCT INFORMATION </h3>
 				        	<div class='row first-row'>
 				        		<div class='col-md-6'>
-				        			<strong>Product Type:</strong>   ${product_type}
+				        			<span class='info'>PRODUCT TYPE:</span>   ${product_type}
 				        		</div>
 				        		<div class='col-md-6'>
-				        			<strong>Pharm Class:</strong>    ${pharm_class_epc}
+				        			<span class='info'>PHARMACY CLASS:</span>    ${pharm_class_epc}
 				        		</div>
 				        	</div>
 
 				        	<div class='row'>
 				        		<div class='col-md-6'>
-				        			<strong>Manu. Name:</strong>   ${manufacturer_name}
+				        			<span class='info'>MANUFACTURER:</span>   ${manufacturer_name}
 				        		</div>
 				        		<div class='col-md-6'>
-									<strong>Route:</strong>   ${route}
+									<span class='info'>APPLICATION METHOD:</span>   ${route}
 				        		</div>
 				        	</div>
 
+		            		<h3>TOP 5 SIDE EFFECTS:</h3>
 
+		            		<div id="adverse-events">
+							  <ul>
+							    <li>Nose Bleed</li>
+							    <li>Nausea</li>
+							    <li>Vomitting</li>
+							    <li>Shortness of breath</li>
+							  </ul>
+							</div>
 
+							<a href='#' class='show-adverse-events' alt='show adverse events'> Show More</a>
 
+		            		<h3>LABEL WARNINGS</h3>
 
-		            		<h3>Adverse Events (Top 5):</h3>
-
-		            		<h3>Warnings</h3>
+		            		<div class='prod-info'>
+		            			<span class='info'>ADDITIONAL WARNINGS: </span> warning placeholder
+		            		</div>
 
 				        </div>
-				        <div class="col-xs-12 col-md-4">
-				            <div class='enforment-report'> 
-				            	<div class='well enforment-reports'>
-				            		<h4> Enforcement Reports </h4>
-
-
-				            	</div>
-
-				            </div>
+				        <div class="col-xs-12 col-md-4 recall-div">
+				           <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
+				           <div class='row well recalls'> </div>
 				        </div>
 				    </div>
 		        </div>
@@ -75,6 +82,26 @@
 		    </div>
 		</div>
 	</div> 
+
+
+	<!--modal for adverse events -->
+
+	<div id="adverseModal" class="modal fade">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title">Adverse Events</h4>
+	            </div>
+	            <div class="modal-body">
+	                <div class='adverse-event-list'> </div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 
 	</body>
 </html>
