@@ -4,12 +4,17 @@ import org.noblis.myHealthAlerts.HealthProduct
 
 class HealthProductController {
 
+    def springSecurityService
+
     def add() {
         def product = new HealthProduct(params)
         if(product.validate()){
-            //get current user and add to their list of products
-            //render a success
             product.save()
+            //get current user and add to their list of products
+            def user = springSecurityService.getCurrentUser()
+            user.addToProducts(product)
+            user.save()
+            //render a success
             render status:200
         }
         else{
@@ -40,6 +45,9 @@ class HealthProductController {
         if(product){
             try {
                 //get current user and remove from their list of products
+                def user = springSecurityService.getCurrentUser()
+                user.removeFromProducts(product)
+                user.save()
                 product.delete(flush:true)
                 render status: 200
             } catch (org.springframework.dao.DataIntegrityViolationException e) {

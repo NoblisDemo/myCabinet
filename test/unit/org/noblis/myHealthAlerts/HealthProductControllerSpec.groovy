@@ -1,5 +1,6 @@
 package org.noblis.myHealthAlerts
 
+import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import grails.test.mixin.domain.DomainClassUnitTestMixin
@@ -12,9 +13,16 @@ import spock.lang.Specification
 @TestMixin(DomainClassUnitTestMixin)
 class HealthProductControllerSpec extends Specification {
 
-    void setupSpec() {
-        mockDomain(HealthProduct)
+    void setup() {
+        mockDomains(User, HealthProduct)
+        def user = new User(username:"testUser@email.com", password: "password")
+        user.save(flush:true, failOnError:true)
+        controller.springSecurityService = [
+                getCurrentUser: {User.get(1)}
+        ]
     }
+
+
 
     def cleanup() {
     }
@@ -27,6 +35,7 @@ class HealthProductControllerSpec extends Specification {
             response.status == 200
             flash.message == null
             HealthProduct.count() == 1
+            User.get(1).products.size() == 1
     }
 
     void "test add an invalid health product"() {
@@ -72,11 +81,14 @@ class HealthProductControllerSpec extends Specification {
         then:
             response.status == 200
             HealthProduct.count() == 1
+            User.get(1).products.size() == 1
         when: "delete the product"
             params.id = 1
             controller.delete()
         then:
             response.status == 200
+            HealthProduct.count() == 0
+            User.get(1).products.size() == 0
     }
 
     void "test delete health product no id"(){
