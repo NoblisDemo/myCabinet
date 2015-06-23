@@ -9,7 +9,7 @@
 	<div class="row">
   		<div class="col-xs-12 col-md-8"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
   		<div class="col-xs-6 col-md-4 align-right"> 
-  			<span class='headerText'><h6> PRODUCT SEARCH</h6> </span>
+  			<span class='headerText'> PRODUCT SEARCH </span> <span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Search works for Medicine names only. Choose from the auto fill dropdown options for guaranteed results." aria-hidden="true"></span>
 			<div class='input-group'>
 				<g:render template="../searchBox"/>
 				<span class="input-group-btn">
