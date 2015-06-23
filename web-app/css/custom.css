@@ -6061,12 +6061,10 @@ div.footerline p {
   color: #cac9c9;
   text-align: center;
 }
-a.search-btn {
-  color: white;
-  height: 30px;
-}
 .search-btn {
   background-color: lightgrey;
+  color: white;
+  height: 30px;
 }
 .tip {
   color: grey;
