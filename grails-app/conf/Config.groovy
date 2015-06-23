@@ -115,3 +115,25 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.noblis.myHealthAlerts.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.noblis.myHealthAlerts.UserRole'
+grails.plugin.springsecurity.authority.className = 'org.noblis.myHealthAlerts.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+        '/search/*':    ['permitAll'],
+        '/register/*':    ['permitAll'],
+        '/plugins/**' : ['permitAll'],
+	'/index':           ['permitAll'],
+	'/index.gsp':       ['permitAll'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll']
+]
+
+grails.plugin.springsecurity.logout.postOnly = false
+
