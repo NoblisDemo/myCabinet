@@ -2,7 +2,6 @@ package org.noblis.myHealthAlerts
 
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
-import grails.plugin.springsecurity.SpringSecurityUtils
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
 
@@ -28,7 +27,8 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
-        redirect url: '/'
+        render text: 'success'
+        return
     }
 
 }
@@ -45,8 +45,6 @@ class RegisterCommand {
     static constraints = {
         username blank: false, email: true, validator: { value, command ->
             if (value) {
-                def User = command.grailsApplication.getDomainClass(
-                        SpringSecurityUtils.securityConfig.userLookup.userDomainClassName).clazz
                 if (User.findByUsername(value)) {
                     return 'registerCommand.username.unique'
                 }
