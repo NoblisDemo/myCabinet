@@ -13,7 +13,7 @@ class HealthProductController {
             render status:200
         }
         else{
-            render view: "../index", status:417, model:[product:product]
+            render template: "../detail/addProduct", status:417, model:[product:product]
         }
     }
 

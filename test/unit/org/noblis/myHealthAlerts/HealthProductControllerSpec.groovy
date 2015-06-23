@@ -35,7 +35,7 @@ class HealthProductControllerSpec extends Specification {
         then:
             response.status == 417
             HealthProduct.count() == 0
-            model.product.errors['productName'].code == 'nullable'
+            flash.message == null
     }
 
     void "test update health product"() {
