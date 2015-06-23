@@ -35,7 +35,7 @@
       },
       cache: true,
       minimumInputLength: 3,
-      maximumSelectionLength: 1
+      multiple: false
     });
     $('span.select2-selection').on('keyup', function(e){
       if(e.keyCode == 13){
@@ -54,6 +54,4 @@
 </g:javascript>
 
 <select multiple name="drugSearchAutoComplete" class="drugSearchAutoComplete form-control" placeholder="Search"></select>
-<span class="input-group-btn">
-  <g:submitButton name="submit" class="btn btn-default" type="button" value="Search" onclick="submitSearch()"/>
-</span>
+

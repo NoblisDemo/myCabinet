@@ -8,9 +8,15 @@
 	<body>
 	<div class="row">
   		<div class="col-xs-12 col-md-8"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
-  		<div class="col-xs-6 col-md-4 align-right">
-  		<div class='search-text'>PRODUCT SEARCH <span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Start entering a search term by entering 3 or more characters." aria-hidden="true"></span> </div>
-  		<input type="text" name="search" size="35" > <a href='#' class='btn search-btn'> <span class="glyphicon glyphicon-search" aria-hidden="true"></span> </a></div>
+  		<div class="col-xs-6 col-md-4 align-right"> 
+  			<span class='headerText'> PRODUCT SEARCH </span>
+			<div class='input-group'>
+				<g:render template="../searchBox"/>
+				<span class="input-group-btn">
+					<g:submitButton name="submit" class="btn btn-default" type="button" value="Search" onclick="submitSearch()"/>
+				</span>
+			</div>
+		</div>
 	</div>
 
 	<div class='row'>
