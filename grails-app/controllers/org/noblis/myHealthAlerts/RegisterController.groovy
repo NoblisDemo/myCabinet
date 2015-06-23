@@ -11,7 +11,7 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
     def register(RegisterCommand command) {
 
         if (command.hasErrors()) {
-            render view: 'index', model: [command: command]
+            render template: "register", model: [command: command]
             return
         }
 
