@@ -1,4 +1,4 @@
-package org.noblis.myCabinet
+package org.noblis.myHealthAlerts
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
