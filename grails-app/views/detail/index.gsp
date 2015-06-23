@@ -51,15 +51,20 @@
 		            		<h3>TOP 5 SIDE EFFECTS:</h3>
 
 		            		<div id="adverse-events">
-							  <ul>
-							    <li>Nose Bleed</li>
-							    <li>Nausea</li>
-							    <li>Vomitting</li>
-							    <li>Shortness of breath</li>
-							  </ul>
+							 	<g:set var="count" value="${0}"/>
+							 	 
+							 		<g:each in="${reaction_list}" var='reaction'>
+							 			<g:if test="${count < 5 }">
+				  							<li> <span class="glyphicon glyphicon-play bullet" aria-hidden="true"></span> ${reaction}  </li>
+				  						</g:if>
+				  						<g:set var="count" value="${count + 1}"/>
+					  				</g:each>
+
+
+							  
 							</div>
 
-							<a href='#' class='show-adverse-events' alt='show adverse events'> Show More</a>
+							<a href='#' class='show-adverse-events' alt='show adverse events' data-toggle="modal" data-target="#adverseModal"> Show More</a>
 
 		            		<h3>LABEL WARNINGS</h3>
 
@@ -91,10 +96,16 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                <h4 class="modal-title">Adverse Events</h4>
+	                <h4 class="modal-title">ALL SIDE EFFECTS</h4>
 	            </div>
 	            <div class="modal-body">
-	                <div class='adverse-event-list'> </div>
+                	<div>
+					  <ul class='modal-ul'>
+					  	<g:each in="${reaction_list}" var='reaction'>
+				  			<li> <span class="glyphicon glyphicon-play bullet" aria-hidden="true"></span> ${reaction}  </li>
+					  	</g:each>
+					  </ul>
+					</div> 
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

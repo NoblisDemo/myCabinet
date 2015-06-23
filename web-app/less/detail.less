@@ -24,13 +24,19 @@
 
 /* side effects */
 #adverse-events{
+	width:50%;
+	margin-bottom:20px;
+
 	ul{
 		width: 50%; 
 		margin-left: 0px;
 	}
 
 	li{
+		white-space:nowrap;
 		display: inline;
+		margin-left: 20px;
+		font-size: 12px;
 	}
 
 	li:not(:first-child){
@@ -41,10 +47,6 @@
 		margin-right:0.5em;
 		margin-left: 0px;
 	}
-
-	li:before {
-		 content:'\2022';
-		}
 }
 
 .recall-div{
@@ -60,6 +62,11 @@
 		background-color: #154064;
 		padding-top: 8px;
 	}
+
+span.bullet{
+	font-size: 10px;
+  	color: #b81e30;
+}
 
 .recalls{
 	border-radius: 0;
