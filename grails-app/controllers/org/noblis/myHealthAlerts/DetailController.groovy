@@ -17,7 +17,7 @@ class DetailController {
     //adds in a second version of the recall reason field that is shorter (for display purposes)
     private void addShortReportInfo(def enforcementReports){
         enforcementReports.each{
-            if (it.reason_for_recall.length() > ENFORCEMENT_REPORT_SHORT_LENGTH) {
+            if (it.reason_for_recall.size() > ENFORCEMENT_REPORT_SHORT_LENGTH) {
                 it.short_reason = it.reason_for_recall[0..ENFORCEMENT_REPORT_SHORT_LENGTH-1]
             }
             else{
