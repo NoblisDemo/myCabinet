@@ -8,7 +8,15 @@
 	<body>
 	<div class="row">
   		<div class="col-xs-12 col-md-8"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
-  		<div class="col-xs-6 col-md-4 align-right"> <g:render template="../searchBox"/><a href='#' class='btn btn-primary' onclick="submitSearch()"> Go </a></div>
+  		<div class="col-xs-6 col-md-4 align-right"> 
+  			<span class='headerText'> PRODUCT SEARCH </span>
+			<div class='input-group'>
+				<g:render template="../searchBox"/>
+				<span class="input-group-btn">
+					<g:submitButton name="submit" class="btn btn-default" type="button" value="Search" onclick="submitSearch()"/>
+				</span>
+			</div>
+		</div>
 	</div>
 
 	<div class='row'>
