@@ -1,4 +1,4 @@
-package mycabinet
+package myHealthAlerts
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

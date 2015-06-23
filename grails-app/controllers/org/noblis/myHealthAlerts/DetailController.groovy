@@ -1,4 +1,4 @@
-package mycabinet
+package myHealthAlerts
 
 class DetailController {
     def openFdaSearchService
