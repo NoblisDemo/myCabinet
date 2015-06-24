@@ -99,11 +99,11 @@
 							<a href='#' class='show-adverse-events' alt='show adverse events' data-toggle="modal" data-target="#adverseModal"> Show More</a>
 
 		            		<h3>LABEL WARNINGS</h3>
-
-		            		<div class='prod-info'>
-		            			<span class='info'>ADDITIONAL WARNINGS: </span> warning placeholder
-		            		</div>
-
+							<div class='row'>
+								<div class='prod-info col-md-6'>
+									<span class='info'>ADDITIONAL WARNINGS: </span> <div class="warnings">${warnings} </div>
+								</div>
+							</div>
 				        </div>
 				        <div class="col-xs-12 col-md-4 recall-div">
 				           <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
