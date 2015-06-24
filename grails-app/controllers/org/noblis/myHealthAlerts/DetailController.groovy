@@ -27,7 +27,9 @@ class DetailController {
     }
 
     def topReportedSideEffects(String productName) {
-        render text: openFdaSearchService.countReactionsByDrug(productName) as JSON
+        withFormat {
+            js { render(openFdaSearchService.countReactionsByDrug(productName) as JSON) }
+        }
     }
 
     //adds in a second version of the recall reason field that is shorter (for display purposes)
