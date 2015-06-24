@@ -13,7 +13,7 @@
 			<div class='input-group'>
 				<g:render template="../searchBox"/>
 				<span class="input-group-btn">
-					<g:submitButton name="submit" class="btn btn-default search-btn" type="button" value="search" onclick="submitSearch()"/>
+					<g:submitButton name="submit" class="btn btn-default" type="button" value="search" onclick="submitSearch()"/>
 				</span>
 			</div>
 		</div>
@@ -81,7 +81,12 @@
 				        </div>
 				        <div class="col-xs-12 col-md-4 recall-div">
 				           <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
-				           <div class='row well recalls'> </div>
+				           <div class='row well recalls'> 
+				           		<!-- <g:each in="${enforcement_reports}" var='report'>
+				           			okay
+				           		</g:each> -->
+
+				            </div>
 				        </div>
 				    </div>
 		        </div>
