@@ -19,20 +19,21 @@
 			<div class='input-group'>
 				<g:render template="../searchBox"/>
 				<span class="input-group-btn">
-					<g:submitButton name="submit" class="btn btn-default search-btn" type="button" value="search" onclick="submitSearch()"/>
+					<button type="submit" name="submit" class="btn btn-search" value="" onclick="submitSearch()" id="submit">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
 				</span>
 			</div>
 		</div>
 	</div>
 
 	<div class='row'>
-		<div class='col-md-12'>
-			<h1 class='main-header'> ${product_name}
-				<!-- auth check goes here -->
+		<div class='col-md-12 main-header'>
+			<h1 class='inline'> ${product_name} </h1>
+			<!-- auth check goes here -->
 				<sec:ifLoggedIn>
-					<a href='#' class='show-adverse-events' alt='add health product' data-toggle="modal" data-target="#addProductModal"> Add</a>
+				<a href='#' class='add-product' alt='add health product' data-toggle="modal" data-target="#addProductModal"> + Add to My Products</a>
 				</sec:ifLoggedIn>
-			</h1>
 		</div>
 	</div>
 
@@ -136,7 +137,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button id="productCloseButton" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">ALL SIDE EFFECTS</h4>
+					<h4 class="modal-title">ADD PRODUCT</h4>
 				</div>
 				<div class="modal-body">
 					<g:render template="../healthProduct/addProduct" model="${[product_name:product_name]}"/>
