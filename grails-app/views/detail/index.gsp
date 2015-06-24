@@ -57,7 +57,7 @@
 				        		<span class="teaser">${description}</span>
 
 				        		<g:if test="${! description.equals('Unknown') }">
-									<span class="complete hide"> ${description_more}</span>
+									<span class="complete hide">${description_more}</span>
 									<a href='#' class="more">more...</a>
 								</g:if>
 				        	</div>
@@ -167,9 +167,7 @@
 					<button id="productCloseButton" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title">ADD PRODUCT</h4>
 				</div>
-				<div class="modal-body">
-					<g:render template="../healthProduct/addProduct" model="${[product_name:product_name]}"/>
-				</div>
+				<g:render template="../healthProduct/addProduct" model="${[product_name:product_name]}"/>
 			</div>
 		</div>
 	</div>
