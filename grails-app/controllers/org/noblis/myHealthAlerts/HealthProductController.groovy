@@ -1,5 +1,7 @@
 package org.noblis.myHealthAlerts
 
+import org.noblis.myHealthAlerts.HealthProduct
+
 class HealthProductController {
 
     def springSecurityService
@@ -9,13 +11,7 @@ class HealthProductController {
     }
 
     def add() {
-        def product = new HealthProduct(productName: params.productName)
-        if(params.startDate){
-            product.startDate = new Date().parse("MM/dd/yyyy", params.startDate)
-        }
-        if(params.endDate){
-            product.endDate = new Date().parse("MM/dd/yyyy", params.endDate)
-        }
+        def product = new HealthProduct(params)
         if(product.validate()){
             product.save()
             //get current user and add to their list of products
@@ -33,13 +29,7 @@ class HealthProductController {
     def update() {
         def product = HealthProduct.get(params.id)
         if(product){
-            product.productName = params.productName
-            if(params.startDate){
-                product.startDate = new Date().parse("MM/dd/yyyy", params.startDate)
-            }
-            if(params.endDate){
-                product.endDate = new Date().parse("MM/dd/yyyy", params.endDate)
-            }
+            product.properties = params
             if(product.validate()){
                 product.save()
                 render status:200
@@ -65,7 +55,7 @@ class HealthProductController {
                 product.delete(flush:true)
                 render status: 200
             } catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "Could not delete product ${product.productName}"
+                flash.message = "Could not delete product ${product.name}"
                 render status:417
             }
         }
