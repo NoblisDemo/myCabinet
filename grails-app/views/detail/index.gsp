@@ -29,7 +29,9 @@
 		<div class='col-md-12'>
 			<h1 class='main-header'> ${product_name}
 				<!-- auth check goes here -->
-				<a href='#' class='show-adverse-events' alt='add health product' data-toggle="modal" data-target="#addProductModal"> Add</a>
+				<sec:ifLoggedIn>
+					<a href='#' class='show-adverse-events' alt='add health product' data-toggle="modal" data-target="#addProductModal"> Add</a>
+				</sec:ifLoggedIn>
 			</h1>
 		</div>
 	</div>
@@ -137,7 +139,7 @@
 					<h4 class="modal-title">ALL SIDE EFFECTS</h4>
 				</div>
 				<div class="modal-body">
-					<g:render template="../healthProduct/addProduct"/>
+					<g:render template="../healthProduct/addProduct" model="${[product_name:product_name]}"/>
 				</div>
 			</div>
 		</div>
