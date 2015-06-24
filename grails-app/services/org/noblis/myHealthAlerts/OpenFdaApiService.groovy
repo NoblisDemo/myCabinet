@@ -3,6 +3,7 @@ package org.noblis.myHealthAlerts
 import grails.plugin.cache.Cacheable
 import groovyx.net.http.HTTPBuilder
 import org.apache.http.client.HttpResponseException
+import groovyx.net.http.Method
 
 class OpenFdaApiService {
 
@@ -30,8 +31,6 @@ class OpenFdaApiService {
         results.addAll drugs.collect {
             [term: it, category: "Drug"]
         }
-
-//        TODO: add devices
 
         return results
     }
@@ -91,6 +90,24 @@ class OpenFdaApiService {
             }
         }
         return enforcementReports
+    }
+
+    def countReactionsByDrug(String term) {
+        def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
+
+        def searchTerm = drugNameSearchDomains.collect {
+            "$it:$term"
+        }.join(" ")
+
+        def query = [search: searchTerm, count: "patient.reaction.reactionmeddrapt.exact", limit: 10]
+
+        def json = http.request(Method.GET) {
+            uri.query = query
+            response.failure = { rest ->
+                log.error "Error executing request with query $query"
+            }
+        }
+        return json?.results ?: []
     }
 
     //query labels database for drug description and warnings

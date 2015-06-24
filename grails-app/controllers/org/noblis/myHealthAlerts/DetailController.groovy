@@ -1,5 +1,7 @@
 package org.noblis.myHealthAlerts
 
+import grails.converters.JSON
+
 class DetailController {
     def openFdaSearchService
     static int DESCRIPTION_LENGTH = 300
@@ -21,7 +23,12 @@ class DetailController {
                                       warnings:labelInfo.warnings,
                                       description_more:labelInfo.description_more,]
     }
-
+    
+    def topReportedSideEffects(String productName) {
+        withFormat {
+            js { render(openFdaSearchService.countReactionsByDrug(productName) as JSON) }
+        }
+    }
     //splits the description into base and "more" based on character limit
     private void splitDescriptionInfo(def labelInfo){
         if (labelInfo.description.size() > DESCRIPTION_LENGTH) {
