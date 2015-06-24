@@ -1,7 +1,5 @@
 package org.noblis.myHealthAlerts
 
-import org.noblis.myHealthAlerts.HealthProduct
-
 class HealthProductController {
 
     def springSecurityService
