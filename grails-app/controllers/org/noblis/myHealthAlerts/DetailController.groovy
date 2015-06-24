@@ -2,8 +2,8 @@ package org.noblis.myHealthAlerts
 
 class DetailController {
     def openFdaSearchService
-    static int ENFORCEMENT_REPORT_SHORT_LENGTH = 50
-    static int DESCRIPTION_LENGTH = 50
+    static int ENFORCEMENT_REPORT_SHORT_LENGTH = 100
+    static int DESCRIPTION_LENGTH = 300
 
     def index(String productName) {
         def details = openFdaSearchService.getDrugDetails(productName)
