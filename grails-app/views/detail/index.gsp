@@ -15,11 +15,11 @@
 	<div class="row">
   		<div class="col-xs-12 col-md-8"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
   		<div class="col-xs-6 col-md-4 align-right"> 
-  			<span class='headerText'><h6> PRODUCT SEARCH</h6> </span>
+  			<span class='headerText'> PRODUCT SEARCH </span> <span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Search works for Medicine names only. Choose from the auto fill dropdown options for guaranteed results." aria-hidden="true"></span>
 			<div class='input-group'>
 				<g:render template="../searchBox"/>
 				<span class="input-group-btn">
-					<g:submitButton name="submit" class="btn btn-default search-btn" type="button" value="search" onclick="submitSearch()"/>
+					<g:submitButton name="submit" class="btn btn-default" type="button" value="search" onclick="submitSearch()"/>
 				</span>
 			</div>
 		</div>
@@ -92,7 +92,12 @@
 				        </div>
 				        <div class="col-xs-12 col-md-4 recall-div">
 				           <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
-				           <div class='row well recalls'> </div>
+				           <div class='row well recalls'> 
+				           		<!-- <g:each in="${enforcement_reports}" var='report'>
+				           			okay
+				           		</g:each> -->
+
+				            </div>
 				        </div>
 				    </div>
 		        </div>
