@@ -42,6 +42,8 @@
 	    <ul class="nav nav-tabs" id="myTab">
 	        <li class="active"><a href="#details">Details</a></li>
 	        <li><a href="#charts">Charts</a></li>
+	        <div class='dashboard-link'><g:link resource="dashboard">Return to My Dashboard &#62;&#62;</g:link>
+	        </div>
 	    </ul>
 	    <div class="tab-content">
 		        <div id="details" class="tab-pane fade in active">
@@ -105,20 +107,25 @@
 								</div>
 							</div>
 				        </div>
+
 				        <div class="col-xs-12 col-md-4 recall-div">
 				           <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
-				           <div class='row well recalls'> 
+				           <div class='row recalls'> 
 
-				           	 	<g:set var="count" value="${0}"/>
-							 	 
-							 		<g:each in="${enforcement_reports}" var='reports'>
-							 			<g:each in="${reports.value}" var="report">
+				              <g:set var="total" value="${5}"/>
+								  <g:if test="${enforcement_reports.size() < total}">
+								   	<g:set var="total" value="${enforcement_reports.size()}"/>
+								  </g:if>
 
-							 				${report}
-
-							 			</g:each>
-
-					  				</g:each>
+								<g:each in="${0..total}" var="index" >
+								   <g:if test="${enforcement_reports[index] != null}">
+									   <div class='reason'>
+									   		<p>${enforcement_reports[index]?.getAt('short_reason')} ...</p>
+									   		<a href='#' class='read-more' alt='read more link' data-toggle="modal" data-target="#recall-${index}" > Read More </a>
+									   </div>
+									   
+								   </g:if>
+								</g:each>
 
 
 				           </div>
@@ -160,6 +167,7 @@
 	    </div>
 	</div>
 
+<!--Modal to add a product -->
 	<div id="addProductModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -171,5 +179,42 @@
 			</div>
 		</div>
 	</div>
+
+<!--Some logic to create all the modals for the read more recent recalls -->
+
+<g:set var="total" value="${5}"/>
+  	<g:if test="${enforcement_reports.size() < total}">
+   		<g:set var="total" value="${enforcement_reports.size()}"/>
+  	</g:if>
+
+<g:each in="${0..total}" var="index" >
+   <g:if test="${enforcement_reports[index] != null}">
+
+   	<div id="recall-${index}" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button id="RecallCloseButton" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Recall Details</h4>
+				</div>
+				<div class="modal-body">
+					
+			   		<p><span class="info">REASON FOR RECALL:</span> ${enforcement_reports[index]?.getAt('reason_for_recall')} </p>
+			   		<p><span class="info">STATUS:</span>${enforcement_reports[index]?.getAt('status')}</p>
+			   		<p><span class="info">DESCRIPTION:</span>${enforcement_reports[index]?.getAt('product_description')}</p>
+			   		<p><span class="info">REPORT DATE:</span>${enforcement_reports[index]?.getAt('report_date')}</p>
+			   		<p><span class="info">CLASSIFICATION:</span>${enforcement_reports[index]?.getAt('classification')}</p>
+			   		
+			   	</div>
+			   	 <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	            </div>
+			</div>
+		</div>
+	</div>
+
+   </g:if>
+</g:each>
 	</body>
+
 </html>
