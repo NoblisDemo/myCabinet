@@ -28,7 +28,7 @@
 					</sec:ifLoggedIn>
 					<sec:ifNotLoggedIn>
 							<g:form controller='j_spring_security_check' name="loginForm" autocomplete='off'>
-								<g:textField name="j_username" class="userNameLogin " placeholder="Username" />
+								<g:textField name="j_username" class="userNameLogin " placeholder="Email" />
 								<g:passwordField name="j_password" class="passwordLogin " placeholder="Password" />
 								<input form="loginForm" name="login" class="btn login-button" type="submit" value="LOGIN"/><a href="#" data-toggle="modal" data-target="#createAccountModal" class='createAccount-link'> Create Account </a>
 							</g:form>
