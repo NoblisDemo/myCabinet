@@ -126,6 +126,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
         '/search/*':    ['permitAll'],
         '/register/*':    ['permitAll'],
+        '/detail/*':    ['permitAll'],
         '/plugins/**' : ['permitAll'],
 	'/index':           ['permitAll'],
 	'/index.gsp':       ['permitAll'],
