@@ -12,7 +12,7 @@ class DetailController {
         def labelInfo = openFdaSearchService.getLabelInfo(productName)
 
         addShortReportInfo(enforcementReports)
-        addShortDescriptionInfo(labelInfo)
+        splitDescriptionInfo(labelInfo)
 
         render view: "index", model: [pharm_class_epc: details.pharm_class_epc,manufacturer_name: details.manufacturer_name
                                       ,route: details.route,product_type:details.product_type,product_name: details.product_name,
@@ -21,7 +21,7 @@ class DetailController {
                                       enforcement_reports:enforcementReports,
                                       description:labelInfo.description,
                                       warnings:labelInfo.warnings,
-                                      short_description:labelInfo.short_description,]
+                                      description_more:labelInfo.description_more,]
     }
 
     //adds in a second version of the recall reason field that is shorter (for display purposes)
@@ -37,13 +37,14 @@ class DetailController {
         }
     }
 
-    //adds in a shorter version of the product description
-    private void addShortDescriptionInfo(def labelInfo){
+    //splits the description into base and "more" based on character limit
+    private void splitDescriptionInfo(def labelInfo){
         if (labelInfo.description.size() > DESCRIPTION_LENGTH) {
-            labelInfo.short_description = labelInfo.description[0..DESCRIPTION_LENGTH-1]
+            labelInfo.description_more = labelInfo.description[DESCRIPTION_LENGTH..labelInfo.description.length()-1]
+            labelInfo.description = labelInfo.description[0..DESCRIPTION_LENGTH-1]
         }
         else{
-            labelInfo.short_description = labelInfo.description
+            labelInfo.description_more = ""
         }
 
     }

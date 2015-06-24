@@ -48,7 +48,7 @@ class DetailControllerSpec extends Specification {
         model.enforcement_reports.size() == 2
         model.warnings == "w1"
         model.description == "A LONGER DESCRIPTION"
-        model.short_description == "A LONGER DESCRIPTION"
+        model.description_more == ""
 
     }
 
@@ -70,16 +70,16 @@ class DetailControllerSpec extends Specification {
     void "test add short description"(){
         when:
         controller.DESCRIPTION_LENGTH = limit
-        controller.addShortDescriptionInfo(default_label_info)
+        controller.splitDescriptionInfo(default_label_info)
 
         then:
-        default_label_info.short_description == short_description
-        default_label_info.short_description == short_description
+        default_label_info.description_more == description_more
+        default_label_info.description == description
 
         where:
-        limit | short_description
-        50    | "A LONGER DESCRIPTION"
-        1     | "A"
+        limit | description             |   description_more
+        50    | "A LONGER DESCRIPTION"  |   ""
+        1     | "A"                     |   " LONGER DESCRIPTION"
     }
 
 }
