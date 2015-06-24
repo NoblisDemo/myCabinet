@@ -9,7 +9,13 @@ class HealthProductController {
     }
 
     def add() {
-        def product = new HealthProduct(params)
+        def product = new HealthProduct(productName: params.productName)
+        if(params.startDate){
+            product.startDate = new Date().parse("MM/dd/yyyy", params.startDate)
+        }
+        if(params.endDate){
+            product.endDate = new Date().parse("MM/dd/yyyy", params.endDate)
+        }
         if(product.validate()){
             product.save()
             //get current user and add to their list of products
@@ -27,7 +33,13 @@ class HealthProductController {
     def update() {
         def product = HealthProduct.get(params.id)
         if(product){
-            product.properties = params
+            product.productName = params.productName
+            if(params.startDate){
+                product.startDate = new Date().parse("MM/dd/yyyy", params.startDate)
+            }
+            if(params.endDate){
+                product.endDate = new Date().parse("MM/dd/yyyy", params.endDate)
+            }
             if(product.validate()){
                 product.save()
                 render status:200
@@ -42,6 +54,19 @@ class HealthProductController {
         }
     }
 
+    def updateNotification() {
+        def product = HealthProduct.get(params.id)
+        if(product){
+            product.emailNotification = params.emailNotification == "true"
+            if(product.validate()){
+                product.save(flush:true)
+                render status:200
+                return
+            }
+        }
+        render status:417
+    }
+
     def delete() {
         def product = HealthProduct.get(params.id)
         if(product){
@@ -53,7 +78,7 @@ class HealthProductController {
                 product.delete(flush:true)
                 render status: 200
             } catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "Could not delete product ${product.name}"
+                flash.message = "Could not delete product ${product.productName}"
                 render status:417
             }
         }
