@@ -27,11 +27,10 @@
 
 	<div class='row'>
 		<div class='col-md-12'>
-			<h1 class='main-header'> ${product_name} </h1>
-		</div>
-		<!-- auth check goes here -->
-		<div class='add'>
-			<a href='#' class='show-adverse-events' alt='add health product' data-toggle="modal" data-target="#addProductModal"> Add</a>
+			<h1 class='main-header'> ${product_name}
+				<!-- auth check goes here -->
+				<a href='#' class='show-adverse-events' alt='add health product' data-toggle="modal" data-target="#addProductModal"> Add</a>
+			</h1>
 		</div>
 	</div>
 
