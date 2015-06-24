@@ -23,8 +23,8 @@
 			<div class = 'row headerline' >
 				<div class='pull-right login'>
 					<sec:ifLoggedIn>
-						Logged In as <sec:username /><br />
-						<g:link controller="logout">Logout</g:link>
+						<span class='user-text'> Logged In as <sec:username /> </span>
+						<g:link controller="logout" class='btn btn-default logout'>Logout</g:link>
 					</sec:ifLoggedIn>
 					<sec:ifNotLoggedIn>
 							<g:form controller='j_spring_security_check' name="loginForm" autocomplete='off'>
@@ -38,6 +38,7 @@
 		</div>
 		<div class='spacer'></div>
 		<g:layoutBody/>
+		<div class='spacer'></div>
 		<div class='navbar-fixed-bottom'>
 			<div class='row footerlightblue'> </div>
 			<div class='row footerline'>
