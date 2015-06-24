@@ -56,9 +56,8 @@
 				        	<div class='row col-md-12'>
 				        		<span class="teaser">${description}</span>
 
-				        		<g:if test="${discription_more = null }">
+				        		<g:if test="${! description.equals('Unknown') }">
 									<span class="complete hide"> ${description_more}</span>
-
 									<a href='#' class="more">more...</a>
 								</g:if>
 				        	</div>
