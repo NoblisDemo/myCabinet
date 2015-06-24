@@ -85,6 +85,8 @@ grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
 
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/dashboard/index'
+
 environments {
     development {
         grails.logging.jul.usebridge = true
@@ -129,6 +131,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         '/detail/*':    ['permitAll'],
         '/healthProduct/*': ['IS_AUTHENTICATED_FULLY'],
         '/dashboard/*': ['IS_AUTHENTICATED_FULLY'],
+        '/dbconsole/**': ['IS_AUTHENTICATED_FULLY'],
         '/plugins/**' : ['permitAll'],
 	'/index':           ['permitAll'],
 	'/index.gsp':       ['permitAll'],
