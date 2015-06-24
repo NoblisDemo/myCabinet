@@ -52,15 +52,9 @@ class OpenFdaSearchService implements SearchService {
         def rawEnforcements = openFdaApiService.getEnforcementReports(drug)
         def enforcementReports = []
         rawEnforcements.each { curRawReport ->
+            //parsing out the relevant data for the reports and putting them in a new map
             def curReport = [:]
-            ["reason_for_recall", "status", "product_description", "classification"].each {
-                if (curRawReport[it] ) {
-                    curReport[it] = curRawReport[it]
-                } else {
-                    curReport[it] = "Unknown"
-                }
-            }
-            ["report_date"].each {
+            ["reason_for_recall", "status", "product_description", "classification","report_date"].each {
                 if (curRawReport[it] && curRawReport[it][0] ) {
                     curReport[it] = curRawReport[it][0]
                 } else {
@@ -78,6 +72,23 @@ class OpenFdaSearchService implements SearchService {
                 new Date().parse("yyyyMMdd", b.report_date).compareTo(new Date().parse("yyyyMMdd", a.report_date))
             }
         }
+    }
+
+    //Gets the description and warnings info given a drug
+    Map getLabelInfo(String drug){
+        def labelInfo = openFdaApiService.getLabelInfo(drug)
+
+        def results = [:]
+        //parsing out the warnings and descriptions and adding them to a new map
+        ["warnings","description"].each{
+            if (labelInfo[it] && (labelInfo[it][0]) && (labelInfo[it][0][0])) {
+                results[it] = labelInfo[it][0][0][0]
+            }
+            else{
+                results[it] = "Unknown"
+            }
+        }
+        return results
     }
 
 }

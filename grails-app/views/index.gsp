@@ -21,7 +21,9 @@
 				<div class='input-group'>
 					<g:render template="searchBox" class="form-control searchInput" placeholder="Drug Name/Device Search"/>
 					<span class="input-group-btn">
-						<g:submitButton name="submit" class="btn btn-default" type="button" value="Search" onclick="submitSearch()"/>
+						<button type="submit" name="submit" class="btn btn-search" value="" onclick="submitSearch()" id="submit">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
 					</span>
 				</div>
 				<div class='descriptionText' >* Search works for Medicine and Device names only. Choose from the auto fill dropdown options for guaranteed results.</div>
