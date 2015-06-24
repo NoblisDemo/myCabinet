@@ -1,4 +1,4 @@
-eventWarStart = { warName ->
+eventPackagingEnd = {
     def buildNumber = System.getenv().get("BUILD_NUMBER") ?: "CUSTOM"
     def gitCommit = System.getenv().get("GIT_COMMIT") ?: "N/A"
     ant.propertyfile(
