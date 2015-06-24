@@ -32,13 +32,33 @@
 				</div>
 				<div class='descriptionText' >* Search works for Medicine and Device names only. Choose from the auto fill dropdown options for guaranteed results.</div>
 			</div>
-			<div class='right-searchpane col-md-4 col-sm-5 col-xs-12'>
-				<div>
-					<span class='headerText'> WHO WE ARE </span>
+			<div class='fluid-row'>
+				<div class='right-searchpane-md-lg col-md-4 visible-md visible-lg'>
+					<div>
+						<span class='headerText'> WHO WE ARE </span>
+					</div>
+					<div>
+						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
+						<a href="#"> Create Account </a>
+					</div>
 				</div>
-				<div>
-					<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
-					<a href="#"> Create Account </a>
+				<div class='right-searchpane-sm col-sm-5 visible-sm'>
+					<div>
+						<span class='headerText'> WHO WE ARE </span>
+					</div>
+					<div>
+						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
+						<a href="#"> Create Account </a>
+					</div>
+				</div>
+				<div class='right-searchpane-xs col-xs-12 visible-xs'>
+					<div>
+						<span class='headerText'> WHO WE ARE </span>
+					</div>
+					<div>
+						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
+						<a href="#"> Create Account </a>
+					</div>
 				</div>
 			</div>
 			<div class='col-md-2 col-sm-1 col-xs-0'></div>
