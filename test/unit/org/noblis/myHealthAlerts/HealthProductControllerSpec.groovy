@@ -93,5 +93,22 @@ class HealthProductControllerSpec extends Specification {
             response.status == 417
             flash.message == "Product could not be found"
     }
+
+    void "test update notification checkbox"(){
+        when: "set up the form"
+        params.productName = "test"
+        controller.add()
+        then:
+        response.status == 200
+        HealthProduct.count() == 1
+        User.get(1).products.size() == 1
+        HealthProduct.get(1).emailNotification == true
+        when: "change checkbox and update"
+        params.id = 1
+        params.emailNotification = "false"
+        controller.updateNotification()
+        then:
+        HealthProduct.get(1).emailNotification == false
+    }
 }
 
