@@ -128,6 +128,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         '/register/*':    ['permitAll'],
         '/detail/*':    ['permitAll'],
         '/healthProduct/*': ['IS_AUTHENTICATED_FULLY'],
+        '/dashboard/*': ['IS_AUTHENTICATED_FULLY'],
         '/plugins/**' : ['permitAll'],
 	'/index':           ['permitAll'],
 	'/index.gsp':       ['permitAll'],

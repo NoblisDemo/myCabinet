@@ -10,6 +10,7 @@ class HealthProduct {
     String productName
     Date startDate
     Date endDate
+    Boolean emailNotification = true
 
     static constraints = {
         productName blank:false
