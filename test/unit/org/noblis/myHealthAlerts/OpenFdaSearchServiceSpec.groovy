@@ -8,7 +8,6 @@ import spock.lang.Specification
  */
 @TestFor(OpenFdaSearchService)
 class OpenFdaSearchServiceSpec extends Specification {
-
     //mock data representing info that would return from a relevant drug info query to the events database
     static def drugInfo =
 [
@@ -76,6 +75,7 @@ class OpenFdaSearchServiceSpec extends Specification {
             ]
 
     def setup() {
+        enforcementReports.info_with_short_reason = [[reason_for_recall:["A"],report_date:["2015-01-02"]],[reason_for_recall:["A LONGER REASON"],report_date:["2015-01-01"]]]
         service.openFdaApiService = [
                 getAllAutocompleteValues: { ->
                     return [
@@ -195,5 +195,20 @@ class OpenFdaSearchServiceSpec extends Specification {
         "full_drug"             |   "d1"        |   "w1"
         "drug_with_extra_info"  |   "d1"        |   "w1"
         "missing_info_drug"|   "Unknown"   |   "Unknown"
+    }
+
+    void "test add short report info"(){
+        when:
+        service.ENFORCEMENT_REPORT_SHORT_LENGTH = limit
+        def reports = service.getEnforcementReports("info_with_short_reason")
+
+        then:
+        reports[0].short_reason == short_reason[0]
+        reports[1].short_reason == short_reason[1]
+
+        where:
+        limit | short_reason
+        50    | ["A","A LONGER REASON"]
+        1     | ["A","A"]
     }
 }
