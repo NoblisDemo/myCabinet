@@ -1,6 +1,7 @@
 package org.noblis.myHealthAlerts
 
 class OpenFdaSearchService implements SearchService {
+    static int ENFORCEMENT_REPORT_SHORT_LENGTH = 300
 
     def openFdaApiService
 
@@ -61,8 +62,18 @@ class OpenFdaSearchService implements SearchService {
                     curReport[it] = "Unknown"
                 }
             }
+
+            //adds in a second version of the recall reason field that is shorter (for display purposes)
+            if (curReport.reason_for_recall.size() > ENFORCEMENT_REPORT_SHORT_LENGTH) {
+                curReport.short_reason = curReport.reason_for_recall[0..ENFORCEMENT_REPORT_SHORT_LENGTH-1]
+            }
+            else{
+                curReport.short_reason = curReport.reason_for_recall
+            }
+
             enforcementReports << curReport
         }
+
         //the date format on the website is listed as yyyymmdd but is actually yyyy-MM-dd or yyyyMMdd
         return enforcementReports.sort{a,b->
             try {
@@ -73,6 +84,8 @@ class OpenFdaSearchService implements SearchService {
             }
         }
     }
+
+
 
     //Gets the description and warnings info given a drug
     Map getLabelInfo(String drug){

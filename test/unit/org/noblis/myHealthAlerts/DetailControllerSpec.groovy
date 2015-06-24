@@ -52,21 +52,6 @@ class DetailControllerSpec extends Specification {
 
     }
 
-    void "test add short report info"(){
-        when:
-        controller.ENFORCEMENT_REPORT_SHORT_LENGTH = limit
-        controller.addShortReportInfo(default_enforcement_reports)
-
-        then:
-        default_enforcement_reports[0].short_reason == short_reason[0]
-        default_enforcement_reports[1].short_reason == short_reason[1]
-
-        where:
-        limit | short_reason
-        50    | ["A","A LONGER REASON"]
-        1     | ["A","A"]
-    }
-
     void "test add short description"(){
         when:
         controller.DESCRIPTION_LENGTH = limit
