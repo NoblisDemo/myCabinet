@@ -9,7 +9,7 @@ class DashboardController {
         def enforcementReports = openFdaSearchService.getEnforcementReports(springSecurityService.getCurrentUser().products*.productName)
 
         render view:"index", model: [
-                enforcementReports:enforcementReports,
+                enforcement_reports:enforcementReports,
                 products:springSecurityService.getCurrentUser().products.findAll{!it.endDate}]
     }
 }

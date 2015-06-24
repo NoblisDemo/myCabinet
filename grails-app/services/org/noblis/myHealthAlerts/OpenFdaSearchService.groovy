@@ -80,7 +80,7 @@ class OpenFdaSearchService implements SearchService {
             try {
                 new Date().parse("yyyy-MM-dd", b.report_date).compareTo(new Date().parse("yyyy-MM-dd", a.report_date))
             }catch(Exception e){
-                log.debug("Error parsing date for drug $drug, attemping alternate date format")
+                log.debug("Error parsing date for drug, attemping alternate date format")
                 new Date().parse("yyyyMMdd", b.report_date).compareTo(new Date().parse("yyyyMMdd", a.report_date))
             }
         }

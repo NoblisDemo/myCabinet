@@ -15,7 +15,7 @@ class DetailController {
         render view: "index", model: [pharm_class_epc: details.pharm_class_epc,manufacturer_name: details.manufacturer_name
                                       ,route: details.route,product_type:details.product_type,product_name: details.product_name,
                                       reaction_list:reactions,
-                                      //enforcement is a list of maps with fields : ["reason_for_recall", "status", "product_description", "report_date", "classification","short_reason"]
+                                      //enforcement is a list of maps with fields : ["reason_for_recall","product_name", "status", "product_description", "report_date", "classification","short_reason"]
                                       enforcement_reports:enforcementReports,
                                       description:labelInfo.description,
                                       warnings:labelInfo.warnings,

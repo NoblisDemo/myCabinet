@@ -184,7 +184,7 @@
 
 <g:set var="total" value="${5}"/>
   	<g:if test="${enforcement_reports.size() < total}">
-   		<g:set var="total" value="${enforcement_reports.size()}"/>
+   		<g:set var="total" value="${enforcement_reports.size()-1}"/>
   	</g:if>
 
 <g:each in="${0..total}" var="index" >

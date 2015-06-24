@@ -35,8 +35,8 @@ class DashboardControllerSpec extends Specification {
         model.products.size() == 2
         model.products*.productName.contains("product1")
         model.products*.productName.contains("product2")
-        model.enforcementReports.size() == 2
-        model.enforcementReports[0].reason_for_recall == "RECALL1"
-        model.enforcementReports[1].reason_for_recall == "RECALL2"
+        model.enforcement_reports.size() == 2
+        model.enforcement_reports[0].reason_for_recall == "RECALL1"
+        model.enforcement_reports[1].reason_for_recall == "RECALL2"
     }
 }
