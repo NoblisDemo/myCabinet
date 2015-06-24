@@ -55,18 +55,30 @@ class OpenFdaSearchService implements SearchService {
         def enforcementReports = []
         rawEnforcements.each { curRawReport ->
             def curReport = [:]
-            ["reason_for_recall", "status", "product_description", "report_date", "classification"].each {
+            ["reason_for_recall", "status", "product_description", "classification"].each {
                 if (curRawReport[it] ) {
                     curReport[it] = curRawReport[it]
                 } else {
                     curReport[it] = "Unknown"
                 }
             }
+            ["report_date"].each {
+                if (curRawReport[it] && curRawReport[it][0] ) {
+                    curReport[it] = curRawReport[it][0]
+                } else {
+                    curReport[it] = "Unknown"
+                }
+            }
             enforcementReports << curReport
         }
-        //the date format on the website is listed as yyyymmdd but is actually yyyy-MM-dd in the data
+        //the date format on the website is listed as yyyymmdd but is actually yyyy-MM-dd or yyyyMMdd
         return enforcementReports.sort{a,b->
-            new Date().parse("yyyy-MM-dd", b.report_date).compareTo(new Date().parse("yyyy-MM-dd", a.report_date))
+            try {
+                new Date().parse("yyyy-MM-dd", b.report_date).compareTo(new Date().parse("yyyy-MM-dd", a.report_date))
+            }catch(Exception e){
+                log.debug("Error parsing date for drug $drug, attemping alternate date format")
+                new Date().parse("yyyyMMdd", b.report_date).compareTo(new Date().parse("yyyyMMdd", a.report_date))
+            }
         }
     }
 
