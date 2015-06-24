@@ -48,6 +48,21 @@
 		        	<div class="row prod-info">
 				        <div class="col-xs-12 col-md-8">
 				        	<h3> PRODUCT INFORMATION </h3>
+
+				        	<div class='row first-row col-md-12'>
+				        		<span class='info'>DESCRIPTION:</span> 
+				        	</div>
+
+				        	<div class='row col-md-12'>
+				        		<span class="teaser">${description}</span>
+
+				        		<g:if test="${discription_more = null }">
+									<span class="complete hide"> ${description_more}</span>
+
+									<a href='#' class="more">more...</a>
+								</g:if>
+				        	</div>
+
 				        	<div class='row first-row'>
 				        		<div class='col-md-6'>
 				        			<span class='info'>PRODUCT TYPE:</span>   ${product_type}
@@ -93,7 +108,21 @@
 				        </div>
 				        <div class="col-xs-12 col-md-4 recall-div">
 				           <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
-				           <div class='row well recalls'> </div>
+				           <div class='row well recalls'> 
+
+				           	 	<g:set var="count" value="${0}"/>
+							 	 
+							 		<g:each in="${enforcement_reports}" var='reports'>
+							 			<g:each in="${reports.value}" var="report">
+
+							 				${report}
+
+							 			</g:each>
+
+					  				</g:each>
+
+
+				           </div>
 				        </div>
 				    </div>
 		        </div>
