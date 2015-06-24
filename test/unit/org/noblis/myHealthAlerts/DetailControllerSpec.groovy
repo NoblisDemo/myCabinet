@@ -28,9 +28,6 @@ class DetailControllerSpec extends Specification {
         ]
     }
 
-    def cleanup() {
-    }
-
     void "test index"() {
         when:
         controller.index("foo")

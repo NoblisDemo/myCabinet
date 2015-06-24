@@ -1,7 +1,5 @@
 package org.noblis.myHealthAlerts
 
-import org.noblis.myHealthAlerts.SearchService
-
 class OpenFdaSearchService implements SearchService {
 
     def openFdaApiService
