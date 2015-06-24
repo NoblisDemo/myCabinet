@@ -37,7 +37,7 @@
                 <tr>
                     <td><g:link controller="detail" action="index" params="[term:product.productName]">${product.productName}</g:link></td>
                     <td class='visible-md visible-lg visible-sm alignCenter'><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/></td>
-                    <td class='alignCenter'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/>/> </td>
+                    <td class='alignCenter'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/> </td>
                     <td class='visible-md visible-lg visible-sm alignCenter'><g:link controller="detail" action="index" params="[term:product.productName]" class='btn viewButton' >View</g:link> </td>
                 </tr>
             </g:each>
