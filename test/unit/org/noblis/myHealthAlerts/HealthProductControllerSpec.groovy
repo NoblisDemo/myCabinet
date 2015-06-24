@@ -1,6 +1,5 @@
 package org.noblis.myHealthAlerts
 
-import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import grails.test.mixin.domain.DomainClassUnitTestMixin
@@ -20,11 +19,6 @@ class HealthProductControllerSpec extends Specification {
         controller.springSecurityService = [
                 getCurrentUser: {User.get(1)}
         ]
-    }
-
-
-
-    def cleanup() {
     }
 
     void "test add a valid health product"() {

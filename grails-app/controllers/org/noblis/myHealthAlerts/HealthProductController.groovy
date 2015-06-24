@@ -17,7 +17,7 @@ class HealthProductController {
             //get current user and add to their list of products
             def user = springSecurityService.getCurrentUser()
             user.addToProducts(product)
-            user.save()
+            user.save(flush:true)
             //render a success
             render status:200
         }
