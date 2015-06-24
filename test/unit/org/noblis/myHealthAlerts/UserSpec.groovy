@@ -2,6 +2,7 @@ package org.noblis.myHealthAlerts
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification
+import org.noblis.myHealthAlerts.User
 
 @TestFor(User)
 class UserSpec extends Specification {
