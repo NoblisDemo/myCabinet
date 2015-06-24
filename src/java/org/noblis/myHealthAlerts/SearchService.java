@@ -11,4 +11,6 @@ public interface SearchService {
      * @return a map of auto complete search results
      */
     List<Map> autocomplete(String term);
+
+    List<Map> countReactionsByDrug(String term);
 }

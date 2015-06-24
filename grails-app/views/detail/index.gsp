@@ -10,6 +10,42 @@
 		</g:javascript>
 		<asset:stylesheet src="detail.css"/>
 		<title>Detailed View</title>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script>
+            google.load('visualization', '1', {packages: ['corechart', 'bar']});
+            google.setOnLoadCallback(drawChart)
+            function drawChart() {
+
+                var dataArray = [["Reaction", "Count"]]
+
+                $.ajax("${g.createLink(action: "topReportedSideEffects", params: [productName: params.productName])}", {
+                    success: function (data) {
+                        $(data).each(function (i, row) {
+                            dataArray.push(
+                                    [row.term, row.count]
+                            );
+                        });
+
+                        var tableData = google.visualization.arrayToDataTable(dataArray);
+
+                        var chart = new google.visualization.BarChart(
+                                document.getElementById('countReactionsChart'));
+
+                        chart.draw(tableData, {
+                            title: "Top Side Effects Reported",
+                            height: 350,
+                            width: 500,
+                            colors: ['#b81e30'],
+                            bars: 'horizontal',
+                            legend: { position: "none" },
+                            hAxis: {
+                                title: "Occurances"
+                            }
+                        });
+                    }
+                });
+            };
+		</script>
 	</head>
 	<body>
 	<div class="row">
@@ -128,7 +164,7 @@
 
 		        <div id="charts" class="tab-pane fade">
 		            <h3>Charts</h3>
-		            <p>Vestibulum nec erat eu nulla rhoncus fringilla ut non neque. Vivamus nibh urna, ornare id gravida ut, mollis a magna. Aliquam porttitor condimentum nisi, eu viverra ipsum porta ut. Nam hendrerit bibendum turpis, sed molestie mi fermentum id. Aenean volutpat velit sem. Sed consequat ante in rutrum convallis. Nunc facilisis leo at faucibus adipiscing.</p>
+					<div id="countReactionsChart"></div>
 		        </div>
 		    </div>
 		</div>

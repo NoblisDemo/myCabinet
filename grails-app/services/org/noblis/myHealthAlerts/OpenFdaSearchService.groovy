@@ -19,6 +19,10 @@ class OpenFdaSearchService implements SearchService {
         return results
     }
 
+    @Override
+    List<Map> countReactionsByDrug(String term) {
+        return openFdaApiService.countReactionsByDrug(term)
+    }
 
     Map getDrugDetails(String drug) {
         def results =  openFdaApiService.getDrugOpenFDADetails(drug)

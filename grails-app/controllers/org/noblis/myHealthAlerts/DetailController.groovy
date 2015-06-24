@@ -1,5 +1,7 @@
 package org.noblis.myHealthAlerts
 
+import grails.converters.JSON
+
 class DetailController {
     def openFdaSearchService
     static int ENFORCEMENT_REPORT_SHORT_LENGTH = 100
@@ -22,6 +24,10 @@ class DetailController {
                                       description:labelInfo.description,
                                       warnings:labelInfo.warnings,
                                       description_more:labelInfo.description_more,]
+    }
+
+    def topReportedSideEffects(String productName) {
+        render text: openFdaSearchService.countReactionsByDrug(productName) as JSON
     }
 
     //adds in a second version of the recall reason field that is shorter (for display purposes)
