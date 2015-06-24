@@ -39,19 +39,19 @@ class OpenFdaSearchServiceSpec extends Specification {
     static def enforcementReports =
             [
                     reportWithNormalInfo:[
-                            [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:"2015-01-01",classification:"c1"]
+                            [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:["2015-01-01"],classification:"c1"]
                     ],
-                    reportWithMissingInfo:[[report_date:"2015-01-01"]],
+                    reportWithMissingInfo:[[report_date:["2015-01-01"]]],
                     reportWithExtraInfo:[
-                            [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:"2015-01-01",classification:"c1",
+                            [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:["2015-01-01"],classification:"c1",
                              voluntary_mandated:"vm1",distribution_pattern:"dp1"]
                     ],
-                    multipleReportsUnsorted:[ [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:"2015-01-01",classification:"c1"],
-                                      [reason_for_recall:"r2",status:"s2",product_description:"pd2",report_date:"2015-01-02",classification:"c1"],
-                                      [reason_for_recall:"r3",status:"s3",product_description:"pd2",report_date:"2015-01-03",classification:"c1"]],
-                    multipleReportsSorted:[ [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:"2015-01-03",classification:"c1"],
-                                      [reason_for_recall:"r2",status:"s2",product_description:"pd2",report_date:"2015-01-02",classification:"c1"],
-                                      [reason_for_recall:"r3",status:"s3",product_description:"pd2",report_date:"2015-01-01",classification:"c1"]]
+                    multipleReportsUnsorted:[ [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:["2015-01-01"],classification:"c1"],
+                                      [reason_for_recall:"r2",status:"s2",product_description:"pd2",report_date:["2015-01-02"],classification:"c1"],
+                                      [reason_for_recall:"r3",status:"s3",product_description:"pd2",report_date:["2015-01-03"],classification:"c1"]],
+                    multipleReportsSorted:[ [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:["2015-01-03"],classification:"c1"],
+                                      [reason_for_recall:"r2",status:"s2",product_description:"pd2",report_date:["2015-01-02"],classification:"c1"],
+                                      [reason_for_recall:"r3",status:"s3",product_description:"pd2",report_date:["2015-01-01"],classification:"c1"]]
              ]
 
     def setup() {
