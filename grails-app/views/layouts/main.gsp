@@ -19,19 +19,65 @@
     	<g:layoutHead/>
 	</head>
 	<body>
-	<div class='navbar-fixed-top' >
-		<div class = 'row headerline' > </div>
-	</div>
-	<div class='spacer'></div>
-	<g:layoutBody/>
-	<div class='navbar-fixed-bottom'>
-		<div class='row footerlightblue'> </div>
-		<div class='row footerline'>
-			<p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
+		<div class='navbar-fixed-top' >
+			<div class = 'row headerline' >
+				<div class='pull-right login'>
+					<sec:ifLoggedIn>
+						Logged In as <sec:username /><br />
+						<g:link controller="logout">Logout</g:link>
+					</sec:ifLoggedIn>
+					<sec:ifNotLoggedIn>
+							<g:form controller='j_spring_security_check' name="loginForm" autocomplete='off'>
+								<g:textField name="j_username" class="userNameLogin " placeholder="Username" />
+								<g:passwordField name="j_password" class="passwordLogin " placeholder="Password" />
+								<input form="loginForm" name="login" class="btn login-button" type="submit" value="LOGIN"/><a href="#" data-toggle="modal" data-target="#createAccountModal" class='createAccount-link'> Create Account </a>
+							</g:form>
+					</sec:ifNotLoggedIn>
+				</div>
+			</div>
 		</div>
-        <div class="footer descriptionText" role="contentinfo">
-            Build Information: Build Number <g:meta name="build.number"/>, Gid Id <g:meta name="git.id"/>
-        </div>
-	</div>
+		<div class='spacer'></div>
+		<g:layoutBody/>
+		<div class='navbar-fixed-bottom'>
+			<div class='row footerlightblue'> </div>
+			<div class='row footerline'>
+				<p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
+			</div>
+	        <div class="footer descriptionText" role="contentinfo">
+	            Build Information: Build Number <g:meta name="build.number"/>, Gid Id <g:meta name="git.id"/>
+	        </div>
+		</div>
+
+		<div class="modal fade" id="createAccountModal" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div id="loginFormContainer" >
+						<div class="modal-header">
+							<span>
+								Create Account
+							</span>
+						</div>
+						<div class="modal-body">
+							<div id='regError'></div>
+							<div id='regSuccess'></div>
+							<g:form action='register' name='registerForm' controller='register' >
+								<g:if test='${emailSent}'>
+									<br/>
+									<g:message code='spring.security.ui.register.sent'/>
+								</g:if>
+								<g:else>
+									<br/>
+									<g:render template="/register/register" model="${[command: command]}" />
+								</g:else>
+								<a href="#" id='regFormSubmit' class="btn createAccount-button pull-right"> Create Account </a>
+							</g:form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
