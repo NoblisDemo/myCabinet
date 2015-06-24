@@ -35,7 +35,7 @@
 					</div>
 					<div>
 						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
-						<a href="#"> Create Account </a>
+						<a href="#" data-toggle="modal" data-target="#createAccountModal" > Create Account </a>
 					</div>
 				</div>
 				<div class='right-searchpane-sm col-sm-5 visible-sm'>
@@ -44,7 +44,7 @@
 					</div>
 					<div>
 						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
-						<a href="#"> Create Account </a>
+						<a href="#" data-toggle="modal" data-target="#createAccountModal" > Create Account </a>
 					</div>
 				</div>
 				<div class='right-searchpane-xs col-xs-12 visible-xs'>
@@ -53,7 +53,7 @@
 					</div>
 					<div>
 						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
-						<a href="#"> Create Account </a>
+						<a href="#" data-toggle="modal" data-target="#createAccountModal" > Create Account </a>
 					</div>
 				</div>
 			</div>
