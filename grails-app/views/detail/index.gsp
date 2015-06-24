@@ -2,6 +2,12 @@
 <html>
 	<head>
 		<meta name="layout" content="main"/>
+		<g:javascript>
+			function closeModal(){
+				$(productCloseButton).click();
+				return false;
+			}
+		</g:javascript>
 		<asset:stylesheet src="detail.css"/>
 		<title>Detailed View</title>
 	</head>
@@ -21,7 +27,12 @@
 
 	<div class='row'>
 		<div class='col-md-12'>
-			<h1 class='main-header'> ${product_name} </h1>
+			<h1 class='main-header'> ${product_name}
+				<!-- auth check goes here -->
+				<sec:ifLoggedIn>
+					<a href='#' class='show-adverse-events' alt='add health product' data-toggle="modal" data-target="#addProductModal"> Add</a>
+				</sec:ifLoggedIn>
+			</h1>
 		</div>
 	</div>
 
@@ -120,5 +131,18 @@
 	    </div>
 	</div>
 
+	<div id="addProductModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button id="productCloseButton" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">ALL SIDE EFFECTS</h4>
+				</div>
+				<div class="modal-body">
+					<g:render template="../healthProduct/addProduct" model="${[product_name:product_name]}"/>
+				</div>
+			</div>
+		</div>
+	</div>
 	</body>
 </html>
