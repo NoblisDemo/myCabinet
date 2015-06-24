@@ -49,31 +49,32 @@ class OpenFdaSearchService implements SearchService {
     }
 
     //gets the list of enforcement reports for a given drug,organized by date with most recent first
-    List getEnforcementReports(String drug){
-        def rawEnforcements = openFdaApiService.getEnforcementReports(drug)
+    List getEnforcementReports(List<String> drugs){
+        def rawEnforcements = openFdaApiService.getEnforcementReports(drugs)
         def enforcementReports = []
-        rawEnforcements.each { curRawReport ->
-            //parsing out the relevant data for the reports and putting them in a new map
-            def curReport = [:]
-            ["reason_for_recall", "status", "product_description", "classification","report_date"].each {
-                if (curRawReport[it] && curRawReport[it][0] ) {
-                    curReport[it] = curRawReport[it][0]
-                } else {
-                    curReport[it] = "Unknown"
+        //iterate through all enforcements from all drugs, adding drug info as a field to report
+        drugs.each { drug ->
+            rawEnforcements[drug].each { curRawReport ->
+                //parsing out the relevant data for the reports and putting them in a new map
+                def curReport = [:]
+                ["reason_for_recall", "status", "product_description", "classification", "report_date"].each {
+                    if (curRawReport[it] && curRawReport[it][0]) {
+                        curReport[it] = curRawReport[it][0]
+                    } else {
+                        curReport[it] = "Unknown"
+                    }
                 }
-            }
+                curReport.product_name=drug
+                //adds in a second version of the recall reason field that is shorter (for display purposes)
+                if (curReport.reason_for_recall.size() > ENFORCEMENT_REPORT_SHORT_LENGTH) {
+                    curReport.short_reason = curReport.reason_for_recall[0..ENFORCEMENT_REPORT_SHORT_LENGTH - 1]
+                } else {
+                    curReport.short_reason = curReport.reason_for_recall
+                }
 
-            //adds in a second version of the recall reason field that is shorter (for display purposes)
-            if (curReport.reason_for_recall.size() > ENFORCEMENT_REPORT_SHORT_LENGTH) {
-                curReport.short_reason = curReport.reason_for_recall[0..ENFORCEMENT_REPORT_SHORT_LENGTH-1]
+                enforcementReports << curReport
             }
-            else{
-                curReport.short_reason = curReport.reason_for_recall
-            }
-
-            enforcementReports << curReport
         }
-
         //the date format on the website is listed as yyyymmdd but is actually yyyy-MM-dd or yyyyMMdd
         return enforcementReports.sort{a,b->
             try {

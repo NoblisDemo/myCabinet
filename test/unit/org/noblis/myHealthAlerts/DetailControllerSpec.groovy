@@ -12,11 +12,10 @@ class DetailControllerSpec extends Specification {
     static def default_drug_details = [pharm_class_epc: "p1",manufacturer_name: "m1"
                                 ,route: "r1",product_type:"pt1",product_name: "n1"]
     static def default_reaction_list = ["r1","r2","r3","r4"]
-    static def default_enforcement_reports
+    static def default_enforcement_reports =[[reason_for_recall:"A"],[reason_for_recall:"A LONGER REASON"]]
     static def default_label_info
 
     def setup() {
-        default_enforcement_reports = [[reason_for_recall:"A"],[reason_for_recall:"A LONGER REASON"]]
         default_label_info = [warnings:"w1",description:"A LONGER DESCRIPTION"]
         controller.openFdaSearchService = [
             getDrugDetails: { def drug ->

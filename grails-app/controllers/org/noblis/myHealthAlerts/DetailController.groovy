@@ -7,7 +7,7 @@ class DetailController {
     def index(String productName) {
         def details = openFdaSearchService.getDrugDetails(productName)
         def reactions = openFdaSearchService.getReactionList(productName)
-        def enforcementReports = openFdaSearchService.getEnforcementReports(productName)
+        def enforcementReports = openFdaSearchService.getEnforcementReports([productName])
         def labelInfo = openFdaSearchService.getLabelInfo(productName)
 
         splitDescriptionInfo(labelInfo)

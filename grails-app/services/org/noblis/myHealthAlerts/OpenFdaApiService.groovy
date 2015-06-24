@@ -75,16 +75,19 @@ class OpenFdaApiService {
      }
 
     //gets enforcement reports for a given drug
-    def getEnforcementReports(String drug){
-        def enforcementReports = []
+    def getEnforcementReports(List<String> drugs){
+        def enforcementReports = [:]
         def http = new HTTPBuilder('https://api.fda.gov/drug/enforcement.json')
 
         drugNameSearchDomains.each {
-            try {
-                def json = http.get(query: [search: "${it}:\"$drug\"",limit:"25"])
-                enforcementReports << json.results
-            }catch(HttpResponseException e){
-                log.debug("No Response when querying ${it} of enforcement database for drug ${drug} enforcement report")
+            drugs.each {drug->
+                enforcementReports[drug] = []
+                try {
+                    def json = http.get(query: [search: "${it}:\"$drug\"", limit: "25"])
+                    enforcementReports[drug] << json.results
+                } catch (HttpResponseException e) {
+                    log.debug("No Response when querying ${it} of enforcement database for drug ${drug} enforcement report")
+                }
             }
         }
         return enforcementReports
