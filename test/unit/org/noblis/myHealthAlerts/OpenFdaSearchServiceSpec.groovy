@@ -9,6 +9,7 @@ import spock.lang.Specification
 @TestFor(OpenFdaSearchService)
 class OpenFdaSearchServiceSpec extends Specification {
 
+    //mock data representing info that would return from a relevant drug info query to the events database
     static def drugInfo =
 [
         full_drug:[
@@ -29,6 +30,7 @@ class OpenFdaSearchServiceSpec extends Specification {
         ]
 ]
 
+    //mock data representing info that would return from a relevant reaction count query to the events database
     static def reactionInfo =
 [
        alreadyOrderedCount:[[term:"r1",count:1000],[term:"r2",count:500],[term:"r3",count:200]],
@@ -36,23 +38,42 @@ class OpenFdaSearchServiceSpec extends Specification {
         oneItem:[[term:"r1",count:1000]]
 ]
 
+    //mock data representing info that would return from a relevant query to the enforcement reports database
     static def enforcementReports =
             [
                     reportWithNormalInfo:[
-                            [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:["2015-01-01"],classification:"c1"]
+                            [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-01"],classification:["c1"]]
                     ],
                     reportWithMissingInfo:[[report_date:["2015-01-01"]]],
                     reportWithExtraInfo:[
-                            [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:["2015-01-01"],classification:"c1",
-                             voluntary_mandated:"vm1",distribution_pattern:"dp1"]
+                            [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-01"],classification:["c1"],
+                             voluntary_mandated:["vm1"],distribution_pattern:["dp1"]]
                     ],
-                    multipleReportsUnsorted:[ [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:["2015-01-01"],classification:"c1"],
-                                      [reason_for_recall:"r2",status:"s2",product_description:"pd2",report_date:["2015-01-02"],classification:"c1"],
-                                      [reason_for_recall:"r3",status:"s3",product_description:"pd2",report_date:["2015-01-03"],classification:"c1"]],
-                    multipleReportsSorted:[ [reason_for_recall:"r1",status:"s1",product_description:"pd1",report_date:["2015-01-03"],classification:"c1"],
-                                      [reason_for_recall:"r2",status:"s2",product_description:"pd2",report_date:["2015-01-02"],classification:"c1"],
-                                      [reason_for_recall:"r3",status:"s3",product_description:"pd2",report_date:["2015-01-01"],classification:"c1"]]
+                    multipleReportsUnsorted:[ [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-01"],classification:["c1"]],
+                                      [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-02"],classification:["c1"]],
+                                      [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-03"],classification:["c1"]]],
+                    multipleReportsSorted:[ [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-03"],classification:["c1"]],
+                                      [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-02"],classification:["c1"]],
+                                      [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-01"],classification:["c1"]]]
              ]
+
+    //mock data representing info that would return from a relevant drug info query to the labels database
+    static def labelInfo =
+            [
+                    full_drug:[
+                            description:[[["d1"]]],
+                            warnings:[[["w1"]]],
+                    ],
+                    drug_with_extra_info:[
+                            description:[[["d1"]]],
+                            warnings:[[["w1","w2"]]],
+                            dosage_and_administration:[[["da1"]]],
+                            when_using:[[["p1"]]]
+                    ],
+                    missing_info_drug:[
+                            description:[],
+                    ]
+            ]
 
     def setup() {
         service.openFdaApiService = [
@@ -72,6 +93,9 @@ class OpenFdaSearchServiceSpec extends Specification {
                 },
                 getEnforcementReports:{String drug ->
                     enforcementReports[drug]
+                },
+                getLabelInfo:{String drug ->
+                    labelInfo[drug]
                 }
 
         ]
@@ -158,4 +182,18 @@ class OpenFdaSearchServiceSpec extends Specification {
 
         }
 
+    void "test get warnings and description"(){
+        when:
+        def labelInfo = service.getLabelInfo(drug)
+
+        then:
+        labelInfo.description == description
+        labelInfo.warnings == warnings
+
+        where:
+        drug                    |   description |   warnings
+        "full_drug"             |   "d1"        |   "w1"
+        "drug_with_extra_info"  |   "d1"        |   "w1"
+        "missing_info_drug"|   "Unknown"   |   "Unknown"
+    }
 }

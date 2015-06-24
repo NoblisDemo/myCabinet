@@ -6,10 +6,10 @@ import org.apache.http.client.HttpResponseException
 
 class OpenFdaApiService {
 
-    def drugNameSearchDomains = ["patient.drug.openfda.generic_name",
+    def eventDrugNameSearchDomains = ["patient.drug.openfda.generic_name",
                                  "patient.drug.openfda.substance_name",
                                  "patient.drug.openfda.brand_name"]
-    def enforcementDrugNameSeachDomains = ["openfda.generic_name",
+    def drugNameSearchDomains = ["openfda.generic_name",
                                           "openfda.substance_name",
                                           "openfda.brand_name"]
 
@@ -20,7 +20,7 @@ class OpenFdaApiService {
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
 
         Set drugs = []
-        drugNameSearchDomains.each {
+        eventDrugNameSearchDomains.each {
 
             def json = http.get(query : [count: "${it}.exact", limit: 1000])
 
@@ -41,7 +41,7 @@ class OpenFdaApiService {
 
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
         def drugs = []
-        drugNameSearchDomains.each {
+        eventDrugNameSearchDomains.each {
             try {
                 def json = http.get(query: [search: "${it}:\"$drug\""])
                 drugs << json.results.patient
@@ -63,12 +63,12 @@ class OpenFdaApiService {
         def reactionCounts = []
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
 
-        drugNameSearchDomains.each {
+        eventDrugNameSearchDomains.each {
             try {
                 def json = http.get(query: [search: "${it}:\"$drug\"",count:"patient.reaction.reactionmeddrapt.exact"])
                 reactionCounts.addAll(json.results)
             }catch(HttpResponseException e){
-                log.debug("No Response when querying ${it} for drug ${drug} reaction count")
+                log.debug("No Response when querying ${it} of event database for drug ${drug} reaction count")
             }
         }
         return reactionCounts
@@ -79,14 +79,30 @@ class OpenFdaApiService {
         def enforcementReports = []
         def http = new HTTPBuilder('https://api.fda.gov/drug/enforcement.json')
 
-        enforcementDrugNameSeachDomains.each {
+        drugNameSearchDomains.each {
             try {
                 def json = http.get(query: [search: "${it}:\"$drug\"",limit:"25"])
                 enforcementReports << json.results
             }catch(HttpResponseException e){
-                log.debug("No Response when querying ${it} for drug ${drug} enforcement report")
+                log.debug("No Response when querying ${it} of enforcement database for drug ${drug} enforcement report")
             }
         }
         return enforcementReports
+    }
+
+    //query labels database for drug description and warnings
+    def getLabelInfo(String drug){
+        def http = new HTTPBuilder('https://api.fda.gov/drug/label.json')
+        def results = []
+        drugNameSearchDomains.each {
+            try {
+                def json = http.get(query: [search: "${it}:\"$drug\""])
+                results << json.results
+            }catch(HttpResponseException e){
+                log.debug("No Response when querying ${it} of label database for drug ${drug}")
+            }
+        }
+
+        return results
     }
 }
