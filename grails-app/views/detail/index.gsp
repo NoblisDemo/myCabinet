@@ -102,7 +102,7 @@
 		            		<h3>LABEL WARNINGS</h3>
 
 		            		<div class='prod-info'>
-		            			<span class='info'>ADDITIONAL WARNINGS: </span> warning placeholder
+		            			<span class='info'>ADDITIONAL WARNINGS: </span> ${warnings}
 		            		</div>
 
 				        </div>
