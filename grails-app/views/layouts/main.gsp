@@ -28,8 +28,8 @@
 					</sec:ifLoggedIn>
 					<sec:ifNotLoggedIn>
 							<g:form controller='j_spring_security_check' name="loginForm" autocomplete='off'>
-								<g:textField name="j_username" class="userNameLogin " placeholder="Email" />
-								<g:passwordField name="j_password" class="passwordLogin " placeholder="Password" />
+								<label class='login-labels' for='j_username'>Email: </label><g:textField name="j_username" class="userNameLogin " />
+								<label class='login-labels' for='j_password'>Password: </label><g:passwordField name="j_password" class="passwordLogin " />
 								<g:if test="${redirectUrl}">
 									<g:hiddenField name="spring-security-redirect" value="${redirectUrl}"/>
 								</g:if>

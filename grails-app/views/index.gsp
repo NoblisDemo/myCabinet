@@ -22,7 +22,7 @@
 		<div class='row searchBar'>
 			<div class='col-md-2 col-sm-1 col-xs-0'></div>
 			<div class='col-md-5 col-sm-6 col-xs-12'>
-				<span class='headerText'> PRODUCT SEARCH </span>
+				<span class='headerText'> PRODUCT SEARCH </span><span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Search works for Medicine names only. Choose from the auto fill dropdown options for guaranteed results." aria-hidden="true"></span>
 				<div class='input-group'>
 					<g:render template="searchBox" class="form-control searchInput" placeholder="Drug Name/Device Search"/>
 					<span class="input-group-btn">
