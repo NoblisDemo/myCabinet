@@ -32,15 +32,15 @@
 							document.getElementById('countReactionsChart'));
 
 					chart.draw(tableData, {
-						title: "Top Side Effects Reported",
-						height: 350,
-						width: 500,
+						title: "",
+						height: 450,
+						width: 650,
+						chartArea:{ left:'25%', top:10,width:"65%",height:"80%"},
 						colors: ['#b81e30'],
 						bars: 'horizontal',
-						legend: { position: "none" },
-						hAxis: {
-							title: "Occurances"
-						}
+						legend: 'none',
+						vAxis:{ textStyle:{color: '#154064',fontSize: '12', paddingRight: '100',marginRight: '100'}},
+						 hAxis: { textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'} }
 					});
 				}
 			});
@@ -165,8 +165,17 @@
 
 		<!--chart pane in the second tab -->
 		<div id="charts" class="tab-pane fade">
-			<h3>Charts</h3>
-			<div id="countReactionsChart"></div>
+			<div class='row'>
+				<div class='col-md-6 col-xs-12'>
+						<h3>Top Side Effects Reported</h3>
+						<div id="countReactionsChart"></div>
+				</div>
+				<div class='col-md-6 col-xs-12'>
+						<h3>Second Chart Title</h3>
+						
+				
+				</div>
+			</div>
 		</div>
 
 	</div>
