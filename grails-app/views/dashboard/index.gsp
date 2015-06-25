@@ -4,6 +4,26 @@
     <meta name="layout" content="main"/>
     <title>Dashboard</title>
     <asset:stylesheet src="dashboard.css"/>
+    <g:javascript>
+        function setUpEditModal(id){
+            $("#edit-product").load("/myHealthAlerts/healthProduct/edit/"+id);
+        };
+        function closeModalAndUpdate(callback){
+            $(productCloseButton).click();
+            updateProductTable()
+            updatePastProductTable()
+            return false;
+        };
+        function updateProductTable(){
+            $("#product-table").empty()
+            $("#product-table").load("/myHealthAlerts/dashboard/refreshProducts")
+        };
+
+        function updatePastProductTable(){
+            $("#past-product-table").empty()
+            $("#past-product-table").load("/myHealthAlerts/dashboard/refreshPastProducts")
+        };
+    </g:javascript>
 </head>
 <body>
 <div class="row">
@@ -22,52 +42,14 @@
 </div>
 <div class='row'>
     <div class='tableTitle col-xs-12 col-sm-12 col-md-12 col-lg-12'>MY CURRENT PRODUCTS</div>
-    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-        <table class="table table-bordered table-hover table-condensed table-striped">
-            <thead>
-            <tr>
-                <th>Product Name</th>
-                <th class='visible-md visible-lg visible-sm alignCenter'>Date Started</th>
-                <th class='alignCenter' >Email Notification</th>
-                <th class='visible-md visible-lg visible-sm alignCenter'>Product Details</th>
-            </tr>
-            </thead>
-            <tbody class='table-bordered table-hover table-condensed table-striped'>
-            <g:each in="${products}" var="product">
-                <tr>
-                    <td><g:link controller="detail" action="index" params="[productName:product.productName]">${product.productName}</g:link></td>
-                    <td class='visible-md visible-lg visible-sm alignCenter'><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/></td>
-                    <td class='alignCenter'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/> </td>
-                    <td class='visible-md visible-lg visible-sm alignCenter'><g:link controller="detail" action="index" params="[productName:product.productName]" class='btn viewButton' >View</g:link> </td>
-                </tr>
-            </g:each>
-            </tbody>
-        </table>
+    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id="product-table">
+        <g:render template="productTable"/>
     </div>
 </div>
 <div class='row'>
     <div class='tableTitle col-xs-12 col-sm-12 col-md-12 col-lg-12'>MY PAST PRODUCTS</div>
-    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-        <table class="table table-bordered table-hover table-condensed table-striped">
-            <thead>
-            <tr>
-                <th>Product Name</th>
-                <th class='visible-md visible-lg visible-sm alignCenter'>Dates Used</th>
-                <th class='alignCenter' >Email Notification</th>
-                <th class='visible-md visible-lg visible-sm alignCenter'>Product Details</th>
-            </tr>
-            </thead>
-            <tbody class='table-bordered table-hover table-condensed table-striped'>
-            <g:each in="${pastProducts}" var="product">
-                <tr>
-                    <td><g:link controller="detail" action="index" params="[productName:product.productName]">${product.productName}</g:link></td>
-                    <td class='visible-md visible-lg visible-sm alignCenter'><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/> - <g:formatDate format="MM-dd-yyyy" date="${product.endDate}"/></td>
-                    <td class='alignCenter'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/> </td>
-                    <td class='visible-md visible-lg visible-sm alignCenter'><g:link controller="detail" action="index" params="[productName:product.productName]" class='btn viewButton' >View</g:link> </td>
-                </tr>
-            </g:each>
-            </tbody>
-        </table>
+    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id="past-product-table">
+        <g:render template="pastProductTable"/>
     </div>
 </div>
 <div class="row">
@@ -121,4 +103,17 @@
 
     </g:if>
 </g:each>
+
+<!--Modal to edit a product -->
+<div id="editProductModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="productCloseButton" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">EDIT PRODUCT</h4>
+            </div>
+            <div id="edit-product"/>
+        </div>
+    </div>
+</div>
 </body>
