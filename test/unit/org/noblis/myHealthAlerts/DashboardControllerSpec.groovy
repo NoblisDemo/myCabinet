@@ -19,6 +19,11 @@ class DashboardControllerSpec extends Specification {
         controller.springSecurityService = [
                 getCurrentUser: {User.get(1)}
         ]
+        controller.openFdaSearchService = [
+                getEnforcementReports: { def drug ->
+                    [[reason_for_recall:"RECALL1"],[reason_for_recall:"RECALL2"]]
+                },
+        ]
     }
 
 
@@ -30,5 +35,8 @@ class DashboardControllerSpec extends Specification {
         model.products.size() == 2
         model.products*.productName.contains("product1")
         model.products*.productName.contains("product2")
+        model.enforcement_reports.size() == 2
+        model.enforcement_reports[0].reason_for_recall == "RECALL1"
+        model.enforcement_reports[1].reason_for_recall == "RECALL2"
     }
 }

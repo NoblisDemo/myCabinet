@@ -1,3 +1,11 @@
+.gradient (@origin: left, @start: #ffffff, @stop: #000000) {
+    background-color: @start;
+    background-image: -webkit-linear-gradient(@origin, @start, @stop);
+    background-image: -moz-linear-gradient(@origin, @start, @stop);
+    background-image: -o-linear-gradient(@origin, @start, @stop);
+    background-image: -ms-linear-gradient(@origin, @start, @stop);
+    background-image: linear-gradient(@origin, @start, @stop);
+}
 
 /*Logo and header*/
 .add-product{
@@ -23,6 +31,16 @@
     }
 
 /*recent recall side bar */
+.recalls{
+	border-radius: 0;
+	border: 1px solid lightgrey;
+	height:auto;
+    max-height:150%;
+    overflow:auto;
+    width: 400px;
+    padding: 0px;
+}
+
 .enforment-reports{
 	margin: 20px;
 	height: 60vh;
@@ -31,16 +49,30 @@
 .recall-div{
 	margin-top: 20px;
 	width:400px;
+	max-height: 500px;
 }
 
 .recall-head{
-		color: white;
-  		text-align: center;
-  		width: 400px;
-		height: 30px;
-		background-color: #154064;
-		padding-top: 8px;
-	}
+	color: white;
+	text-align: center;
+	width: 400px;
+	height: 30px;
+	.gradient(top, #154064, #002143);
+	padding-top: 8px;
+	padding-bottom: 25px;
+}
+
+.reason:nth-child(odd) {
+	background-color: #ffffff;
+}
+
+.recalls:nth-child(even){
+	background-color: lightgrey;
+}
+
+.reason{
+	padding: 10px;
+}
 
 /*product info*/
 .prod-info{
@@ -85,13 +117,6 @@ span.bullet{
   	color: #b81e30;
 }
 
-.recalls{
-	border-radius: 0;
-	height:auto;
-    max-height:150%;
-    overflow:auto;
-}
-
 
 /*show and hide in description*/
 .hide{
@@ -99,14 +124,28 @@ span.bullet{
 }
 
 .more{
-    background:lightblue;
-    color:navy;
     font-size:13px;
     padding:3px;
     cursor:pointer;
 }
 
+/*add product modal*/
+.form-btns{
+	float:right;
+}
 
+.dashboard-link{
+  float: right;
+  font-size: 11px;
+}
+
+/*Warnings Section*/
+.warnings
+	{
+	overflow-y: auto;
+	height: 60px;
+	margin-bottom: 20px;
+	}
 
 /*Nav toggle*/
 .nav-tabs {

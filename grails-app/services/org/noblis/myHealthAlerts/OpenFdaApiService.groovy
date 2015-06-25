@@ -3,6 +3,7 @@ package org.noblis.myHealthAlerts
 import grails.plugin.cache.Cacheable
 import groovyx.net.http.HTTPBuilder
 import org.apache.http.client.HttpResponseException
+import groovyx.net.http.Method
 
 class OpenFdaApiService {
 
@@ -30,8 +31,6 @@ class OpenFdaApiService {
         results.addAll drugs.collect {
             [term: it, category: "Drug"]
         }
-
-//        TODO: add devices
 
         return results
     }
@@ -75,19 +74,40 @@ class OpenFdaApiService {
      }
 
     //gets enforcement reports for a given drug
-    def getEnforcementReports(String drug){
-        def enforcementReports = []
+    def getEnforcementReports(List<String> drugs){
+        def enforcementReports = [:]
         def http = new HTTPBuilder('https://api.fda.gov/drug/enforcement.json')
 
         drugNameSearchDomains.each {
-            try {
-                def json = http.get(query: [search: "${it}:\"$drug\"",limit:"25"])
-                enforcementReports << json.results
-            }catch(HttpResponseException e){
-                log.debug("No Response when querying ${it} of enforcement database for drug ${drug} enforcement report")
+            drugs.each {drug->
+                enforcementReports[drug] = []
+                try {
+                    def json = http.get(query: [search: "${it}:\"$drug\"", limit: "25"])
+                    enforcementReports[drug] << json.results
+                } catch (HttpResponseException e) {
+                    log.debug("No Response when querying ${it} of enforcement database for drug ${drug} enforcement report")
+                }
             }
         }
         return enforcementReports
+    }
+
+    def countReactionsByDrug(String term) {
+        def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
+
+        def searchTerm = drugNameSearchDomains.collect {
+            "$it:$term"
+        }.join(" ")
+
+        def query = [search: searchTerm, count: "patient.reaction.reactionmeddrapt.exact", limit: 10]
+
+        def json = http.request(Method.GET) {
+            uri.query = query
+            response.failure = { rest ->
+                log.error "Error executing request with query $query"
+            }
+        }
+        return json?.results ?: []
     }
 
     //query labels database for drug description and warnings

@@ -8,7 +8,6 @@ import spock.lang.Specification
  */
 @TestFor(OpenFdaSearchService)
 class OpenFdaSearchServiceSpec extends Specification {
-
     //mock data representing info that would return from a relevant drug info query to the events database
     static def drugInfo =
 [
@@ -50,11 +49,11 @@ class OpenFdaSearchServiceSpec extends Specification {
                              voluntary_mandated:["vm1"],distribution_pattern:["dp1"]]
                     ],
                     multipleReportsUnsorted:[ [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-01"],classification:["c1"]],
-                                      [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-02"],classification:["c1"]],
-                                      [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-03"],classification:["c1"]]],
-                    multipleReportsSorted:[ [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-03"],classification:["c1"]],
-                                      [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-02"],classification:["c1"]],
-                                      [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-01"],classification:["c1"]]]
+                                      [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-03"],classification:["c1"]],
+                                      [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-05"],classification:["c1"]]],
+                    multipleReportsSorted:[ [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-6"],classification:["c1"]],
+                                      [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-04"],classification:["c1"]],
+                                      [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-02"],classification:["c1"]]]
              ]
 
     //mock data representing info that would return from a relevant drug info query to the labels database
@@ -76,6 +75,7 @@ class OpenFdaSearchServiceSpec extends Specification {
             ]
 
     def setup() {
+        enforcementReports.info_with_short_reason = [[reason_for_recall:["A"],report_date:["2015-01-02"]],[reason_for_recall:["A LONGER REASON"],report_date:["2015-01-01"]]]
         service.openFdaApiService = [
                 getAllAutocompleteValues: { ->
                     return [
@@ -91,8 +91,8 @@ class OpenFdaSearchServiceSpec extends Specification {
                 getReactionList:{String drug ->
                     reactionInfo[drug]
                 },
-                getEnforcementReports:{String drug ->
-                    enforcementReports[drug]
+                getEnforcementReports:{List<String> drugs ->
+                    drugs.collectEntries{[(it):enforcementReports[it]]}
                 },
                 getLabelInfo:{String drug ->
                     labelInfo[drug]
@@ -152,7 +152,7 @@ class OpenFdaSearchServiceSpec extends Specification {
 
     void "test get enforcement report data"(){
         when:
-        def enforcementReport = service.getEnforcementReports(drug)[0]
+        def enforcementReport = service.getEnforcementReports([drug])[0]
         
         then:
         enforcementReport.reason_for_recall==reason_for_recall
@@ -160,26 +160,29 @@ class OpenFdaSearchServiceSpec extends Specification {
         enforcementReport.product_description==product_description
         enforcementReport.report_date==report_date
         enforcementReport.classification==classification
+        enforcementReport.product_name == product_name
 
         where:
-        drug                   |   reason_for_recall   |   status  |   product_description |   report_date |   classification
-        "reportWithNormalInfo" |   "r1"                |   "s1"    |   "pd1"               |   "2015-01-01"|   "c1"
-        "reportWithExtraInfo"  |   "r1"                |   "s1"    |   "pd1"               |   "2015-01-01"|   "c1"
-        "reportWithMissingInfo"|   "Unknown"           |   "Unknown"|   "Unknown"          |   "2015-01-01"|   "Unknown"
+        drug                   |   reason_for_recall   |   status  |   product_description |   report_date |   classification   |   product_name
+        "reportWithNormalInfo" |   "r1"                |   "s1"    |   "pd1"               |   "2015-01-01"|   "c1"             |   "reportWithNormalInfo"
+        "reportWithExtraInfo"  |   "r1"                |   "s1"    |   "pd1"               |   "2015-01-01"|   "c1"             |   "reportWithExtraInfo"
+        "reportWithMissingInfo"|   "Unknown"           |   "Unknown"|   "Unknown"          |   "2015-01-01"|   "Unknown"        |   "reportWithMissingInfo"
     }
 
     void "test enforcement report sorting"(){
         when:
-        def enforcementReports = service.getEnforcementReports(drug)
+        def enforcementReports = service.getEnforcementReports(drugs)
 
         then:
-        enforcementReports[0].report_date=="2015-01-03"
-        enforcementReports[1].report_date=="2015-01-02"
-        enforcementReports[2].report_date=="2015-01-01"
+        dates.eachWithIndex{it,index->
+            enforcementReports[index].report_date == it
+        }
 
         where:
-        drug << [ "multipleReportsSorted","multipleReportsUnsorted"]
-
+        drugs                                               |   dates
+        ["multipleReportsSorted"]                           |   ["2015-01-03","2015-01-02","2015-01-01"]
+        ["multipleReportsUnsorted"]                         |   ["2015-01-03","2015-01-02","2015-01-01"]
+        ["multipleReportsSorted","multipleReportsUnsorted"] |   ["2015-01-06","2015-01-05","2015-01-04","2015-01-03","2015-01-02","2015-01-01"]
         }
 
     void "test get warnings and description"(){
@@ -195,5 +198,20 @@ class OpenFdaSearchServiceSpec extends Specification {
         "full_drug"             |   "d1"        |   "w1"
         "drug_with_extra_info"  |   "d1"        |   "w1"
         "missing_info_drug"|   "Unknown"   |   "Unknown"
+    }
+
+    void "test add short report info"(){
+        when:
+        service.ENFORCEMENT_REPORT_SHORT_LENGTH = limit
+        def reports = service.getEnforcementReports(["info_with_short_reason"])
+
+        then:
+        reports[0].short_reason == short_reason[0]
+        reports[1].short_reason == short_reason[1]
+
+        where:
+        limit | short_reason
+        50    | ["A","A LONGER REASON"]
+        1     | ["A","A"]
     }
 }
