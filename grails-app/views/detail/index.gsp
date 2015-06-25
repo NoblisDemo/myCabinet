@@ -31,18 +31,14 @@
 
 					chart.draw(tableData, {
 						title: "",
-						height: 450,
-						width: 650,
-						chartArea:{ left:'25%', top:10,width:"65%",height:"80%"},
+						height: 500,
+						width: 600,
+						chartArea:{ left:'25%', top:10,width:"50%",height:"50%"},
 						colors: ['#b81e30'],
 						bars: 'horizontal',
-						legend: { position: "none" },
-						hAxis: {
-							title: "Occurances"
-						}
 						legend: 'none',
 						vAxis:{ textStyle:{color: '#154064',fontSize: '12', paddingRight: '100',marginRight: '100'}},
-						 hAxis: { textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'} }
+						 hAxis: { title:'Number of Side Effects', textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'} }
 					});
 				}
 			});
@@ -76,13 +72,19 @@
 						title: "Adverse Events Over Time",
 						hAxis: {
 							title: "Month"
+							, textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'}
 						},
 						vAxis: {
 							title: "Number of Adverse Events"
+							,textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'}
 						},
 						legend: {
 							position: "none"
-						}
+						},
+						colors: ['#154064'],
+						height: 500,
+						width: 600,
+						chartArea:{ left:'25%', top:10, width:"60%",height:"60%"},
 					});
 				}
 			});
@@ -212,9 +214,16 @@
 
 		<!--chart pane in the second tab -->
 		<div id="charts" class="tab-pane fade">
-			<h3>Charts</h3>
-			<div id="countReactionsChart"></div>
-			<div id="countReactionsOverTimeChart"></div>
+			<div class='row'>
+				<div class='col-md-6'>
+					<h3>ADVERSE EVENTS OVER TIME</h3>
+					<div id="countReactionsOverTimeChart"></div>
+				</div>
+				<div class='col-md-6'>
+					<h3>TOP SIDE EFFECTS REPORTED</h3>
+					<div id="countReactionsChart"></div>
+				</div>
+			</div>
 		</div>
 
 	</div>
