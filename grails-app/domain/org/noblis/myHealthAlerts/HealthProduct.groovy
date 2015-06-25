@@ -11,7 +11,7 @@ class HealthProduct {
     Boolean emailNotification = true
 
     static constraints = {
-        productName blank:false
+        productName blank:false, unique: true
         startDate nullable:true
         endDate nullable:true
     }
