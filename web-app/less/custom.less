@@ -59,6 +59,7 @@ body{
         .gradient(left, #c4dcf4, #ffffff);
         padding-top:3px;
         padding-bottom:3px;
+        padding-left:3px;
         width: 50%;
         word-spacing: -10px;
     }
@@ -66,6 +67,10 @@ body{
     h4{
         word-spacing:-10px;
     }
+}
+
+.nopadding{
+    margin-left:-15px;
 }
 
 /*Header and footer*/
@@ -100,7 +105,6 @@ div.footerline {
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
     color: white;
-    background-color: #154064;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     cursor: default;
@@ -169,6 +173,13 @@ div.footerlightblue{
     font-size: 12px;
     font-weight: bold;
     }
+input:focus,
+select:focus,
+textarea:focus,
+button:focus 
+    {
+    outline: none;
+    }
 
 /*Login In Top Bar*/
 .login
@@ -176,10 +187,15 @@ div.footerlightblue{
     display: inline;
     padding-right: 25px;
     padding-left: 25px;
+    margin-right: 4.5%;
+    }
+.login-labels
+    {
+    color: #a1a1a1;
     }
 .login-button
     {
-    padding: 3px 8px;
+    padding: 2px 8px;
     font-style: Nexa Bold;
     color: white;
     background-color: #818285;
@@ -193,6 +209,5 @@ div.footerlightblue{
 .createAccount-link
     {
     font-style: Nexa Bold;
-    color: #a1a1a1;
     margin-left:10px;
     }

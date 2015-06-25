@@ -9,7 +9,12 @@
 		<div class='span12 navbar'>
 			<div class='navbar-inner'>
 				<div class='pull-left'>
-					<div id=""role="banner"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert" class='logo' /></div>
+				    <sec:ifLoggedIn>
+				        <div class="col-xs-12 col-md-8"> <g:link resource="dashboard"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </g:link> </div>
+				    </sec:ifLoggedIn>
+				    <sec:ifNotLoggedIn>
+				        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/', absolute: true)}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
+				    </sec:ifNotLoggedIn>
 				</div>
 			</div>
 		</div>
@@ -17,7 +22,7 @@
 		<div class='row searchBar'>
 			<div class='col-md-2 col-sm-1 col-xs-0'></div>
 			<div class='col-md-5 col-sm-6 col-xs-12'>
-				<span class='headerText'> PRODUCT SEARCH </span>
+				<span class='headerText'> PRODUCT SEARCH </span><span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Search works for Medicine names only. Choose from the auto fill dropdown options for guaranteed results." aria-hidden="true"></span>
 				<div class='input-group'>
 					<g:render template="searchBox" class="form-control searchInput" placeholder="Drug Name/Device Search"/>
 					<span class="input-group-btn">
