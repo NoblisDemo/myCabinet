@@ -59,6 +59,14 @@ class User implements Serializable {
 	static constraints = {
 		username blank: false, unique: true, email: true
 		password blank: false
+		products validator: { products, obj ->
+			Set names = new HashSet()
+			for (HealthProduct curProduct in products) {
+				if (!names.add(curProduct.productName)) {
+					return false
+				}
+			}
+		}
 	}
 
 	static mapping = {
