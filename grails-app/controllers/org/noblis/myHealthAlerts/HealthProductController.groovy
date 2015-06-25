@@ -21,9 +21,14 @@ class HealthProductController {
             //get current user and add to their list of products
             def user = springSecurityService.getCurrentUser()
             user.addToProducts(product)
-            user.save(flush:true)
-            //render a success
-            render status:200
+            if (user.save(flush:true)) {
+                //render a success
+                render status: 200
+            }
+            else{
+                product.errors.rejectValue("productName","duplicate")
+                render template: "addProduct", status:417, model:[product:product]
+            }
         }
         else{
             render template: "addProduct", status:417, model:[product:product]
