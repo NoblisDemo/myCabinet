@@ -16,7 +16,8 @@
                 </ul>
             </g:hasErrors>
             <div class ="form-horizontal form-group">
-                <label>Name: </label> <g:textField class="form-control" name="productName" value="${product?.productName}"/>
+                <g:hiddenField name="productName" value="${product?.productName}"/>
+                <label>Name: ${product?.productName}
             </div>
             <div class="form-horizontal form-group">
                 <label>Start Date: </label><input class="form-control" type="text" name="startDate" value="${product?.startDate?.format("MM/dd/yyyy")}" id="startdatepicker" style="width:75px;">

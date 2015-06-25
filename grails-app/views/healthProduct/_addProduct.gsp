@@ -16,7 +16,8 @@ $(function() {
                 </ul>
             </g:hasErrors>
             <div class ="form-horizontal form-group">
-                <label>Name: </label> <g:textField class="form-control" name="productName" value="${product?.productName?:product_name}"/>
+                <g:hiddenField name="productName" value="${product?.productName?:product_name}"/>
+                <label>Name: ${product?.productName?:product_name}
             </div>
             <div class="form-horizontal form-group">
                 <label>Start Date: </label><input class="form-control" type="text" name="startDate" value="${product?.startDate}" id="startdatepicker" style="width:75px;"> (Optional)

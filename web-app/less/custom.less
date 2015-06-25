@@ -179,6 +179,13 @@ div.footerlightblue{
     font-size: 12px;
     font-weight: bold;
     }
+input:focus,
+select:focus,
+textarea:focus,
+button:focus 
+    {
+    outline: none;
+    }
 
 /*Login In Top Bar*/
 .login
@@ -186,10 +193,15 @@ div.footerlightblue{
     display: inline;
     padding-right: 25px;
     padding-left: 25px;
+    margin-right: 4.5%;
+    }
+.login-labels
+    {
+    color: #a1a1a1;
     }
 .login-button
     {
-    padding: 3px 8px;
+    padding: 2px 8px;
     font-style: Nexa Bold;
     color: white;
     background-color: #818285;
