@@ -6,4 +6,6 @@ beans = {
         targetUrlParameter= "spring-security-redirect"
     }
 
+    openFdaApiKey(String, '${openFda.api.key}')
+
 }

@@ -75,7 +75,7 @@
             </g:each>
             <g:if test="${enforcement_reports.size() <= 0}">
                 <div class='reason'>
-                    NO RECALLS
+                    No Recalls Reported
                 </div>
             </g:if>
         </div>

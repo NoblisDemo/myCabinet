@@ -2,8 +2,16 @@ package org.noblis.myHealthAlerts
 
 import grails.plugin.springsecurity.ui.RegistrationCode
 import grails.plugin.springsecurity.authentication.dao.NullSaltSource
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.web.authentication.WebAuthenticationDetails
+
+import javax.servlet.http.HttpServletRequest
 
 class RegisterController extends grails.plugin.springsecurity.ui.RegisterController {
+
+    def authenticationManager
 
 //    This is copied from grails.plugin.springsecurity.ui.RegisterController but without sending a verification email and
 //    with a different redirect on success.
@@ -27,8 +35,23 @@ class RegisterController extends grails.plugin.springsecurity.ui.RegisterControl
             return
         }
 
+        //let's log in!
+        authenticateUserAndSetSession(user.username, command.password, request)
+
         render text: 'success'
         return
+    }
+
+    private void authenticateUserAndSetSession(String username, String password, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,password);
+
+        // generate session if one doesn't exist
+        request.getSession();
+
+        token.setDetails(new WebAuthenticationDetails(request));
+        Authentication authenticatedUser = authenticationManager.authenticate(token);
+
+        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
     }
 
 }

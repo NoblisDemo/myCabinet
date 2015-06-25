@@ -22,7 +22,14 @@ class OpenFdaSearchService implements SearchService {
 
     @Override
     List<Map> countReactionsByDrug(String term) {
-        return openFdaApiService.countReactionsByDrug(term)
+        return openFdaApiService.countReactionsByDrug(term,10)
+    }
+
+    @Override
+    List<Map> countReactionsByDrugOverTime(String term) {
+        def apiResults = openFdaApiService.countReactionsByDrugOverTime(term)
+        return apiResults.groupBy { it.time[0..5] }
+                .collect { k, v -> [date: k, count: v*.count.sum() ] }
     }
 
     Map getDrugDetails(String drug) {
@@ -44,12 +51,9 @@ class OpenFdaSearchService implements SearchService {
 
     //returns an ordered list of reactions (max to min) given a drug
     List getReactionList(String drug){
-        def reactionMap = openFdaApiService.getReactionList(drug)
-        def reactionList = reactionMap.collect {[it.term,it.count]}
-        //order the list based on count and return just the reactions
-        def returnList= reactionList.sort{a,b->b[1].compareTo a[1]}.collect{it[0]}
+        def reactionMap = openFdaApiService.countReactionsByDrug(drug)
 
-        return returnList
+        return reactionMap.collect{it.term}
     }
 
     //gets the list of enforcement reports for a given drug,organized by date with most recent first
@@ -91,6 +95,11 @@ class OpenFdaSearchService implements SearchService {
     }
 
 
+    //erroneous strings that some of the data starts with. These will be removed using regex
+    static def erroneousLabelInfo= [
+            warnings:["WARNINGS: ","Warnings: ","WARNINGS ","Warnings "],
+            description:["DESCRIPTION: ","Description: ","DESCRIPTION ","Description "]
+    ]
 
     //Gets the description and warnings info given a drug
     Map getLabelInfo(String drug){
@@ -100,7 +109,9 @@ class OpenFdaSearchService implements SearchService {
         //parsing out the warnings and descriptions and adding them to a new map
         ["warnings","description"].each{
             if (labelInfo[it] && (labelInfo[it][0]) && (labelInfo[it][0][0])) {
-                results[it] = labelInfo[it][0][0][0]
+                //parse out some erroneous labels in the data
+                def erroneousInfo = erroneousLabelInfo[it].join("|")
+                results[it] = labelInfo[it][0][0][0].replaceFirst(/^(${erroneousInfo})/, "")
             }
             else{
                 results[it] = "Unknown"
