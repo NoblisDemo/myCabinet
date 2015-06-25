@@ -51,10 +51,11 @@
 
         <g:set var="total" value="${5}"/>
         <g:if test="${enforcement_reports.size() < total}">
-            <g:set var="total" value="${enforcement_reports.size()-1}"/>
+            <g:set var="total" value="${enforcement_reports.size()}"/>
         </g:if>
-
-        <g:each in="${0..total}" var="index" >
+        %{--TODO: DISPLAY NO RECALLS IF NO RECALLS--}%
+        <g:if test="${total > 0}">
+        <g:each in="${0..total-1}" var="index" >
             <g:if test="${enforcement_reports[index] != null}">
                 <div class='reason'>
                     ${enforcement_reports[index]?.getAt('product_name')}<br/>
@@ -64,7 +65,7 @@
 
             </g:if>
         </g:each>
-
+        </g:if>
 
     </div>
 </div>
