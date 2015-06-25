@@ -92,14 +92,32 @@ class OpenFdaApiService {
         return enforcementReports
     }
 
-    def countReactionsByDrug(String term) {
+    def countReactionsByDrug(String term,int limit = 100) {
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
 
-        def searchTerm = drugNameSearchDomains.collect {
+        def searchTerm = eventDrugNameSearchDomains.collect {
             "$it:$term"
         }.join(" ")
 
-        def query = [search: searchTerm, count: "patient.reaction.reactionmeddrapt.exact", limit: 10]
+        def query = [search: searchTerm, count: "patient.reaction.reactionmeddrapt.exact", limit: limit]
+
+        def json = http.request(Method.GET) {
+            uri.query = query
+            response.failure = { rest ->
+                log.error "Error executing request with query $query"
+            }
+        }
+        return json?.results ?: []
+    }
+
+    def countReactionsByDrugOverTime(String term) {
+        def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
+
+        def searchTerm = eventDrugNameSearchDomains.collect {
+            "$it:$term"
+        }.join(" ")
+
+        def query = [search: searchTerm, count: "receivedate"]
 
         def json = http.request(Method.GET) {
             uri.query = query
