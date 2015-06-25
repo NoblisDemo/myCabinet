@@ -21,7 +21,8 @@ class DetailController {
                                       enforcement_reports:enforcementReports,
                                       description:labelInfo.description,
                                       warnings:labelInfo.warnings,
-                                      description_more:labelInfo.description_more,]
+                                      description_more:labelInfo.description_more,
+                                      redirectUrl: "/detail/index?productName=${productName}"]
     }
 
     //adds in a second version of the recall reason field that is shorter (for display purposes)
