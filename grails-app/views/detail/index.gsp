@@ -146,13 +146,13 @@
 
 				        <div class="col-xs-12 col-md-4 recall-div">
 				           <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
-				           <div class='row recalls'> 
+				           <g class='row recalls'>
 
 				              <g:set var="total" value="${5}"/>
 								  <g:if test="${enforcement_reports.size() < total}">
 								   	<g:set var="total" value="${enforcement_reports.size()}"/>
 								  </g:if>
-
+<g:if test="${total > 0}">
 								<g:each in="${0..total}" var="index" >
 								   <g:if test="${enforcement_reports[index] != null}">
 									   <div class='reason'>
@@ -162,7 +162,7 @@
 									   
 								   </g:if>
 								</g:each>
-
+</g:if>
 
 				           </div>
 				        </div>
