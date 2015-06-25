@@ -72,14 +72,13 @@
 				</sec:ifLoggedIn>
 		</div>
 	</div>
-
+	        
+	<div class='dashboard-link'><g:link resource="dashboard">Return to My Dashboard &#62;&#62;</g:link></div>
 	<div class='row'>
 		<div class="detail-chart-nav">
 	    <ul class="nav nav-tabs" id="myTab">
 	        <li class="active"><a href="#details">Details</a></li>
 	        <li><a href="#charts">Charts</a></li>
-	        <div class='dashboard-link'><g:link resource="dashboard">Return to My Dashboard &#62;&#62;</g:link>
-	        </div>
 	    </ul>
 	    <div class="tab-content">
 		        <div id="details" class="tab-pane fade in active">
