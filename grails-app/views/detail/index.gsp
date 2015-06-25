@@ -50,6 +50,12 @@
 <body>
 <div class="row">
 	<div class="col-xs-12 col-md-8 nopadding"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
+    <sec:ifLoggedIn>
+        <div class="col-xs-12 col-md-8"> <g:link resource="dashboard"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </g:link> </div>
+    </sec:ifLoggedIn>
+    <sec:ifNotLoggedIn>
+        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/', absolute: true)}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
+    </sec:ifNotLoggedIn>
 	<div class="col-xs-6 col-md-4 align-right">
 		<span class='headerText'> PRODUCT SEARCH </span>
 		<div class='input-group'>

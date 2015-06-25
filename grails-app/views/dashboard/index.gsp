@@ -7,7 +7,12 @@
 </head>
 <body>
 <div class="row">
-    <div class="col-xs-12 col-md-8"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
+    <sec:ifLoggedIn>
+        <div class="col-xs-12 col-md-8"> <g:link resource="dashboard"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </g:link> </div>
+    </sec:ifLoggedIn>
+    <sec:ifNotLoggedIn>
+        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/', absolute: true)}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
+    </sec:ifNotLoggedIn>
     <div class="col-xs-6 col-md-4 align-right">
         <span class='headerText'> PRODUCT SEARCH </span> <span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Search works for Medicine names only. Choose from the auto fill dropdown options for guaranteed results." aria-hidden="true"></span>
         <div class='input-group'>
@@ -22,23 +27,23 @@
 </div>
 <div class='row'>
     <div class='tableTitle col-xs-12 col-sm-12 col-md-12 col-lg-12'>MY CURRENT PRODUCTS</div>
-    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-        <table class="table table-bordered table-hover table-condensed table-striped">
+    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 currentProducts'>
+        <table class="table table-hover table-condensed table-striped">
             <thead>
             <tr>
                 <th>Product Name</th>
-                <th class='visible-md visible-lg visible-sm alignCenter'>Date Started</th>
-                <th class='alignCenter' >Email Notification</th>
-                <th class='visible-md visible-lg visible-sm alignCenter'>Product Details</th>
+                <th class='visible-md visible-lg visible-sm alignCenter borderLeft'>Date Started</th>
+                <th class='alignCenter borderLeft' >Email Notification</th>
+                <th class='visible-md visible-lg visible-sm alignCenter borderLeft'>Product Details</th>
             </tr>
             </thead>
-            <tbody class='table-bordered table-hover table-condensed table-striped'>
+            <tbody class='table-hover table-condensed table-striped'>
             <g:each in="${products}" var="product">
                 <tr>
                     <td><g:link controller="detail" action="index" params="[productName:product.productName]">${product.productName}</g:link></td>
-                    <td class='visible-md visible-lg visible-sm alignCenter'><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/></td>
-                    <td class='alignCenter'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/> </td>
-                    <td class='visible-md visible-lg visible-sm alignCenter'><g:link controller="detail" action="index" params="[productName:product.productName]" class='btn viewButton' >View</g:link> </td>
+                    <td class='visible-md visible-lg visible-sm alignCenter borderLeft'><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/></td>
+                    <td class='alignCenter borderLeft'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/> </td>
+                    <td class='visible-md visible-lg visible-sm alignCenter borderLeft'><g:link controller="detail" action="index" params="[productName:product.productName]" class='btn viewButton' >View</g:link> </td>
                 </tr>
             </g:each>
             </tbody>
@@ -47,24 +52,14 @@
 </div>
 <div class='row'>
     <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-        <div class='tableTitle col-xs-12 col-sm-12 col-md-12 col-lg-12'>MY PAST PRODUCTS</div>
-        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
-            <table class="table table-bordered table-hover table-condensed table-striped">
-                <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th class='visible-md visible-lg visible-sm alignCenter'>Dates Used</th>
-                    <th class='alignCenter' >Email Notification</th>
-                    <th class='visible-md visible-lg visible-sm alignCenter'>Product Details</th>
-                </tr>
-                </thead>
-                <tbody class='table-bordered table-hover table-condensed table-striped'>
+        <h3 class='stretchH3'><span class='paddingH3'>MY PAST PRODUCTS</span></h3>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 pastProduts'>
+            <table class="table table-hover table-condensed table-striped">
+                <tbody class='table-hover table-condensed table-striped'>
                 <g:each in="${pastProducts}" var="product">
                     <tr>
                         <td><g:link controller="detail" action="index" params="[productName:product.productName]">${product.productName}</g:link></td>
-                        <td class='visible-md visible-lg visible-sm alignCenter'><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/> - <g:formatDate format="MM-dd-yyyy" date="${product.endDate}"/></td>
-                        <td class='alignCenter'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/> </td>
-                        <td class='visible-md visible-lg visible-sm alignCenter'><g:link controller="detail" action="index" params="[productName:product.productName]" class='btn viewButton' >View</g:link> </td>
+                        <td><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/> - <g:formatDate format="MM-dd-yyyy" date="${product.endDate}"/></td>
                     </tr>
                 </g:each>
                 </tbody>
@@ -73,22 +68,24 @@
     </div>
 
     <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-        <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
+        <div class='row recall-head'><h3 class='stretchH3 pushH3right'><asset:image src="RecallWarningIcon_Blue.png" alt="My Health Alert Logo" class='alertIcon' /> RECENT RECALLS </h3></div>
         <div class='row recalls'>
-
-        %{--TODO: DISPLAY NO RECALLS IF NO RECALLS--}%
-
             <g:each in="${0..<Math.min(enforcement_reports.size(), 5)}" var="index" >
                 <g:if test="${enforcement_reports[index] != null}">
                     <div class='reason'>
-                        ${enforcement_reports[index]?.getAt('product_name')}<br/>
-                        <p>${enforcement_reports[index]?.getAt('short_reason')} ...</p>
-                        <a href='#' class='read-more' alt='read more link' data-toggle="modal" data-target="#recall-${index}" > Read More </a>
+                        <span class="glyphicon glyphicon-play bullet" aria-hidden="true"></span> <span class='reasonName'>${enforcement_reports[index]?.getAt('product_name')}</span>
+                        <div class='reasonDescription'>
+                            <p>${enforcement_reports[index]?.getAt('short_reason')} ...</p>
+                            <a href='#' class='read-more' alt='read more link' data-toggle="modal" data-target="#recall-${index}" > Read More </a>
+                        </div>
                     </div>
-
                 </g:if>
             </g:each>
-
+            <g:if test="${enforcement_reports.size() <= 0}">
+                <div class='reason'>
+                    NO RECALLS
+                </div>
+            </g:if>
         </div>
     </div>
 </div>
