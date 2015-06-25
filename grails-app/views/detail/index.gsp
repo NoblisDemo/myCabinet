@@ -68,7 +68,18 @@
 					})
 					var chart = new google.visualization.LineChart(document.getElementById('countReactionsOverTimeChart'));
 
-					chart.draw(tableData, {});
+					chart.draw(tableData, {
+						title: "Adverse Events Over Time",
+						hAxis: {
+							title: "Month"
+						},
+						vAxis: {
+							title: "Number of Adverse Events"
+						},
+						legend: {
+							position: "none"
+						}
+					});
 				}
 			});
 		};
