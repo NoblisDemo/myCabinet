@@ -88,6 +88,11 @@ class OpenFdaSearchService implements SearchService {
     }
 
 
+    //erroneous strings that some of the data starts with. These will be removed using regex
+    static def erroneousLabelInfo= [
+            warnings:["WARNINGS: ","Warnings: ","WARNINGS ","Warnings "],
+            description:["DESCRIPTION: ","Description: ","DESCRIPTION ","Description "]
+    ]
 
     //Gets the description and warnings info given a drug
     Map getLabelInfo(String drug){
@@ -97,7 +102,9 @@ class OpenFdaSearchService implements SearchService {
         //parsing out the warnings and descriptions and adding them to a new map
         ["warnings","description"].each{
             if (labelInfo[it] && (labelInfo[it][0]) && (labelInfo[it][0][0])) {
-                results[it] = labelInfo[it][0][0][0]
+                //parse out some erroneous labels in the data
+                def erroneousInfo = erroneousLabelInfo[it].join("|")
+                results[it] = labelInfo[it][0][0][0].replaceFirst(/^(${erroneousInfo})/, "")
             }
             else{
                 results[it] = "Unknown"

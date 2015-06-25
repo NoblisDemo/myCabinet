@@ -71,7 +71,23 @@ class OpenFdaSearchServiceSpec extends Specification {
                     ],
                     missing_info_drug:[
                             description:[],
-                    ]
+                    ],
+                    "erroneous_info_1":[
+                            description:[[["DESCRIPTION d1"]]],
+                            warnings:[[["WARNINGS w1"]]],
+                    ],
+                    "erroneous_info_2":[
+                            description:[[["DESCRIPTION: d1"]]],
+                            warnings:[[["WARNINGS: w1"]]],
+                    ],
+                    "erroneous_info_3":[
+                            description:[[["Description: d1"]]],
+                            warnings:[[["Warnings: w1"]]],
+                    ],
+                    "erroneous_info_4":[
+                            description:[[["Description d1"]]],
+                            warnings:[[["Warnings w1"]]],
+                    ],
             ]
 
     def setup() {
@@ -197,7 +213,12 @@ class OpenFdaSearchServiceSpec extends Specification {
         drug                    |   description |   warnings
         "full_drug"             |   "d1"        |   "w1"
         "drug_with_extra_info"  |   "d1"        |   "w1"
-        "missing_info_drug"|   "Unknown"   |   "Unknown"
+        "missing_info_drug"     |   "Unknown"   |   "Unknown"
+        "erroneous_info_1"      |   "d1"        |   "w1"
+        "erroneous_info_2"      |   "d1"        |   "w1"
+        "erroneous_info_3"      |   "d1"        |   "w1"
+        "erroneous_info_4"      |   "d1"        |   "w1"
+
     }
 
     void "test add short report info"(){
