@@ -56,7 +56,7 @@
         <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/', absolute: true)}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
     </sec:ifNotLoggedIn>
 	<div class="col-xs-6 col-md-4 align-right">
-		<span class='headerText'> PRODUCT SEARCH </span> <span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Search works for Medicine names only. Choose from the auto fill dropdown options for guaranteed results." aria-hidden="true"></span>
+		<span class='headerText'> PRODUCT SEARCH </span>
 		<div class='input-group'>
 			<g:render template="../searchBox"/>
 			<span class="input-group-btn">
@@ -69,7 +69,7 @@
 </div>
 
 <div class='row'>
-	<div class='col-md-12 main-header'>
+	<div class='col-md-12 main-header nopadding'>
 		<h1 class='inline'> ${product_name} </h1>
 	<!-- auth check goes here -->
 		<sec:ifLoggedIn>
@@ -84,8 +84,8 @@
 <div class='row'>
 	<div class="detail-chart-nav">
 		<ul class="nav nav-tabs" id="myTab">
-			<li class="active"><a href="#details">Details</a></li>
-			<li><a href="#charts">Charts</a></li>
+			<li class="active"><a href="#details" class='details'></a></li>
+			<li><a href="#charts" class='charts'></a></li>
 		</ul>
 		<div class="tab-content">
 
@@ -113,13 +113,13 @@
 								<span class='info'>PRODUCT TYPE:</span>   ${product_type}
 							</div>
 							<div class='col-md-6'>
-								<span class='info'>PHARMACY CLASS:</span>    ${pharm_class_epc}
+								<span class='info'>MANUFACTURER:</span>   ${manufacturer_name}
 							</div>
 						</div>
 
 						<div class='row'>
 							<div class='col-md-6'>
-								<span class='info'>MANUFACTURER:</span>   ${manufacturer_name}
+								<span class='info'>PHARMACY CLASS:</span>    ${pharm_class_epc}
 							</div>
 							<div class='col-md-6'>
 								<span class='info'>APPLICATION METHOD:</span>   ${route}
@@ -144,15 +144,15 @@
 
 						<h3>LABEL WARNINGS</h3>
 						<div class='row'>
-							<div class='prod-info col-md-6'>
-								<span class='info'>ADDITIONAL WARNINGS: </span> <div class="warnings">${warnings} </div>
+							<div class='prod-info col-md-12'>
+								<div class="warnings">${warnings} </div>
 							</div>
 						</div>
 					</div>
 
 					<!--Recent recalls box -->
 					<div class="col-xs-12 col-md-4 recall-div">
-						<div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
+						<div class='row recall-head'><asset:image src="RecallWarningIcon.png" alt="Recall alert icon" class='' /></span> RECENT RECALLS </div>
 						<div class='row recalls'>
 
 						<g:each in="${0..<Math.min(enforcement_reports.size(), 5)}" var="index" >
