@@ -41,7 +41,7 @@ class HealthProductController {
                 product.endDate = new Date().parse("MM/dd/yyyy", params.endDate)
             }
             if(product.validate()){
-                product.save()
+                product.save(flush:true)
                 render status:200
             }
             else {
@@ -86,5 +86,9 @@ class HealthProductController {
             flash.message = "Product could not be found"
             render status: 417
         }
+    }
+
+    def edit() {
+        render(template: "editProduct", model:[product:HealthProduct.get(params.id), callbackName: params.callbackName])
     }
 }

@@ -16,11 +16,11 @@ class DashboardController {
         ]
     }
 
-    def refreshProducts(){
-
+    def refreshProducts() {
+        render(template: "productTable", model:[products: springSecurityService.getCurrentUser().products.findAll{!it.endDate}?.sort{it.productName}])
     }
 
     def refreshPastProducts(){
-
+        render(template: "pastProductTable", model:[pastProducts: springSecurityService.getCurrentUser().products.findAll{it.startDate && it.endDate && (it.endDate < new Date())}?.sort{it.productName}])
     }
 }
