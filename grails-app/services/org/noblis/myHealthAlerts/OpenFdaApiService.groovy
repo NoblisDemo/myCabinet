@@ -79,7 +79,7 @@ class OpenFdaApiService {
     def countReactionsByDrug(String term,int limit = 100) {
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
 
-        def searchTerm = drugNameSearchDomains.collect {
+        def searchTerm = eventDrugNameSearchDomains.collect {
             "$it:$term"
         }.join(" ")
 
