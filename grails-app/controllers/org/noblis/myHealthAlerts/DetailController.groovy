@@ -21,7 +21,8 @@ class DetailController {
                                       enforcement_reports:enforcementReports,
                                       description:labelInfo.description,
                                       warnings:labelInfo.warnings,
-                                      description_more:labelInfo.description_more,]
+                                      description_more:labelInfo.description_more,
+                                      redirectUrl: "/detail/index?productName=${productName}"]
     }
     
     def topReportedSideEffects(String productName) {
