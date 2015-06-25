@@ -42,43 +42,15 @@
 </div>
 <div class='row'>
     <div class='tableTitle col-xs-12 col-sm-12 col-md-12 col-lg-12'>MY CURRENT PRODUCTS</div>
-    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 currentProducts'>
-        <table class="table table-hover table-condensed table-striped">
-            <thead>
-            <tr>
-                <th>Product Name</th>
-                <th class='visible-md visible-lg visible-sm alignCenter borderLeft'>Date Started</th>
-                <th class='alignCenter borderLeft' >Email Notification</th>
-                <th class='visible-md visible-lg visible-sm alignCenter borderLeft'>Product Details</th>
-            </tr>
-            </thead>
-            <tbody class='table-hover table-condensed table-striped'>
-            <g:each in="${products}" var="product">
-                <tr>
-                    <td><g:link controller="detail" action="index" params="[productName:product.productName]">${product.productName}</g:link></td>
-                    <td class='visible-md visible-lg visible-sm alignCenter borderLeft'><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/></td>
-                    <td class='alignCenter borderLeft'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/> </td>
-                    <td class='visible-md visible-lg visible-sm alignCenter borderLeft'><g:link controller="detail" action="index" params="[productName:product.productName]" class='btn viewButton' >View</g:link> </td>
-                </tr>
-            </g:each>
-            </tbody>
-        </table>
+    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 currentProducts' id="product-table">
+        <g:render template="productTable"/>
     </div>
 </div>
 <div class='row'>
     <div class='col-xs-12 col-sm-12 col-md-6 col-lg-6'>
         <h3 class='stretchH3'><span class='paddingH3'>MY PAST PRODUCTS</span></h3>
-        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 pastProduts'>
-            <table class="table table-hover table-condensed table-striped">
-                <tbody class='table-hover table-condensed table-striped'>
-                <g:each in="${pastProducts}" var="product">
-                    <tr>
-                        <td><g:link controller="detail" action="index" params="[productName:product.productName]">${product.productName}</g:link></td>
-                        <td><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/> - <g:formatDate format="MM-dd-yyyy" date="${product.endDate}"/></td>
-                    </tr>
-                </g:each>
-                </tbody>
-            </table>
+        <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 pastProduts' id="past-product-table">
+            <g:render template="pastProductTable"/>
         </div>
     </div>
 
