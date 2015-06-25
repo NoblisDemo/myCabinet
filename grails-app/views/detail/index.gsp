@@ -33,12 +33,12 @@
 						title: "",
 						height: 500,
 						width: 600,
-						chartArea:{ left:'25%', top:10,width:"50%",height:"50%"},
+						chartArea:{ top:10 },
 						colors: ['#b81e30'],
 						bars: 'horizontal',
 						legend: 'none',
 						vAxis:{ textStyle:{color: '#154064',fontSize: '12', paddingRight: '100',marginRight: '100'}},
-						 hAxis: { title:'Number of Side Effects', textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'} }
+						 hAxis: { title:'Number of Side Effects', textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'}, titleTextStyle: { fontSize: 16, color: '#154064'} }
 					});
 				}
 			});
@@ -69,14 +69,16 @@
 					var chart = new google.visualization.LineChart(document.getElementById('countReactionsOverTimeChart'));
 
 					chart.draw(tableData, {
-						title: "Adverse Events Over Time",
+						title: "",
 						hAxis: {
 							title: "Month"
 							, textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'}
+							, titleTextStyle: { fontSize: 16, color: '#154064'}
 						},
 						vAxis: {
 							title: "Number of Adverse Events"
 							,textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'}
+							, titleTextStyle: { fontSize: 16, color: '#154064' }
 						},
 						legend: {
 							position: "none"
@@ -84,7 +86,7 @@
 						colors: ['#154064'],
 						height: 500,
 						width: 600,
-						chartArea:{ left:'25%', top:10, width:"60%",height:"60%"},
+						chartArea:{ top:10 },
 					});
 				}
 			});
