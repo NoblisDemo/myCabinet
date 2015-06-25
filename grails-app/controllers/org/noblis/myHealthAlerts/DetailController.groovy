@@ -29,6 +29,13 @@ class DetailController {
             js { render(openFdaSearchService.countReactionsByDrug(productName) as JSON) }
         }
     }
+
+    def countReportedSideEffectsOverTime(String productName) {
+        withFormat {
+            js { render(openFdaSearchService.countReactionsByDrugOverTime(productName) as JSON) }
+        }
+    }
+
     //splits the description into base and "more" based on character limit
     private void splitDescriptionInfo(def labelInfo){
         if (labelInfo.description.size() > DESCRIPTION_LENGTH) {

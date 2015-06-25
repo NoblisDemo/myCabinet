@@ -15,11 +15,9 @@
 		google.load('visualization', '1', {packages: ['corechart', 'bar']});
 		google.setOnLoadCallback(drawChart)
 		function drawChart() {
-
-			var dataArray = [["Reaction", "Count"]]
-
 			$.ajax("${g.createLink(action: "topReportedSideEffects", params: [productName: params.productName])}", {
 				success: function (data) {
+					var dataArray = [["Reaction", "Count"]]
 					$(data).each(function (i, row) {
 						dataArray.push(
 								[row.term, row.count]
@@ -42,6 +40,35 @@
 							title: "Occurances"
 						}
 					});
+				}
+			});
+
+			$.ajax("${g.createLink(action: "countReportedSideEffectsOverTime", params: [productName: params.productName])}", {
+				success: function (data) {
+					var dataArray = [];
+					$(data).each(function(i, row) {
+						var date = new Date(
+								row.date.slice(0, 4),
+								row.date.slice(4, 5) - 1
+						)
+						dataArray.push([date, row.count])
+					})
+
+//					var data = google.visualization.arrayToDataTable(dataArray);
+
+					var tableData = new google.visualization.DataTable();
+					tableData.addColumn('date', 'Date');
+					tableData.addColumn('number', 'Adverse Events');
+					$(data).each(function(i, row) {
+						var date = new Date(
+								row.date.slice(0, 4),
+								row.date.slice(4, 6) - 1
+						);
+						tableData.addRows([[date, row.count]]);
+					})
+					var chart = new google.visualization.LineChart(document.getElementById('countReactionsOverTimeChart'));
+
+					chart.draw(tableData, {});
 				}
 			});
 		};
@@ -167,6 +194,7 @@
 		<div id="charts" class="tab-pane fade">
 			<h3>Charts</h3>
 			<div id="countReactionsChart"></div>
+			<div id="countReactionsOverTimeChart"></div>
 		</div>
 	</div>
 </div>

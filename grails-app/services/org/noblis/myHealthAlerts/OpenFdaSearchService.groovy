@@ -25,6 +25,13 @@ class OpenFdaSearchService implements SearchService {
         return openFdaApiService.countReactionsByDrug(term,10)
     }
 
+    @Override
+    List<Map> countReactionsByDrugOverTime(String term) {
+        def apiResults = openFdaApiService.countReactionsByDrugOverTime(term)
+        return apiResults.groupBy { it.time[0..5] }
+                .collect { k, v -> [date: k, count: v*.count.sum() ] }
+    }
+
     Map getDrugDetails(String drug) {
         def results =  openFdaApiService.getDrugOpenFDADetails(drug)
         //add fields to map and populate missing fields with "unknown"
