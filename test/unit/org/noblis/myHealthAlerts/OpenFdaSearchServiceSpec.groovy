@@ -10,32 +10,33 @@ import spock.lang.Specification
 class OpenFdaSearchServiceSpec extends Specification {
     //mock data representing info that would return from a relevant drug info query to the events database
     static def drugInfo =
-[
-        full_drug:[
-               pharm_class_epc:[["p1"]],
-                manufacturer_name:[["m1"]],
-                route:[["r1"]],
-                product_type:[["pt1"]]
-        ],
-        drug_with_extra_info:[
-                pharm_class_epc:[["p1"]],
-                manufacturer_name:[["m1","m2","m3"]],
-                route:[["r1"]],
-                product_type:[["pt1"]]
-        ],
-        missing_info_drug:[
-                pharm_class_epc:[[]],
-                route:[[]],
-        ]
-]
+            [
+                    full_drug:[
+                            pharm_class_epc:[["p1"]],
+                            manufacturer_name:[["m1"]],
+                            route:[["r1"]],
+                            product_type:[["pt1"]]
+                    ],
+                    drug_with_extra_info:[
+                            pharm_class_epc:[["p1"]],
+                            manufacturer_name:[["m1","m2","m3"]],
+                            route:[["r1"]],
+                            product_type:[["pt1"]]
+                    ],
+                    missing_info_drug:[
+                            pharm_class_epc:[[]],
+                            route:[[]],
+                    ]
+            ]
 
     //mock data representing info that would return from a relevant reaction count query to the events database
     static def reactionInfo =
-[
-       alreadyOrderedCount:[[term:"r1",count:1000],[term:"r2",count:500],[term:"r3",count:200]],
-       unorderedCount:[[term:"r2",count:500],[term:"r3",count:200],[term:"r1",count:1000]],
-        oneItem:[[term:"r1",count:1000]]
-]
+            [
+                    alreadyOrderedCount:[[term:"r1",count:1000],[term:"r2",count:500],[term:"r3",count:200]],
+                    unorderedCount:[[term:"r2",count:500],[term:"r3",count:200],[term:"r1",count:1000]],
+                    oneItem:[[term:"r1",count:1000]],
+                    duplicateItems:[[term:"r1",count:1000],[term:"r3",count:400],[term:"r2",count:200],[term:"r2",count:500],[term:"r3",count:100]]
+            ]
 
     //mock data representing info that would return from a relevant query to the enforcement reports database
     static def enforcementReports =
@@ -49,12 +50,12 @@ class OpenFdaSearchServiceSpec extends Specification {
                              voluntary_mandated:["vm1"],distribution_pattern:["dp1"]]
                     ],
                     multipleReportsUnsorted:[ [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-01"],classification:["c1"]],
-                                      [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-03"],classification:["c1"]],
-                                      [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-05"],classification:["c1"]]],
+                                              [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-03"],classification:["c1"]],
+                                              [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-05"],classification:["c1"]]],
                     multipleReportsSorted:[ [reason_for_recall:["r1"],status:["s1"],product_description:["pd1"],report_date:["2015-01-6"],classification:["c1"]],
-                                      [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-04"],classification:["c1"]],
-                                      [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-02"],classification:["c1"]]]
-             ]
+                                            [reason_for_recall:["r2"],status:["s2"],product_description:["pd2"],report_date:["2015-01-04"],classification:["c1"]],
+                                            [reason_for_recall:["r3"],status:["s3"],product_description:["pd2"],report_date:["2015-01-02"],classification:["c1"]]]
+            ]
 
     //mock data representing info that would return from a relevant drug info query to the labels database
     static def labelInfo =
@@ -104,18 +105,18 @@ class OpenFdaSearchServiceSpec extends Specification {
 
     void "test autocomplete"() {
         when:
-            def results = service.autocomplete(searchTerm)
+        def results = service.autocomplete(searchTerm)
         then:
-            size == results.size()
-            if (matches) {
-                assert results*.label.containsAll(matches)
-            }
+        size == results.size()
+        if (matches) {
+            assert results*.label.containsAll(matches)
+        }
         where:
-            searchTerm  | size  | matches
-            "tyl"       | 1     | ["TYLENOL"]
-            "TyL"       | 1     | ["TYLENOL"]
-            "TYLENOL"   | 1     | ["TYLENOL"]
-            "SPIRIN"    | 0     | []
+        searchTerm  | size  | matches
+        "tyl"       | 1     | ["TYLENOL"]
+        "TyL"       | 1     | ["TYLENOL"]
+        "TYLENOL"   | 1     | ["TYLENOL"]
+        "SPIRIN"    | 0     | []
     }
 
     void "test get details"() {
@@ -148,12 +149,13 @@ class OpenFdaSearchServiceSpec extends Specification {
         "alreadyOrderedCount"   |   ["r1","r2","r3"]
         "unorderedCount"        |   ["r1","r2","r3"]
         "oneItem"               |   ["r1"]
+        "duplicateItems"        |   ["r1","r2","r3"]
     }
 
     void "test get enforcement report data"(){
         when:
         def enforcementReport = service.getEnforcementReports([drug])[0]
-        
+
         then:
         enforcementReport.reason_for_recall==reason_for_recall
         enforcementReport.status==status
@@ -183,7 +185,7 @@ class OpenFdaSearchServiceSpec extends Specification {
         ["multipleReportsSorted"]                           |   ["2015-01-03","2015-01-02","2015-01-01"]
         ["multipleReportsUnsorted"]                         |   ["2015-01-03","2015-01-02","2015-01-01"]
         ["multipleReportsSorted","multipleReportsUnsorted"] |   ["2015-01-06","2015-01-05","2015-01-04","2015-01-03","2015-01-02","2015-01-01"]
-        }
+    }
 
     void "test get warnings and description"(){
         when:
