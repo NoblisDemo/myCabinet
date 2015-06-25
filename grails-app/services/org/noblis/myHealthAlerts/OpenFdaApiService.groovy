@@ -57,22 +57,6 @@ class OpenFdaApiService {
         return results
     }
 
-    //gets a hashmap of recalls:count given a drug
-    def getReactionList(String drug){
-        def reactionCounts = []
-        def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
-
-        eventDrugNameSearchDomains.each {
-            try {
-                def json = http.get(query: [search: "${it}:\"$drug\"",count:"patient.reaction.reactionmeddrapt.exact"])
-                reactionCounts.addAll(json.results)
-            }catch(HttpResponseException e){
-                log.debug("No Response when querying ${it} of event database for drug ${drug} reaction count")
-            }
-        }
-        return reactionCounts
-     }
-
     //gets enforcement reports for a given drug
     def getEnforcementReports(List<String> drugs){
         def enforcementReports = [:]
@@ -92,14 +76,14 @@ class OpenFdaApiService {
         return enforcementReports
     }
 
-    def countReactionsByDrug(String term) {
+    def countReactionsByDrug(String term,int limit = 100) {
         def http = new HTTPBuilder('https://api.fda.gov/drug/event.json')
 
         def searchTerm = drugNameSearchDomains.collect {
             "$it:$term"
         }.join(" ")
 
-        def query = [search: searchTerm, count: "patient.reaction.reactionmeddrapt.exact", limit: 10]
+        def query = [search: searchTerm, count: "patient.reaction.reactionmeddrapt.exact", limit: limit]
 
         def json = http.request(Method.GET) {
             uri.query = query

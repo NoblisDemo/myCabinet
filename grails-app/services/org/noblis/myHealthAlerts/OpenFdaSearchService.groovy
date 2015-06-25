@@ -22,7 +22,7 @@ class OpenFdaSearchService implements SearchService {
 
     @Override
     List<Map> countReactionsByDrug(String term) {
-        return openFdaApiService.countReactionsByDrug(term)
+        return openFdaApiService.countReactionsByDrug(term,10)
     }
 
     Map getDrugDetails(String drug) {
@@ -44,12 +44,9 @@ class OpenFdaSearchService implements SearchService {
 
     //returns an ordered list of reactions (max to min) given a drug
     List getReactionList(String drug){
-        def reactionMap = openFdaApiService.getReactionList(drug)
-        def reactionList = reactionMap.collect {[it.term,it.count]}
-        //order the list based on count and return just the reactions
-        def returnList= reactionList.sort{a,b->b[1].compareTo a[1]}.collect{it[0]}.unique()
+        def reactionMap = openFdaApiService.countReactionsByDrug(drug)
 
-        return returnList
+        return reactionMap.collect{it.term}
     }
 
     //gets the list of enforcement reports for a given drug,organized by date with most recent first

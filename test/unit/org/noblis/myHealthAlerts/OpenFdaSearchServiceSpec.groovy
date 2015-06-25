@@ -33,9 +33,8 @@ class OpenFdaSearchServiceSpec extends Specification {
     static def reactionInfo =
             [
                     alreadyOrderedCount:[[term:"r1",count:1000],[term:"r2",count:500],[term:"r3",count:200]],
-                    unorderedCount:[[term:"r2",count:500],[term:"r3",count:200],[term:"r1",count:1000]],
                     oneItem:[[term:"r1",count:1000]],
-                    duplicateItems:[[term:"r1",count:1000],[term:"r3",count:400],[term:"r2",count:200],[term:"r2",count:500],[term:"r3",count:100]]
+                    noItems:[]
             ]
 
     //mock data representing info that would return from a relevant query to the enforcement reports database
@@ -89,7 +88,7 @@ class OpenFdaSearchServiceSpec extends Specification {
                     drugInfo[drug]
                 }
                 ,
-                getReactionList:{String drug ->
+                countReactionsByDrug:{String drug,int limit = 100 ->
                     reactionInfo[drug]
                 },
                 getEnforcementReports:{List<String> drugs ->
@@ -142,14 +141,13 @@ class OpenFdaSearchServiceSpec extends Specification {
         def reactionList = service.getReactionList(drug)
 
         then:
-        reactionList == correctReactionOrder
+        reactionList == reactions
 
         where:
-        drug                    |   correctReactionOrder
+        drug                    |   reactions
         "alreadyOrderedCount"   |   ["r1","r2","r3"]
-        "unorderedCount"        |   ["r1","r2","r3"]
         "oneItem"               |   ["r1"]
-        "duplicateItems"        |   ["r1","r2","r3"]
+        "noItems"               |   []
     }
 
     void "test get enforcement report data"(){
