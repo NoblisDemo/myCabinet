@@ -63,7 +63,7 @@ class User implements Serializable {
 			Set names = new HashSet()
 			for (HealthProduct curProduct in products) {
 				if (!names.add(curProduct.productName)) {
-					return 'unique'
+					return false
 				}
 			}
 		}

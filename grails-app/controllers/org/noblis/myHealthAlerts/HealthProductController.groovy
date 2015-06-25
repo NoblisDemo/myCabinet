@@ -26,7 +26,7 @@ class HealthProductController {
                 render status: 200
             }
             else{
-                product.errors.rejectValue("productName","duplicate")
+                product.errors.rejectValue("productName","unique")
                 render template: "addProduct", status:417, model:[product:product]
             }
         }
