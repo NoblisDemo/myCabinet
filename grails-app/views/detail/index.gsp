@@ -72,8 +72,10 @@
 				</sec:ifLoggedIn>
 		</div>
 	</div>
-	        
+	 
+	<sec:ifLoggedIn>      
 	<div class='dashboard-link'><g:link resource="dashboard">Return to My Dashboard &#62;&#62;</g:link></div>
+	</sec:ifLoggedIn>
 	<div class='row'>
 		<div class="detail-chart-nav">
 	    <ul class="nav nav-tabs" id="myTab">
