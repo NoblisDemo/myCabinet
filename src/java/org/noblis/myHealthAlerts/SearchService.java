@@ -13,4 +13,6 @@ public interface SearchService {
     List<Map> autocomplete(String term);
 
     List<Map> countReactionsByDrug(String term);
+
+    List<Map> countReactionsByDrugOverTime(String term);
 }
