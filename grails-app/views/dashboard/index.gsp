@@ -45,6 +45,31 @@
         </table>
     </div>
 </div>
+<div class='row'>
+    <div class='tableTitle col-xs-12 col-sm-12 col-md-12 col-lg-12'>MY PAST PRODUCTS</div>
+    <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+        <table class="table table-bordered table-hover table-condensed table-striped">
+            <thead>
+            <tr>
+                <th>Product Name</th>
+                <th class='visible-md visible-lg visible-sm alignCenter'>Dates Used</th>
+                <th class='alignCenter' >Email Notification</th>
+                <th class='visible-md visible-lg visible-sm alignCenter'>Product Details</th>
+            </tr>
+            </thead>
+            <tbody class='table-bordered table-hover table-condensed table-striped'>
+            <g:each in="${pastProducts}" var="product">
+                <tr>
+                    <td><g:link controller="detail" action="index" params="[productName:product.productName]">${product.productName}</g:link></td>
+                    <td class='visible-md visible-lg visible-sm alignCenter'><g:formatDate format="MM-dd-yyyy" date="${product.startDate}"/> - <g:formatDate format="MM-dd-yyyy" date="${product.endDate}"/></td>
+                    <td class='alignCenter'><g:checkBox name="emailNotification" checked="${product.emailNotification}" onclick="${remoteFunction(controller: 'healthProduct',  action: 'updateNotification', id: product.id, params: '\'emailNotification=\' + this.checked')}"/> </td>
+                    <td class='visible-md visible-lg visible-sm alignCenter'><g:link controller="detail" action="index" params="[productName:product.productName]" class='btn viewButton' >View</g:link> </td>
+                </tr>
+            </g:each>
+            </tbody>
+        </table>
+    </div>
+</div>
 <div class="row">
     <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
     <div class='row recalls'>

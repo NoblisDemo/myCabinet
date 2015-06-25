@@ -7,9 +7,20 @@ class DashboardController {
 
     def index() {
         def enforcementReports = openFdaSearchService.getEnforcementReports(springSecurityService.getCurrentUser().products*.productName)
-
+        def products = springSecurityService.getCurrentUser().products.findAll{!it.endDate}?.sort{it.productName}
+        def pastProducts = springSecurityService.getCurrentUser().products.findAll{it.startDate && it.endDate && (it.endDate < new Date())}?.sort{it.productName}
         render view:"index", model: [
                 enforcement_reports:enforcementReports,
-                products:springSecurityService.getCurrentUser().products.findAll{!it.endDate}]
+                products: products,
+                pastProducts: pastProducts
+        ]
+    }
+
+    def refreshProducts(){
+
+    }
+
+    def refreshPastProducts(){
+
     }
 }
