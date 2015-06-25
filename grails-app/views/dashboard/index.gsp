@@ -74,13 +74,9 @@
     <div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
     <div class='row recalls'>
 
-        <g:set var="total" value="${5}"/>
-        <g:if test="${enforcement_reports.size() < total}">
-            <g:set var="total" value="${enforcement_reports.size()}"/>
-        </g:if>
-        %{--TODO: DISPLAY NO RECALLS IF NO RECALLS--}%
-        <g:if test="${total > 0}">
-        <g:each in="${0..total-1}" var="index" >
+    %{--TODO: DISPLAY NO RECALLS IF NO RECALLS--}%
+
+        <g:each in="${0..<Math.min(enforcement_reports.size(), 5)}" var="index" >
             <g:if test="${enforcement_reports[index] != null}">
                 <div class='reason'>
                     ${enforcement_reports[index]?.getAt('product_name')}<br/>
@@ -90,7 +86,6 @@
 
             </g:if>
         </g:each>
-        </g:if>
 
     </div>
 </div>
@@ -98,12 +93,7 @@
 
 <!--Some logic to create all the modals for the read more recent recalls -->
 
-<g:set var="total" value="${5}"/>
-<g:if test="${enforcement_reports.size() < total}">
-    <g:set var="total" value="${enforcement_reports.size()}"/>
-</g:if>
-
-<g:each in="${0..total}" var="index" >
+<g:each in="${0..<Math.min(enforcement_reports.size(), 5)}" var="index" >
     <g:if test="${enforcement_reports[index] != null}">
 
         <div id="recall-${index}" class="modal fade">
