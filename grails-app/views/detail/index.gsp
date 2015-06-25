@@ -137,6 +137,9 @@
 								</g:if>
 								<g:set var="count" value="${count + 1}"/>
 							</g:each>
+							<g:if test="${reaction_list.size() == 0}">
+								No Side Effects Reported
+							</g:if>
 						</div>
 
 						<g:if test="${reaction_list.size() > 5}">
