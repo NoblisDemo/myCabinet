@@ -163,6 +163,11 @@
 								</div>
 							</g:if>
 						</g:each>
+							<g:if test="${enforcement_reports.size() <= 0}">
+								<div class='reason'>
+									No Recalls Reported
+								</div>
+							</g:if>
 					</div>
 				</div>
 			</div>
