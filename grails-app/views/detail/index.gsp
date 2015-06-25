@@ -137,11 +137,14 @@
 								</g:if>
 								<g:set var="count" value="${count + 1}"/>
 							</g:each>
+							<g:if test="${reaction_list.size() == 0}">
+								No Side Effects Reported
+							</g:if>
 						</div>
 
-
-						<a href='#' class='show-adverse-events' alt='show adverse events' data-toggle="modal" data-target="#adverseModal"> Show More</a>
-
+						<g:if test="${reaction_list.size() > 5}">
+							<a href='#' class='show-adverse-events' alt='show adverse events' data-toggle="modal" data-target="#adverseModal"> Show More</a>
+						</g:if>
 						<h3>LABEL WARNINGS</h3>
 						<div class='row'>
 							<div class='prod-info col-md-12'>
@@ -163,6 +166,11 @@
 								</div>
 							</g:if>
 						</g:each>
+							<g:if test="${enforcement_reports.size() <= 0}">
+								<div class='reason'>
+									No Recalls Reported
+								</div>
+							</g:if>
 					</div>
 				</div>
 			</div>
