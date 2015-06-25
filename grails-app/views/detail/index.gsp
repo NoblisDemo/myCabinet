@@ -83,6 +83,8 @@
 			<li><a href="#charts">Charts</a></li>
 		</ul>
 		<div class="tab-content">
+
+			<!--all the info for the product details tab -->
 			<div id="details" class="tab-pane fade in active">
 				<div class="row prod-info">
 					<div class="col-xs-12 col-md-8">
@@ -130,10 +132,8 @@
 								</g:if>
 								<g:set var="count" value="${count + 1}"/>
 							</g:each>
-
-
-
 						</div>
+
 
 						<a href='#' class='show-adverse-events' alt='show adverse events' data-toggle="modal" data-target="#adverseModal"> Show More</a>
 
@@ -145,36 +145,36 @@
 						</div>
 					</div>
 
+					<!--Recent recalls box -->
 					<div class="col-xs-12 col-md-4 recall-div">
 						<div class='row recall-head'><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> RECENT RECALLS </div>
-						<g class='row recalls'>
+						<div class='row recalls'>
 
-							<g:each in="${0..<Math.min(enforcement_reports.size(), 5)}" var="index" >
-								<g:if test="${enforcement_reports[index] != null}">
-									<div class='reason'>
-										<p>${enforcement_reports[index]?.getAt('short_reason')} ...</p>
-										<a href='#' class='read-more' alt='read more link' data-toggle="modal" data-target="#recall-${index}" > Read More </a>
-									</div>
-
-								</g:if>
-							</g:each>
-
+						<g:each in="${0..<Math.min(enforcement_reports.size(), 5)}" var="index" >
+							<g:if test="${enforcement_reports[index] != null}">
+								<div class='reason'>
+									<p>${enforcement_reports[index]?.getAt('short_reason')} ...</p>
+									<a href='#' class='read-more' alt='read more link' data-toggle="modal" data-target="#recall-${index}" > Read More </a>
+								</div>
+							</g:if>
+						</g:each>
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<!--chart pane in the second tab -->
 		<div id="charts" class="tab-pane fade">
 			<h3>Charts</h3>
 			<div id="countReactionsChart"></div>
 		</div>
+
 	</div>
 </div>
 </div>
 
 
 <!--modal for adverse events -->
-
 <div id="adverseModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -212,7 +212,6 @@
 </div>
 
 <!--Some logic to create all the modals for the read more recent recalls -->
-
 <g:each in="${0..<Math.min(enforcement_reports.size(), 5)}" var="index" >
 	<g:if test="${enforcement_reports[index] != null}">
 
