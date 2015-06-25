@@ -49,7 +49,6 @@
 </head>
 <body>
 <div class="row">
-	<div class="col-xs-12 col-md-8 nopadding"> <asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </div>
     <sec:ifLoggedIn>
         <div class="col-xs-12 col-md-8"> <g:link resource="dashboard"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </g:link> </div>
     </sec:ifLoggedIn>
