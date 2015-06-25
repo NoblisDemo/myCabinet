@@ -24,7 +24,7 @@
 				<div class='pull-right login'>
 					<sec:ifLoggedIn>
 						<span class='user-text'> Logged In as <sec:username /> </span>
-						<g:link controller="logout" class='btn btn-default logout'>Logout</g:link>
+						<g:link controller="logout" class='logout'>Logout</g:link>
 					</sec:ifLoggedIn>
 					<sec:ifNotLoggedIn>
 							<g:form controller='j_spring_security_check' name="loginForm" autocomplete='off'>

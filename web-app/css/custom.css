@@ -6029,11 +6029,15 @@ body h3 {
   background-image: linear-gradient(left, #c4dcf4, #ffffff);
   padding-top: 3px;
   padding-bottom: 3px;
+  padding-left: 3px;
   width: 50%;
   word-spacing: -10px;
 }
 body h4 {
   word-spacing: -10px;
+}
+.nopadding {
+  margin-left: -15px;
 }
 /*Header and footer*/
 div.headerline {
@@ -6043,8 +6047,8 @@ div.headerline {
   background-image: -o-linear-gradient(top, #154064, #002143);
   background-image: -ms-linear-gradient(top, #154064, #002143);
   background-image: linear-gradient(top, #154064, #002143);
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 div.footerline {
   background-color: #002143;
@@ -6061,13 +6065,23 @@ div.footerline p {
   color: #cac9c9;
   text-align: center;
 }
-.search-btn {
-  background-color: lightgrey;
+.btn-search {
+  background-color: rgba(128, 128, 128, 0.78);
   color: white;
-  height: 30px;
+  margin-left: 4px !important;
+  border-radius: 9px !important;
 }
 .tip {
   color: grey;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  color: white;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+  cursor: default;
+  font-weight: bold;
 }
 div.footerlightblue {
   padding-top: 3px;
@@ -6089,6 +6103,13 @@ div.footerlightblue {
   font-weight: bold;
   font-family: 'Nexa', 'Helvetica', 'Arial', sans-serif;
 }
+.user-text {
+  color: white;
+}
+.logout {
+  padding: 2px;
+  margin-left: 8px;
+}
 /*Modals*/
 .modal-header {
   background-color: #154064;
@@ -6100,4 +6121,32 @@ div.footerlightblue {
 }
 .modal-ul li {
   list-style: none;
+}
+/*search bar */
+.headerText {
+  margin: 0px;
+  color: #b81e30;
+  font-size: 12px;
+  font-weight: bold;
+}
+/*Login In Top Bar*/
+.login {
+  display: inline;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+.login-button {
+  padding: 3px 8px;
+  font-style: Nexa Bold;
+  color: white;
+  background-color: #818285;
+}
+.createAccount-button {
+  font-style: Nexa Bold;
+  color: white;
+  background-color: #818285;
+}
+.createAccount-link {
+  font-style: Nexa Bold;
+  margin-left: 10px;
 }
