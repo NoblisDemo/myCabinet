@@ -9,7 +9,12 @@
 		<div class='span12 navbar'>
 			<div class='navbar-inner'>
 				<div class='pull-left'>
-					<div id=""role="banner"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert" class='logo' /></div>
+				    <sec:ifLoggedIn>
+				        <div class="col-xs-12 col-md-8"> <g:link resource="dashboard"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </g:link> </div>
+				    </sec:ifLoggedIn>
+				    <sec:ifNotLoggedIn>
+				        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/', absolute: true)}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
+				    </sec:ifNotLoggedIn>
 				</div>
 			</div>
 		</div>
