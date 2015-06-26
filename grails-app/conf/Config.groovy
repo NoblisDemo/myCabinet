@@ -2,10 +2,10 @@
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
+ grails.config.locations = [ "classpath:${appName}-config.properties",
+                             "classpath:${appName}-config.groovy",
+                             "file:${userHome}/.grails/${appName}-config.properties",
+                             "file:${userHome}/.grails/${appName}-config.groovy"]
 
 // if (System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
@@ -85,6 +85,8 @@ grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
 
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/dashboard/index'
+
 environments {
     development {
         grails.logging.jul.usebridge = true
@@ -92,6 +94,7 @@ environments {
     production {
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
+        grails.dbconsole.enabled = false
     }
 }
 
@@ -115,3 +118,29 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.noblis.myHealthAlerts.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.noblis.myHealthAlerts.UserRole'
+grails.plugin.springsecurity.authority.className = 'org.noblis.myHealthAlerts.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+        '/search/*':    ['permitAll'],
+        '/register/*':    ['permitAll'],
+        '/detail/*':    ['permitAll'],
+        '/healthProduct/*': ['IS_AUTHENTICATED_FULLY'],
+        '/dashboard/*': ['IS_AUTHENTICATED_FULLY'],
+        '/dbconsole/**': ['IS_AUTHENTICATED_FULLY'],
+        '/plugins/**' : ['permitAll'],
+	'/index':           ['permitAll'],
+	'/index.gsp':       ['permitAll'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll']
+]
+
+grails.plugin.springsecurity.logout.postOnly = false
+
