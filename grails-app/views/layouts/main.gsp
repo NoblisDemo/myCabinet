@@ -28,8 +28,8 @@
 					</sec:ifLoggedIn>
 					<sec:ifNotLoggedIn>
 							<g:form controller='j_spring_security_check' name="loginForm" autocomplete='off'>
-								<g:textField name="j_username" class="userNameLogin " placeholder="Email" />
-								<g:passwordField name="j_password" class="passwordLogin " placeholder="Password" />
+								<label class='login-labels' for='j_username'>Email: </label><g:textField name="j_username" class="userNameLogin " />
+								<label class='login-labels' for='j_password'>Password: </label><g:passwordField name="j_password" class="passwordLogin " />
 								<g:if test="${redirectUrl}">
 									<g:hiddenField name="spring-security-redirect" value="${redirectUrl}"/>
 								</g:if>
@@ -47,14 +47,11 @@
 			<div class='row footerline'>
 				<p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
 			</div>
-	        <div class="footer descriptionText" role="contentinfo">
-	            Build Information: Build Number <g:meta name="build.number"/>, Gid Id <g:meta name="git.id"/>
-	        </div>
 		</div>
 
 		<div class="modal fade" id="createAccountModal" >
 			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
+				<div class="modal-content createAccountModal-content">
 					<div id="loginFormContainer" >
 						<div class="modal-header">
 							<span>
@@ -73,6 +70,8 @@
 									<br/>
 									<g:render template="/register/register" model="${[command: command]}" />
 								</g:else>
+								<br />
+								<p><span class="help-block">Password must have at least one letter, number, and special character: !@#$%^&</span></p>
 								<a href="#" id='regFormSubmit' class="btn createAccount-button pull-right"> Create Account </a>
 							</g:form>
 						</div>

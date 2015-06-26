@@ -13,7 +13,7 @@
 				        <div class="col-xs-12 col-md-8"> <g:link resource="dashboard"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </g:link> </div>
 				    </sec:ifLoggedIn>
 				    <sec:ifNotLoggedIn>
-				        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/', absolute: true)}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
+				        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/')}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
 				    </sec:ifNotLoggedIn>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						</button>
 					</span>
 				</div>
-				<div class='descriptionText' >* Search works for Medicine and Device names only. Choose from the auto fill dropdown options for guaranteed results.</div>
+				<div class='descriptionText' >* Search works for Medicine names only. Choose from the auto fill dropdown options for guaranteed results.</div>
 			</div>
 			<div class='fluid-row'>
 				<div class='right-searchpane-md-lg col-md-4 visible-md visible-lg'>
@@ -39,7 +39,7 @@
 						<span class='headerText'> WHO WE ARE </span>
 					</div>
 					<div>
-						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
+						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications.</div>
 						<a href="#" data-toggle="modal" data-target="#createAccountModal" > Create Account </a>
 					</div>
 				</div>
@@ -48,7 +48,7 @@
 						<span class='headerText'> WHO WE ARE </span>
 					</div>
 					<div>
-						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
+						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications.</div>
 						<a href="#" data-toggle="modal" data-target="#createAccountModal" > Create Account </a>
 					</div>
 				</div>
@@ -57,7 +57,7 @@
 						<span class='headerText'> WHO WE ARE </span>
 					</div>
 					<div>
-						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications and health devices.</div>
+						<div class='descriptionText' >My Health Alert helps individuals and caregivers stay up to date on all reported recalls and side effects for medications.</div>
 						<a href="#" data-toggle="modal" data-target="#createAccountModal" > Create Account </a>
 					</div>
 				</div>

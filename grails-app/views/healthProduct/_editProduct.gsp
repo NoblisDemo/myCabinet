@@ -16,16 +16,17 @@
                 </ul>
             </g:hasErrors>
             <div class ="form-horizontal form-group">
-                <label>Name: </label> <g:textField class="form-control" name="productName" value="${product?.productName}"/>
+                <g:hiddenField name="productName" value="${product?.productName}"/>
+                <label>Name: ${product?.productName}
             </div>
             <div class="form-horizontal form-group">
-                <label>Start Date: </label><input class="form-control" type="text" name="startDate" value="${product?.startDate?.format("MM/dd/yyyy")}" id="startdatepicker" style="width:75px;">
+                <label>Start Date: </label><input class="form-control" type="text" name="startDate" value="${product?.startDate?.format("MM/dd/yyyy")}" id="startdatepicker" style="width:100px;">
             </div>
             <div class="form-horizontal form-group">
-                <label>End Date: </label><input class="form-control" type="text" name="endDate" value="${product?.endDate?.format("MM/dd/yyyy")}" id="enddatepicker" style="width:75px;">
+                <label>End Date: </label><input class="form-control" type="text" name="endDate" value="${product?.endDate?.format("MM/dd/yyyy")}" id="enddatepicker" style="width:100px;">
             </div>
             <div class='form-btns'>
-                <g:submitButton name="edit" class='btn btn-primary' value="Edit"/>
+                <g:submitButton name="edit" class='btn btn-primary' value="Save"/>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </g:formRemote>

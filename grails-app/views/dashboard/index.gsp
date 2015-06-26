@@ -8,7 +8,7 @@
         function setUpEditModal(id){
             $("#edit-product").load("/myHealthAlerts/healthProduct/edit/"+id);
         };
-        function closeModalAndUpdate(callback){
+        function closeModalAndUpdate(){
             $(productCloseButton).click();
             updateProductTable()
             updatePastProductTable()
@@ -26,12 +26,13 @@
     </g:javascript>
 </head>
 <body>
+
 <div class="row">
     <sec:ifLoggedIn>
         <div class="col-xs-12 col-md-8"> <g:link resource="dashboard"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </g:link> </div>
     </sec:ifLoggedIn>
     <sec:ifNotLoggedIn>
-        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/', absolute: true)}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
+        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/')}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
     </sec:ifNotLoggedIn>
     <div class="col-xs-6 col-md-4 align-right">
         <span class='headerText'> PRODUCT SEARCH </span> <span class="glyphicon glyphicon-info-sign tip" data-toggle="tooltip" data-placement="top" title="Search works for Medicine names only. Choose from the auto fill dropdown options for guaranteed results." aria-hidden="true"></span>
@@ -82,6 +83,37 @@
     </div>
 </div>
 
+<div class='spacer'></div>
+        <div class='navbar-fixed-bottom'>
+            <div class='row footerlightblue'> </div>
+            <div class='row footerline'>
+                <p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
+            </div>
+        </div>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="deleteCloseButton" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                CONFIRM DELETE
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this product from your current list?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok" data-dismiss="modal">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<g:javascript>
+    $('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('onclick', $(e.relatedTarget).data('href'));
+    });
+</g:javascript>
 
 <!--Some logic to create all the modals for the read more recent recalls -->
 
@@ -126,4 +158,5 @@
         </div>
     </div>
 </div>
+
 </body>

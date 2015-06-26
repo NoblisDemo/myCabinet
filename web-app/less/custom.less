@@ -25,7 +25,7 @@
 }
 
 /*Cutom Font*/
-@font-face { font-family: Nexa; 
+@font-face { font-family: 'Nexa'; 
             src: url('Nexa-Bold.otf'); 
             src: url('glyphicons-halflings-regular.eot');
             src: url('glyphicons-halflings-regular.ttf');
@@ -171,6 +171,17 @@ div.footerlightblue{
     }
 }
 
+/*Scroll Bars*/
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
 /*search bar */
 .headerText
     {
@@ -179,6 +190,13 @@ div.footerlightblue{
     font-size: 12px;
     font-weight: bold;
     }
+input:focus,
+select:focus,
+textarea:focus,
+button:focus 
+    {
+    outline: none;
+    }
 
 /*Login In Top Bar*/
 .login
@@ -186,22 +204,34 @@ div.footerlightblue{
     display: inline;
     padding-right: 25px;
     padding-left: 25px;
+    margin-right: 4.5%;
+    }
+.login-labels
+    {
+    color: white;
+    font-weight: 100;
+    margin-right: 3px;
     }
 .login-button
     {
-    padding: 3px 8px;
-    font-style: Nexa Bold;
+    padding: 2px 8px;
+    font-family: 'Helvetica', 'Arial', sans-serif;
     color: white;
     background-color: #818285;
     }
+
 .createAccount-button
     {
-    font-style: Nexa Bold;
+    font-family: 'Helvetica', 'Arial', sans-serif;
     color: white;
     background-color: #818285;
     }
 .createAccount-link
     {
-    font-style: Nexa Bold;
+    font-family: 'Helvetica', 'Arial', sans-serif;
     margin-left:10px;
     }
+
+.createAccountModal-content{
+    width: 490px;
+}
