@@ -119,7 +119,7 @@
 		<h1 class='inline'> ${product_name} </h1>
 	<!-- auth check goes here -->
 		<sec:ifLoggedIn>
-			<a href='#' class='add-product' alt='add health product' data-toggle="modal" data-target="#addProductModal"> + Add to My Products</a>
+			<a href='#' class='add-product' alt='add health product' data-toggle="modal" data-target="#addProductModal"> + Add to My Dashboard</a>
 		</sec:ifLoggedIn>
 	</div>
 </div>
