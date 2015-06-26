@@ -58,7 +58,7 @@
 
 					var tableData = new google.visualization.DataTable();
 					tableData.addColumn('date', 'Date');
-					tableData.addColumn('number', 'Adverse Events');
+					tableData.addColumn('number', 'Side Effects');
 					$(data).each(function(i, row) {
 						var date = new Date(
 								row.date.slice(0, 4),
@@ -76,7 +76,7 @@
 							, titleTextStyle: { fontSize: 16, color: '#154064'}
 						},
 						vAxis: {
-							title: "Number of Adverse Events"
+							title: "Number of Side Effects"
 							,textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'}
 							, titleTextStyle: { fontSize: 16, color: '#154064' }
 						},
@@ -99,7 +99,7 @@
         <div class="col-xs-12 col-md-8"> <g:link resource="dashboard"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </g:link> </div>
     </sec:ifLoggedIn>
     <sec:ifNotLoggedIn>
-        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/', absolute: true)}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
+        <div class="col-xs-12 col-md-8"> <a href="${createLink(uri: '/')}"><asset:image src="HealthAlerts_Logo.png" alt="My Health Alert Logo" class='logo' /> </a> </div>
     </sec:ifNotLoggedIn>
 	<div class="col-xs-6 col-md-4 align-right">
 		<span class='headerText'> PRODUCT SEARCH </span>
@@ -230,7 +230,7 @@
 					<div id="countReactionsOverTimeChart"></div>
 				</div>
 				<div class='col-md-6'>
-					<h3>TOP SIDE EFFECTS REPORTED</h3>
+					<h3 class='side-effect'>TOP SIDE EFFECTS REPORTED</h3>
 					<div id="countReactionsChart"></div>
 				</div>
 			</div>
