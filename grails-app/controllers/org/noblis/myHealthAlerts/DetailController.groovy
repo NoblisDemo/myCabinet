@@ -7,6 +7,7 @@ class DetailController {
     static int DESCRIPTION_LENGTH = 300
 
     def index(String productName) {
+        productName = productName.replaceAll(",","")
         def details = openFdaSearchService.getDrugDetails(productName)
         def reactions = openFdaSearchService.getReactionList(productName)
         def enforcementReports = openFdaSearchService.getEnforcementReports([productName])
