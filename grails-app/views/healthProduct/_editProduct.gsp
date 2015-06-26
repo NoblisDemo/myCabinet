@@ -26,7 +26,7 @@
                 <label>End Date: </label><input class="form-control" type="text" name="endDate" value="${product?.endDate?.format("MM/dd/yyyy")}" id="enddatepicker" style="width:75px;">
             </div>
             <div class='form-btns'>
-                <g:submitButton name="edit" class='btn btn-primary' value="Edit"/>
+                <g:submitButton name="edit" class='btn btn-primary' value="Save"/>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </g:formRemote>

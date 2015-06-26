@@ -54,7 +54,7 @@
 
 		<div class="modal fade" id="createAccountModal" >
 			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
+				<div class="modal-content createAccountModal-content">
 					<div id="loginFormContainer" >
 						<div class="modal-header">
 							<span>
@@ -73,6 +73,8 @@
 									<br/>
 									<g:render template="/register/register" model="${[command: command]}" />
 								</g:else>
+								<br />
+								<p><span class="help-block">Password must have at least one letter, number, and special character: !@#$%^&</span></p>
 								<a href="#" id='regFormSubmit' class="btn createAccount-button pull-right"> Create Account </a>
 							</g:form>
 						</div>

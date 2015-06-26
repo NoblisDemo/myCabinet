@@ -20,10 +20,10 @@ $(function() {
                 <label>Name: ${product?.productName?:product_name}
             </div>
             <div class="form-horizontal form-group">
-                <label>Start Date: </label><input class="form-control" type="text" name="startDate" value="${product?.startDate}" id="startdatepicker" style="width:75px;"> (Optional)
+                <label>Start Date: </label><input class="form-control" type="text" name="startDate" value="${product?.startDate}" id="startdatepicker" style="width:100px;"> (Optional)
             </div> 
             <div class="form-horizontal form-group">
-                <label>End Date: </label><input class="form-control" type="text" name="endDate" value="${product?.endDate}" id="enddatepicker" style="width:75px;"> (Optional)
+                <label>End Date: </label><input class="form-control" type="text" name="endDate" value="${product?.endDate}" id="enddatepicker" style="width:100px;"> (Optional)
             </div>
             <div class='form-btns'>
                 <g:submitButton name="add" class='btn btn-primary' value="Add"/>

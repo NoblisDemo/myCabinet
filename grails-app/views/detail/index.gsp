@@ -71,7 +71,7 @@
 					chart.draw(tableData, {
 						title: "",
 						hAxis: {
-							title: "Month"
+							title: "Date"
 							, textStyle: { color: '#154064', fontSize: '12', paddingRight: '100', marginRight: '100'}
 							, titleTextStyle: { fontSize: 16, color: '#154064'}
 						},
@@ -125,7 +125,7 @@
 </div>
 
 <sec:ifLoggedIn>
-	<div class='dashboard-link'><g:link resource="dashboard">Return to My Dashboard &#62;&#62;</g:link></div>
+	<div class='dashboard-link'><g:link resource="dashboard">My Dashboard</g:link></div>
 </sec:ifLoggedIn>
 <div class='row'>
 	<div class="detail-chart-nav">
@@ -226,7 +226,7 @@
 		<div id="charts" class="tab-pane fade">
 			<div class='row'>
 				<div class='col-md-6'>
-					<h3>ADVERSE EVENTS OVER TIME</h3>
+					<h3>SIDE EFFECTS REPORTED OVER TIME</h3>
 					<div id="countReactionsOverTimeChart"></div>
 				</div>
 				<div class='col-md-6'>
