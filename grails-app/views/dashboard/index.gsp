@@ -83,6 +83,14 @@
     </div>
 </div>
 
+<div class='spacer'></div>
+        <div class='navbar-fixed-bottom'>
+            <div class='row footerlightblue'> </div>
+            <div class='row footerline'>
+                <p> DISCLAIMER: Information provided here is from the openFDA beta research project and should not be used for clinical use.</p>
+            </div>
+        </div>
+
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
