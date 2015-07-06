@@ -1,9 +1,9 @@
 # Noblis - myHealthAlerts
-[myHealthAlerts](https://18f-ads.noblis.org/myHealthAlerts/) is prototype application which allows users to view side effects of medications they may be using.  Monitoring side effects of prescription medications is both complex and extremely important due to the serious and potentially life threatening repercussions. That is why this prototype—and others like it—matter.  It is also why the federal government needs a team—like ours—that can deliver.
+[myHealthAlerts](http://www.myhealthalerts18f.com/) is prototype application which allows users to view side effects of medications they may be using.  Monitoring side effects of prescription medications is both complex and extremely important due to the serious and potentially life threatening repercussions. That is why this prototype—and others like it—matter.  It is also why the federal government needs a team—like ours—that can deliver.
 
 As a public interest nonprofit, <a href=http://www.noblis.org>Noblis</a> shares 18F’s values and culture—our focus is a “mission first” approach to problem-solving that is free from vendor allegiances, uses open-source solutions, and is transparent throughout project lifecycles.
 
-Here is a day-by-day look at our process for bringing [myHealthAlerts](https://18f-ads.noblis.org/myHealthAlerts/) into the world.
+Here is a day-by-day look at our process for bringing [myHealthAlerts](http://www.myhealthalerts18f.com/) into the world.
 
 ## June 17: Team Setup
 
@@ -47,7 +47,7 @@ Upon the repository receiving changesets, via the [myCabinetDev job](evidence/l_
 * Check for code style consistency with Codenarc.
 * Build and deploy the application to our [(XNICC) environment](evidence/j_myHealthAlerts_Prototype_Deployment_Provider.pdf) for testing
 
-While Noblis often typically employs various coding practices such as test driven development (TDD) and hybrid branching strategies with validated merging.  Given the size of the development team, and short development cycle, the team largely took a “develop the mainline” approach with respect to branching.  Additionally, understanding that TDD leads to lower maintenance costs in the long run, there is an upfront cost in terms of the pace of productivity.  As such we focused primarily on writing targeted unit tests covering critical functionality to maintain cost control while allowing for the successful deployment of a minimum viable product (MVP) to validate with end-users.
+While Noblis typically employs various coding practices such as test driven development (TDD) and hybrid branching strategies with validated merging.  Given the size of the development team, and short development cycle, the team largely took a “develop the mainline” approach with respect to branching.  Additionally, understanding that TDD leads to lower maintenance costs in the long run, there is an upfront cost in terms of the pace of productivity.  As such we focused primarily on writing targeted unit tests covering critical functionality to maintain cost control while allowing for the successful deployment of a minimum viable product (MVP) to validate with end-users.
 
 Noblis is experienced with maintaining multiple environments (dev, staging, production) typically associated with the Continuous Delivery (CD) aspect of software development.  In this instance, we elected to maintained development and production environments with Jenkins pushing each successful new build to production where the application would run in a Docker container within a host provided by our XNICC IaaS.  With each successful build, interactive testers could iteratively test newly available functionality, bug fixes, and system usability.  In order to have an up-to-date picture of security vulnerabilities and associated risks, the deployment target was periodically scanned with acunetix.  This generated detailed [web application security reports](evidence/n_myHealth_Alerts_Risk_Assessment_Security_Scans.pdf).
 
@@ -63,11 +63,13 @@ Additional details on the work completed can be found in [here](evidence/g_myHea
 
 On Development Day 4 (the final full development day) and Day 5 (the hardening and UI enhancement day), our team conducted [System Usability Surveys](evidence/f_myHealthAlerts_SUS_Survey_Results.pdf) based on the [Usability.gov System Usability Scale] (http://www.usability.gov/how-to-and-tools/methods/system-usability-scale.html) and [scoring approach popularized by Jeff Sauro] (http://www.measuringu.com/sus.php). Our baseline score of 77.69% (B) and findal score of 80.42% (A) validated the changes made to improve the prototype's usability.
 
-## June 26-July 6: Evidence Consolidation and Final Review
+## June 26-July 6: Evidence Consolidation, Deployment Update, and Final Review
 Although GSA extended the BPA response timeline, Noblis made a deliberate choice to maintain the agreed-upon prototype development budget and we completed development at 26th at noon.  A large amount of evidence was automatically generated by our CI pipeline and continuous monitoring tools.  That said, much of the evidence related to user centered design and usability required a good deal of consolidation.  We used the additional time to complete these consolidation activities to provide GSA’s 18F team with ample evidence demonstrating the process we followed to design, develop, and [deploy the working prototype](evidence/p_myHealthAlerts_install.md).
 
+
+
 ## July 7: Submittal
-On the final day, we made our [myHealthAlerts prototype](https://18f-ads.noblis.org/myHealthAlerts/), [repository](https://github.com/NoblisDemo/myCabinet), and [Trello board](https://trello.com/b/gb1av8iH/gsa-18f-prototype) public and submitted final details via eBuy.
+On the final day, we made our [myHealthAlerts prototype](http://www.myhealthalerts18f.com/), [repository](https://github.com/NoblisDemo/myCabinet), and [Trello board](https://trello.com/b/gb1av8iH/gsa-18f-prototype) public and submitted final details via eBuy.
 
 ## Evidence Inventory
 
