@@ -38,7 +38,7 @@ To employ Agile team ceremonies with a compressed prototype challenge timeline, 
 [Employing best-practice CI/CD activities](evidence/l_myHealthAlerts_Continuous_Integration.pdf), each day the development team consisting of Jason, Evan, Sev, John, and Milosz would:
 
 *	Begin work on the User Stories in the current "Sprint"
-*	[Write unit tests](evidence/k_myHealthAlerets_Unit_Tests.pdf) to ensure enduring code quality
+*	[Write unit tests](evidence/k_myHealthAlerts_Unit_Tests.pdf) to ensure enduring code quality
 *	Frequently push changesets to the GitHub repository
 
 Upon the repository receiving changesets, via the [myCabinetDev job](evidence/l_myHealthAlerts_Job_Config.xml), Jenkins would:
