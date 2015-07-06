@@ -1,0 +1,13 @@
+FROM centos_tomcat_2:latest
+
+MAINTAINER Alonzo Perry
+
+ADD ./war/myHealthAlerts.war /usr/share/tomcat7/webapps/myHealthAlerts.war
+ADD ./database/prodDb.h2.db /work/prodDb.h2.db
+
+RUN chown -R tomcat:tomcat /work/prodDb.h2.db
+RUN chmod 755 -R /work/prodDb.h2.db
+
+EXPOSE 8080
+
+CMD /sbin/service tomcat start && /usr/bin/tail -f /usr/share/tomcat7/logs/catalina.out
