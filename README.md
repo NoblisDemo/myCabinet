@@ -17,9 +17,9 @@ Yasamin captured ideas on sticky-notes to serve as the initial product backlog a
 At the end of the Design Studio, Yasamin consolidated the discussion into Epics for tracking in Trello, while Kelly used her initial sketches to inform the development of wireframes. While user ideas far surpassed the prototype budget and schedule, we populated the backlog and Yasamin prioritized the most important items iteratively each day.
 
 ## June 19: Technical Setup
-With a [robust development stack](evidence/i_myHealthAlerts_Open_Source_Tools.pdf) at its fingertips, the team selected GitHub as the provider for repository management, Jenkins for Continuous Integration (CI) / Continuous Delivery (CD), Docker as a container platform, and Amazon AWS IaaS provider for the deployment target of the application built on the Grails framework.  The combination of widely used, [FOSS technologies](evidence/i_myHealthAlerts_Open_Source_Tools.pdf) leads to efficiencies of effort, maximizes reuse (benefiting taxpayers), and allows for outside contributors. Grails uses coding by convention to remove common configuration bottlenecks and accelerate rapid prototyping. [This infrastructure and selection of Bootstrap 3 HTML, CSS, and JS framework on the frontend plus jQuery](evidence/i_myHealthAlerts_Open_Source_Tools.pdf), allowed the team to build a [responsive, mobile-first web application](evidence/h_myHealthAlerts_Responsive_Design.pdf) while maintaining freedom from licensing restrictions.
+With a [robust development stack](evidence/i_myHealthAlerts_Open_Source_Tools.pdf) at its fingertips, the team selected GitHub as the provider for repository management, Jenkins for Continuous Integration (CI) / Continuous Delivery (CD), Docker as a container platform, and Amazon AWS IaaS provider for the deployment target of the application built on the Grails framework.  The combination of widely used, [FOSS technologies](evidence/i_myHealthAlerts_Open_Source_Tools.pdf) leads to efficiencies of effort, maximizes reuse (benefiting taxpayers), [eliminates licensing costs](evidence/q_myHealthAlerts_Licenses.pdf), and allows for outside contributors. Grails uses coding by convention to remove common configuration bottlenecks and accelerate rapid prototyping. [This infrastructure and selection of Bootstrap 3 HTML, CSS, and JS framework on the frontend plus jQuery](evidence/i_myHealthAlerts_Open_Source_Tools.pdf), allowed the team to build a [responsive, mobile-first web application](evidence/h_myHealthAlerts_Responsive_Design.pdf) while maintaining freedom from licensing restrictions.
 
-In order to efficiently manage aspects of the development infrastructure, Puppet was leveraged to address various [configuration management](evidence/m_myHealthAlerts_Configuration_Management.pdf) needs.  This provided the ability to automatically verify the expected configurations were in place for specific development and deployment infrastructure.  Beyond configuration management, [continuous monitoring](evidence/n_myHealthAlerts_Continous_Monitoring.pdf) of the resources was put in place.  A combination of Puppet output and data from an internal Noblis monitoring tool similar to Munin provided real-time tracking of resource utilization, load, etc.
+In order to efficiently manage aspects of the deployment and development infrastructure, a combination of the GitHub hosted git repository and Puppet was leveraged to address various [configuration management](evidence/m_myHealthAlerts_Configuration_Management.pdf) needs.  This provided the ability to automatically verify the expected configurations were in place for specific development and deployment activities.  Beyond configuration management, [continuous monitoring](evidence/n_myHealthAlerts_Continuous_Monitoring.pdf) of the resources was put in place.  A combination of Puppet output and data from an internal Noblis monitoring tool similar to Munin provided real-time tracking of resource utilization, load, etc.
 
 Finally, while not related to our dev stack tooling, to maximize transparency and encourage direct interaction between users and the team, our co-located team provided a view of our product backlog and an interactive version of the most recent prototype build, available at any time. Users visited the co-located development team multiples times per day to [iteratively review and refine](evidence/d_myHealthAlerts_Design_Progression.pdf) wireframes, interact with working prototypes, and provide feedback verbally and via “sticky notes” to be incorporated into our product backlog in [Trello](https://trello.com/b/gb1av8iH/gsa-18f-prototype).
 
@@ -44,14 +44,14 @@ To employ Agile team ceremonies with a compressed prototype challenge timeline, 
 Upon the repository receiving changesets, via the [myCabinetDev job](evidence/l_myHealthAlerts_Job_Config.xml), Jenkins would:
 
 * Execute automated tests with the Grails framework
-* Check for code style consistency with Codenarc.
+* Check for code style consistency with CodeNarc.
 * Build and deploy the application to our [(XNICC) environment](evidence/j_myHealthAlerts_Prototype_Deployment_Provider.pdf) for testing
 
 While Noblis typically employs various coding practices such as test driven development (TDD) and hybrid branching strategies with validated merging.  Given the size of the development team, and short development cycle, the team largely took a “develop the mainline” approach with respect to branching.  Additionally, understanding that TDD leads to lower maintenance costs in the long run, there is an upfront cost in terms of the pace of productivity.  As such we focused primarily on writing targeted unit tests covering critical functionality to maintain cost control while allowing for the successful deployment of a minimum viable product (MVP) to validate with end-users.
 
 Noblis is experienced with maintaining multiple environments (dev, staging, production) typically associated with the Continuous Delivery (CD) aspect of software development.  In this instance, we elected to maintain development and production environments with Jenkins pushing each successful new build to production where the application would run within a host provided by our XNICC IaaS.  With each successful build, interactive testers could iteratively test newly available functionality, bug fixes, and system usability.  In order to have an up-to-date picture of security vulnerabilities and associated risks, the deployment target was periodically scanned with acunetix.  This generated detailed [web application security reports](evidence/n_myHealth_Alerts_Risk_Assessment_Security_Scans.pdf).
 
-It is worth noting, that while we were initially planning on deploying the application to our XNICC IaaS environment, based on clarifications coming out the Q & A, we decided to deploy our application to AWS within a Docker container.  Based on this history, the vast majority of CI builds and deployment logs reflect the original setup.
+It is worth noting, that while we were initially planning on deploying the application to our XNICC IaaS environment, based on clarifications coming out the Q & A, we decided to deploy our application to AWS within a [Docker container](evidence/o_myHealthAlerts_Virtualization.pdf).  Based on this history, the vast majority of CI builds and deployment logs reflect the original setup.
 
 #### Sprint Breakdown
 | Sprint           | Completed Stories, Enhancements, & Bugs Fixed |
@@ -74,6 +74,8 @@ On the final day, we made our [myHealthAlerts prototype](http://www.myhealthaler
 
 ## Evidence Inventory
 
+* [Attachmet_E_Appr_Criteria_Evide_Template.xlsx](evidence/Attachmet_E_Appr_Criteria_Evide_Template.xlsx)
+* [Digital_Services_Playbook_Checklist.xlsx](evidence/Digital_Services_Playbook_Checklist.xlsx)
 * [a_myHealthAlerts_Team_Charter.pdf](evidence/a_myHealthAlerts_Team_Charter.pdf)
 * [b_myHealthAlerts_Super_Heros.pdf](evidence/b_myHealthAlerts_Super_Heros.pdf)
 * [b_myHealthAlerts_Team_Charter.pdf](evidence/b_myHealthAlerts_Team_Charter.pdf)
@@ -92,8 +94,10 @@ On the final day, we made our [myHealthAlerts prototype](http://www.myhealthaler
 * [l_myHealthAlerts_Continuous_Integration.pdf](evidence/l_myHealthAlerts_Continuous_Integration.pdf)
 * [l_myHealthAlerts_Job_Config.xml](evidence/l_myHealthAlerts_Job_Config.xml)
 * [m_myHealthAlerts_Configuration_Management.pdf](evidence/m_myHealthAlerts_Configuration_Management.pdf)
-* [n_myHealthAlerts_Continous_Monitoring.pdf](evidence/n_myHealthAlerts_Continous_Monitoring.pdf)
+* [n_myHealthAlerts_Continuous_Monitoring.pdf](evidence/n_myHealthAlerts_Continuous_Monitoring.pdf)
 * [n_myHealth_Alerts_Risk_Assessment_Security_Scans.pdf](evidence/n_myHealth_Alerts_Risk_Assessment_Security_Scans.pdf)
 * [o_myHealthAlerts_Virtualization.pdf](evidence/o_myHealthAlerts_Virtualization.pdf)
+* [p_myHealthAlerts_Docker_File.txt](evidence/p_myHealthAlerts_Docker_File.txt)
+* [p_myHealthAlerts_Docker_Install.sh](evidence/p_myHealthAlerts_Docker_Install.sh)
 * [p_myHealthAlerts_install.md](evidence/p_myHealthAlerts_install.md)
 * [q_myHealthAlerts_Licenses.pdf](evidence/q_myHealthAlerts_Licenses.pdf)
