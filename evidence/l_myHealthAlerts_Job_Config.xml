@@ -51,6 +51,11 @@
       <verbose>false</verbose>
       <refreshDependencies>false</refreshDependencies>
     </com.g2one.hudson.grails.GrailsBuilder>
+    <hudson.tasks.Shell>
+      <command>scp -i /var/lib/jenkins/18f.pem  target/myHealthAlerts.war ec2-user@54.175.250.1:~/18f/war
+
+ssh -i /var/lib/jenkins/18f.pem ec2-user@54.175.250.1 -t -t &quot;cd /home/ec2-user/18f &amp;&amp; ./Create18f.sh&quot; || true </command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.tasks.ArtifactArchiver>
@@ -312,18 +317,6 @@
         <encoding>default</encoding>
       </config>
     </hudson.plugins.violations.ViolationsPublisher>
-    <hudson.plugins.deploy.DeployPublisher plugin="deploy@1.10">
-      <adapters>
-        <hudson.plugins.deploy.tomcat.Tomcat6xAdapter>
-          <userName>jstewart</userName>
-          <passwordScrambled>bmVIeW9wX0plZWY3</passwordScrambled>
-          <url>https://18f-ads.noblis.org</url>
-        </hudson.plugins.deploy.tomcat.Tomcat6xAdapter>
-      </adapters>
-      <contextPath>myHealthAlerts</contextPath>
-      <war>target/myHealthAlerts.war</war>
-      <onFailure>false</onFailure>
-    </hudson.plugins.deploy.DeployPublisher>
     <hudson.plugins.emailext.ExtendedEmailPublisher plugin="email-ext@2.40.5">
       <recipientList>nicholas.bartlow@noblis.org</recipientList>
       <configuredTriggers>
@@ -363,4 +356,3 @@
     </hudson.plugins.ws__cleanup.PreBuildCleanup>
   </buildWrappers>
 </project>
-    
